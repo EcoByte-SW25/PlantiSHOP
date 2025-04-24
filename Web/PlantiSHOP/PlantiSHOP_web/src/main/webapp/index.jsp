@@ -1,147 +1,165 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>PlantiSHOP - Inicio</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .navbar-nav .nav-link.active {
-      background-color: #3d8d4c;
-      border-radius: 0.25rem;
-    }
-
-    .size-search {
-      width: 30vw;
-    }
-
-    .hero {
-      background-image: url('src/bgmain.png'); /* Reemplaza con tu imagen */
-      background-size: cover;
-      background-position: center;
-      height: 45vh;
-      display: flex;
-      align-items: start;
-      padding-top: 30px;
-      justify-content: center;
-      color: white;
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
-      position: relative;
-      z-index: 1;
-    }
-
-    .card-section {
-      margin-top: -25vh; /* SUPERPOSICIÓN LOCURAAA */
-      position: relative;
-      z-index: 10;
-      padding: 3rem 2rem;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.2); /* Blanco transparente */
-      backdrop-filter: blur(12px); /* Vidrio difuminado */
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-    }
-
-    .card img {
-      object-fit: cover;
-      height: 150px;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
-    }
-
-    h2.text-white {
-      text-shadow: 0 2px 6px rgba(0,0,0,0.8);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>PlantiSHOP - Inicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="src/index.css">
 </head>
 <body>
 <%@ include file="navbar.jsp" %>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="text-center align-items-start ">
-      <h1 class="display-4 fw-bold">¡Bienvenido a PlantiSHOP!</h1>
-      <p class="lead">Explora nuestras mejores ofertas verdes</p>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="text-center align-items-start">
+    <h1 class="display-4 fw-bold">Â¡Bienvenido a PlantiSHOP!</h1>
+    <p class="lead">Explora nuestras mejores ofertas verdes</p>
+  </div>
+</section>
+
+<!-- Seccion glass -->
+<div class="container card-section">
+  <h2 class="text-center mb-4 text-white">Ofertas Destacadas</h2>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    
+<!-- Esas cartas tu las modificas con params para que envie a la pagina de mercado con algunos fitlros aplicados -->
+    <%@ include file="glasscardindex.jsp" %>
+    <%@ include file="glasscardindex.jsp" %>
+    <%@ include file="glasscardindex.jsp" %>
+    <%@ include file="glasscardindex.jsp" %>
+    <%@ include file="glasscardindex.jsp" %>
+    <%@ include file="glasscardindex.jsp" %>
+  </div>
+</div>
+
+<!-- Seccion Planes -->
+<section class="py-5" style="background-color: #eeeeee;">
+  <div class="container bg-white p-4 rounded shadow-sm">
+    <h3 class="text-center fw-bold mb-4">Conoce el Modelo de PlantiSHOP</h3>
+    <div class="row align-items-center">
+      <!-- Gratuito -->
+      <div class="col-md-6">
+        <h5 class="fw-bold mb-3">Plan Gratuito</h5>
+        <ul class="list-unstyled">
+          <li class="mb-3 d-flex align-items-center">
+            <div class="icon-circle bg-success me-2">
+              <i class="bi bi-tree"></i>
+            </div>
+            Mercado de Plantas
+          </li>
+          <li class="mb-3 d-flex align-items-center">
+            <div class="icon-circle bg-success me-2">
+              <i class="bi bi-chat-dots"></i>
+            </div>
+            MensajerÃ­a para Vendedores y Clientes
+          </li>
+          <li class="mb-3 d-flex align-items-center">
+            <div class="icon-circle bg-success me-2">
+              <i class="bi bi-cash"></i>
+            </div>
+            MÃ©todos de Pago en Contra Entrega
+          </li>
+        </ul>
+      </div>
+
+      <!-- Premium -->
+      <div class="col-md-6">
+        <div class="p-3 rounded" style="background-color: #dce4cc;">
+          <h5 class="fw-bold mb-3">Plan Premium</h5>
+          <ul class="list-unstyled">
+            <li class="mb-3 d-flex align-items-center">
+              <div class="icon-circle bg-olive me-2">
+                <i class="bi bi-robot"></i>
+              </div>
+              Asistente de Cuidados con IA
+            </li>
+            <li class="mb-3 d-flex align-items-center">
+              <div class="icon-circle bg-olive me-2">
+                <i class="bi bi-graph-up-arrow"></i>
+              </div>
+              Publicidad y Cifras para vendedores
+            </li>
+            <li class="mb-3 d-flex align-items-center">
+              <div class="icon-circle bg-olive me-2">
+                <i class="bi bi-credit-card-2-front"></i>
+              </div>
+              MÃ©todos de Pago con Tarjeta
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </section>
 
-  <!-- Card Section GLASS & LOCURA -->
-  <div class="container card-section">
-    <h2 class="text-center mb-4 text-white">Ofertas Destacadas</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="images/plant1.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Planta Suculenta</h5>
-            <p class="card-text">Perfecta para interiores, bajo mantenimiento.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="images/arbol1.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Árbol Frutal</h5>
-            <p class="card-text">Dale vida y frutos a tu jardín.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="images/fert1.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Fertilizante Orgánico</h5>
-            <p class="card-text">Aumenta el crecimiento de forma natural.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="images/herramienta1.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Set de Jardinería</h5>
-            <p class="card-text">Todo lo que necesitas para cuidar tus plantas.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="images/plant2.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Planta de Interior</h5>
-            <p class="card-text">Decora tu hogar con vida y frescura.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="images/oferta1.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Oferta Especial</h5>
-            <p class="card-text">¡Solo esta semana! Descuentos de hasta 40%.</p>
-          </div>
-        </div>
-      </div>
-
+    <div class="text-center mt-4">
+      <a href="about.jsp" class="btn btn-success px-4">ConÃ³cenos</a>
     </div>
   </div>
+</section>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Vendedores Destacados -->
+<section class="py-5" style="background-color: #eeeeee;">
+  <div class="container bg-white p-4 rounded shadow-sm">
+    <h3 class="text-center fw-bold mb-5">Vendedores Destacados</h3>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <%@ include file="vendedorindexcard.jsp" %>
+      </div>
+      <div class="col-md-4">
+        <%@ include file="vendedorindexcard.jsp" %>
+      </div>
+      <div class="col-md-4">
+        <%@ include file="vendedorindexcard.jsp" %>
+      </div>
+      <div class="col-md-4">
+        <%@ include file="vendedorindexcard.jsp" %>
+      </div>
+      <div class="col-md-4">
+        <%@ include file="vendedorindexcard.jsp" %>
+      </div>
+      <div class="col-md-4">
+        <%@ include file="vendedorindexcard.jsp" %>
+      </div>
+    </div>
+      <!-- BotÃ³n Ver mÃ¡s -->
+  <div class="text-center mt-5">
+    <a href="market.jsp" class="btn btn-success px-4">Ver mÃ¡s</a>
+  </div>
+  </div>
+</section>
+      
+<!-- Productos Destacados -->
+<section class="py-5" style="background-color: #eeeeee;">
+  <div class="container bg-white p-4 rounded shadow-sm">
+    <h3 class="text-center fw-bold mb-5">Vendedores Destacados</h3>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <%@ include file="productoindexcard.jsp" %>
+      </div>
+      <div class="col-md-4">
+        <%@ include file="productoindexcard.jsp" %>
+      </div>
+      <div class="col-md-4">
+        <%@ include file="productoindexcard.jsp" %>
+      </div>
+      <div class="col-md-4">
+        <%@ include file="productoindexcard.jsp" %>
+      </div>
+      <div class="col-md-4">
+        <%@ include file="productoindexcard.jsp" %>
+      </div>
+      <div class="col-md-4">
+        <%@ include file="productoindexcard.jsp" %>
+      </div>
+    </div>
+      <!-- BotÃ³n Ver mÃ¡s -->
+  <div class="text-center mt-5">
+    <a href="market.jsp" class="btn btn-success px-4">Ver mÃ¡s</a>
+  </div>
+  </div>
+</section>
+<%@ include file="footer.jsp" %>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

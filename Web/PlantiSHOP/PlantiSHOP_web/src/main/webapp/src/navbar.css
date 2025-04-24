@@ -1,0 +1,8 @@
+.navbar-nav .nav-link.active {
+    background-color: #3d8d4c;
+    border-radius: 0.25rem;
+}
+
+.size-search {
+    width: 30vw;
+}
