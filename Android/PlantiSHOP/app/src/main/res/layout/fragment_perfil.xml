@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Perfil">
+
+    <TextView android:id="@+id/txtCE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-black"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/perfil"
+        android:scaleX="1.85"
+        android:contentDescription="Perfil"/>
+    <TextView android:id="@+id/txtU"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/cyan"
+        android:fontFamily="sans-serif-condensed-medium"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <EditText android:id="@+id/n"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:inputType="textPersonName"
+            android:maxLength="25"
+            android:hint="Nombre(s)"
+            android:autofillHints="name"/>
+        <Button android:id="@+id/bN"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="CAMBIAR"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/cyan"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:layout_alignParentEnd="true"/>
+        <EditText android:id="@+id/ap"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:inputType="textPersonName"
+            android:maxLength="15"
+            android:hint="Apellido Paterno"
+            android:autofillHints="name"
+            android:layout_below="@id/n"/>
+        <Button android:id="@+id/bAP"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="CAMBIAR"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/blue"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:layout_below="@id/n"
+            android:layout_alignParentEnd="true"/>
+        <EditText android:id="@+id/am"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:inputType="textPersonName"
+            android:maxLength="15"
+            android:hint="Apellido Materno"
+            android:autofillHints="name"
+            android:layout_below="@id/ap"/>
+        <Button android:id="@+id/bAM"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="CAMBIAR"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/navy"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:layout_below="@id/ap"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+    <androidx.fragment.app.FragmentContainerView android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button android:id="@+id/bU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="CAMBIAR Ubicación"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="sans-serif-black"/>
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:alpha="0.75"
+        android:background="@color/gray">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cambio de Contraseñas y Eliminación del Perfil"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Ingresa tu Contraseña:"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/c1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="textPassword"
+            android:hint="Campo OBLIGATORIO"
+            android:autofillHints="password"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingresa tu Contraseña de Respaldo:"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/c2"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="textPassword"
+            android:hint="Campo OBLIGATORIO"
+            android:autofillHints="password"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Nueva Contraseña:"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/nc1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:autofillHints="password"
+            android:hint="De 12 a 20 CARACTERES"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nueva Contraseña de Respaldo:"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/nc2"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:autofillHints="password"
+            android:hint="De 12 a 20 CARACTERES"/>
+        <Button android:id="@+id/bnC1"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:text="CAMBIAR Contraseña"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/blue"/>
+        <Button android:id="@+id/bnC2"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:text="CAMBIAR Contraseña de Respaldo"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/navy"/>
+        <Button android:id="@+id/bDel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:text="ELIMINAR Perfil"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/red"/>
+
+    </LinearLayout>
+
+</LinearLayout>

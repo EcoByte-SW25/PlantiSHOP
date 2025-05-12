@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+    <head>
+        <title>Inicio de Sesion</title>
+        <link rel="icon" type="image/x-icon" href="imgs/logo.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background-image: url(imgs/fondo.png);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-attachment: fixed;
+                background-position: center center;
+            }
+            h1, h2 {
+                text-align: center;
+                font-family: Agrandir;
+            }
+            h1 {
+                font-size: 5vw;
+            }
+            h2 {
+                font-size: 2.5vw;
+            }
+            img {
+                width: 2em;
+                height: 2em;
+                vertical-align: middle;
+            }
+            form {
+                width: 90%;
+                margin: 8em auto 2em auto;
+                padding: 2em;
+                background-color: #cccccc;
+                border-radius: 10px;
+            }
+            label {
+                display: block;
+                margin-top: 2em;
+                width: 88%;
+                margin-left: auto;
+                margin-right: auto;
+                font-weight: 600;
+                font-family: Coco Gothic;
+            }
+            input {
+                display: block;
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+                border: 1px solid black;
+                border-radius: 5px;
+                font-family: Arial;
+            }
+            #sm {
+                width: 28%;
+                margin-top: 2em;
+                background-color: navy;
+                color: white;
+                font-weight: bold;
+                font-family: Agrandir;
+                border: 2px double white;
+            }
+            #sm:hover {
+                background-color: blue;
+            }
+            p {
+                text-align: right;
+                color: white;
+                font-size: 1vw;
+                font-weight: bold;
+                font-family: Coco Gothic;
+            }
+            button {
+                background-color: green;
+                padding: 2em;
+                color: white;
+                border: none;
+                border-radius: 10px;
+                vertical-align: middle;
+            }
+            button:hover {
+                background-color: greenyellow;
+            }
+        </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                window.location.hash = "no-back-button";
+                window.location.hash = "Again-No-back-button";
+                window.onhashchange = function () {
+                    window.location.hash = "no-back-button";
+                };
+            });
+        </script>
+    </head>
+    <body>
+        <h1><img src="imgs/logo.png" alt="Logo"/>&nbsp;&nbsp;PlantiSHOP</h1>
+        <form action="Interfaz.jsp" method="post">
+            <input name="x" type="hidden" value="R">
+            <h2>Inicio de Sesión</h2>
+            <label for="i1">Correo Electrónico:</label>
+            <input id="i1" name="ce" type="email" required>
+            <label for="i2">Contraseña:</label>
+            <input id="i2" name="c1" type="password" minlength="12" maxlength="20" required>
+            <label for="i3">Contraseña de Respaldo:</label>
+            <input id="i3" name="c2" type="password" minlength="12" maxlength="20" required>
+            <input id="sm" type="submit" value="INGRESAR">
+        </form>
+        <p>¿No tienes una Cuenta Personal? <button onclick="location.assign('Registro.html')">REGISTRATE AQUÍ</button></p>
+    </body>
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="25dp"
+    android:orientation="vertical"
+    tools:context=".MainActivity5">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button android:id="@+id/rt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REGRESAR"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/cyan"
+            android:fontFamily="sans-serif-black"
+            android:layout_marginEnd="5dp"
+            android:layout_alignParentEnd="true"/>
+        <Button android:id="@+id/toAD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IR AL ANALISTA"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/orange"
+            android:fontFamily="sans-serif-black"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@id/rt"/>
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ia"
+        android:scaleX="1.5"
+        android:contentDescription="Basil.IA"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="¡Hola! Soy Basil.IA, tu Asistente de Jardineria Personal\nDime... ¿En que te puedo Ayudar?"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-medium"/>
+    <EditText android:id="@+id/req"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:inputType="textMultiLine"
+        android:autofillHints="[A-Za-z0-9]"
+        android:hint="Hazle una Solicitud a Basil.IA"/>
+    <Button android:id="@+id/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="ENVIAR Solicitud"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/lime"
+        android:fontFamily="sans-serif-black"/>
+    <TextView android:id="@+id/res"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:padding="5dp"
+        android:alpha="0.4"
+        android:background="@color/bone"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-condensed"/>
+
+</LinearLayout>

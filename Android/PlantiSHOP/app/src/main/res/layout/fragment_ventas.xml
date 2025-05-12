@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Ventas">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tus Ventas"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-black"/>
+    <ListView android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="520dp"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:gravity="center">
+
+        <RadioButton android:id="@+id/rU"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="ACTUALIZAR"
+            android:checked="true"
+            android:textColor="@color/bone"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-black"/>
+        <RadioButton android:id="@+id/rD"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="80dp"
+            android:text="ELIMINAR"
+            android:textColor="@color/bone"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-black"/>
+
+    </RadioGroup>
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:alpha="0.75"
+        android:background="@color/gray">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizador de tus Productos"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Nombre:"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/n"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="text"
+            android:maxLength="80"
+            android:hint="NOMBRE"
+            android:autofillHints="[A-Za-z0-9]"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripción:"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/d"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:inputType="textMultiLine"
+            android:maxLength="800"
+            android:hint="DESCRIPCIÓN"
+            android:autofillHints="[A-Za-z0-9]"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Precio:"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/p"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:inputType="numberDecimal"
+            android:maxLength="10"
+            android:autofillHints="1-1000000"
+            android:hint="$1.00 - $1,000,000.00"/>
+        <Button android:id="@+id/bUD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="ACTUALIZAR"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/blue"
+            android:fontFamily="sans-serif-black"/>
+
+    </LinearLayout>
+
+</LinearLayout>

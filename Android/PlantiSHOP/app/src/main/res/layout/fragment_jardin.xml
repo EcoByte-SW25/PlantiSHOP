@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Jardin">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tu Jardin Personal"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-black"/>
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:alpha="0.75"
+        android:background="@color/gray">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registro y Actualizador de tus Plantaciones"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Nombre:"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/n"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="text"
+            android:maxLength="25"
+            android:hint="Campo OBLIGATORIO"
+            android:autofillHints="[A-Za-z0-9]"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tipo:"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <Spinner android:id="@+id/t"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Consideraciones:"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/c"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:inputType="textMultiLine"
+            android:maxLength="250"
+            android:hint="Campo OPCIONAL"
+            android:autofillHints="[A-Za-z0-9]"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Porcentaje de Luz:"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/l"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:inputType="numberDecimal"
+            android:maxLength="6"
+            android:autofillHints="0-100"
+            android:hint="Campo OBLIGATORIO"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nivel de Prioridad:"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/p"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="2"
+            android:autofillHints="1-10"
+            android:hint="Campo OBLIGATORIO"/>
+        <Button android:id="@+id/bCUD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="REGISTRAR"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/lime"
+            android:fontFamily="sans-serif-black"/>
+
+    </LinearLayout>
+    <ListView android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="390dp"
+        android:layout_marginTop="5dp"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <RadioButton android:id="@+id/rU"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="ACTUALIZAR"
+            android:checked="true"
+            android:textColor="@color/bone"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-black"/>
+        <RadioButton android:id="@+id/rD"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="80dp"
+            android:text="ELIMINAR"
+            android:textColor="@color/bone"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-black"/>
+
+    </RadioGroup>
+
+</LinearLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView android:id="@+id/lPS"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/logo"
+            android:contentDescription="Logotipo de PlantiSHOP"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignTop="@id/lPS"
+            android:layout_toEndOf="@id/lPS"
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            android:text="PlantiSHOP"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:fontFamily="sans-serif-black"/>
+        <ImageView android:id="@+id/lEB"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignStart="@id/lPS"
+            android:layout_below="@id/lPS"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ecobyte"
+            android:contentDescription="Logotipo de EcoByte"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignTop="@id/lEB"
+            android:layout_toEndOf="@id/lEB"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:text="EcoByte"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-medium"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

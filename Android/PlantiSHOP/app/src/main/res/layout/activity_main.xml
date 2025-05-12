@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="25dp"
+    android:background="@drawable/fondo"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="¿No tienes una Cuenta Personal?"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-black"
+            android:layout_toStartOf="@id/toC"
+            android:layout_centerVertical="true"/>
+        <Button android:id="@+id/toC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:text="REGISTRATE AQUÍ"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-black"
+            android:backgroundTint="@color/lime"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo"
+        android:contentDescription="Logotipo de PlantiSHOP"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PlantiSHOP"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="50sp"
+        android:fontFamily="sans-serif-black"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Naturaleza a tu Alcance"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"/>
+    <Button android:id="@+id/toR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="INICIO DE SESIÓN"
+        android:layout_gravity="center"
+        android:textColor="@color/bone"
+        android:fontFamily="sans-serif-black"
+        android:backgroundTint="@color/brown"/>
+
+</LinearLayout>

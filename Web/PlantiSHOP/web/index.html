@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+    <head>
+        <title>PlantiSHOP</title>
+        <link rel="icon" type="image/x-icon" href="imgs/logo.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background-image: url(imgs/fondo.png);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-attachment: fixed;
+                background-position: center center;
+            }
+            p {
+                text-align: right;
+                font-weight: bold;
+                font-size: 1vw;
+                font-family: Coco Gothic;
+            }
+            button {
+                background-color: green;
+                padding: 2em;
+                color: white;
+                border: none;
+                border-radius: 10px;
+                vertical-align: middle;
+            }
+            button:hover {
+                background-color: greenyellow;
+            }
+            div {
+                margin-top: 10em;
+            }
+            h1, h2 {
+                color: whitesmoke;
+                text-align: center;
+                font-family: Agrandir;
+            }
+            h1 {
+                font-size: 8vw;
+            }
+            h2 {
+                font-size: 4vw;
+            }
+            a:link, a:active, a:visited {
+                margin-top: 5em;
+                padding: 1em;
+                display: block;
+                width: 22%;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                color: black;
+                background-color: beige;
+                font-weight: bold;
+                font-size: 2vw;
+                border-radius: 5px;
+                text-decoration: none;
+                font-family: Coco Gothic;
+            }
+            a:hover {
+                color: white;
+                background-color: maroon;
+            }
+        </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                window.location.hash = "no-back-button";
+                window.location.hash = "Again-No-back-button";
+                window.onhashchange = function () {
+                    window.location.hash = "no-back-button";
+                };
+            });
+        </script>
+    </head>
+    <body>
+        <p>¿No tienes una Cuenta Personal? <button onclick="location.assign('Registro.html')">REGISTRATE AQUÍ</button></p>
+        <div>
+            <h1>PlantiSHOP</h1>
+            <h2>¡Naturaleza a tu Alcance!</h2>
+        </div>
+        <a href="Sesion.html">INICIAR SESIÓN</a>
+    </body>
+</html>

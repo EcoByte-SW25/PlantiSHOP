@@ -1,0 +1,5 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.PlantiSHOP" parent="Theme.Material3.DayNight"/>
+
+    <style name="Theme.PlantiSHOP" parent="Base.Theme.PlantiSHOP"/>
+</resources>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+    <head>
+        <title>FAQ</title>
+        <link rel="icon" type="image/x-icon" href="imgs/logo.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background-image: url(imgs/fondo.png);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-attachment: fixed;
+                background-position: center center;
+            }
+            header, nav, details {
+                margin: 0;
+            }
+            header {
+                background-color: #cccccc;
+                display: grid;
+                grid-template-columns: 90% 10%;
+            }
+            img {
+                width: 2em;
+                height: 2em;
+                vertical-align: middle;
+            }
+            #Gral {
+                position: relative;
+            }
+            #Gral img {
+                width: 95%;
+                height: 5em;
+                margin: 0.5em auto 0 auto;
+            }
+            ul {
+                display: none;
+                position: absolute;
+                list-style-type: none;
+                padding: 0;
+                background-color: #009900;
+            }
+            #Gral:hover ul {
+                display: block;
+            }
+            li a:link, li a:active, li a:visited {
+                display: block;
+                color: white;
+                padding: 1.2em;
+                border: 1px solid white;
+                font-weight: bold;
+                text-decoration: none;
+                font-family: Coco Gothic;
+            }
+            nav {
+                padding: 0;
+                overflow: hidden;
+                background-color: green;
+            }
+            nav a:link, nav a:active, nav a:visited {
+                float: left;
+                color: white;
+                padding: 1.5em;
+                font-weight: bold;
+                text-decoration: none;
+                font-family: Coco Gothic;
+            }
+            li a:hover, nav a:hover {
+                color: black;
+                background-color: greenyellow;
+            }
+            h1, h2 {
+                text-align: center;
+                color: cyan;
+                font-family: Agrandir;
+            }
+            h1 {
+                margin-top: 1.2em;
+                font-size: 2.5vw;
+            }
+            h2 {
+                font-size: 1.5vw;
+            }
+            header h2 {
+                color: black;
+                text-align: left;
+                margin-left: 1.5em;
+            }
+            details {
+                padding: 1.2em;
+                background-color: #009900;
+                color: white;
+                font-weight: 600;
+                font-family: Coco Gothic;
+            }
+            details:hover {
+                color: black;
+                background-color: #33ff33;
+            }
+            summary {
+                font-weight: 800;
+            }
+        </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                window.location.hash = "no-back-button";
+                window.location.hash = "Again-No-back-button";
+                window.onhashchange = function () {
+                    window.location.hash = "no-back-button";
+                };
+            });
+        </script>
+    </head>
+    <body>
+        <header>
+            <h2><img src="imgs/logo.png" alt="Logo"/>&nbsp;&nbsp;PlantiSHOP</h2>
+            <div id="Gral">
+                <img src="imgs/perfil.jpg" alt="Perfil"/>
+                <ul>
+                    <li><a href="Perfil.jsp">Tu Perfil</a></li>
+                    <li><a href="Interfaz.jsp?x=E">Cerrar Sesión</a></li>
+                </ul>
+            </div>
+        </header>
+        <nav>
+            <a href="Mercado.jsp#PD">Plantas Decorativas</a>
+            <a href="Mercado.jsp#PH">Plantas de Huerto</a>
+            <a href="Mercado.jsp#PA">Plantas Acuaticas</a>
+            <a href="Mercado.jsp#A">Árboles</a>
+            <a href="Mercado.jsp#AH">Algas y Hongos</a>
+            <a href="Mercado.jsp#F">Fertilizantes</a>
+            <a href="Mercado.jsp#H">Herramientas</a>
+            <a href="Ventas.jsp">Tus Ventas</a>
+            <a href="Mensajeria.jsp">Tus Compras</a>
+            <a href="premium/Premium.jsp">Apartado PREMIUM</a>
+        </nav>
+        <h1>Preguntas Frecuentes sobre la Aplicación</h1>
+        <details>
+            <summary>¿?</summary>
+            <p>.</p>
+        </details>
+        
+        <h2>¿Quieres Mejorar PlantiSHOP? <a href="mailto:ecobyte.sw@gmail.com">Envia un Comentario o Hazle una Pregunta a los Desarrolladores de EcoByte ;)</a></h2>
+    </body>
+</html>

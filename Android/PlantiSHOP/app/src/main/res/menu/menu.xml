@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="none">
+
+        <item android:id="@+id/perfil"
+            android:icon="@drawable/perfil"
+            android:title="Tu Perfil"/>
+        <item android:id="@+id/jardin"
+            android:title="Jardin Personal"/>
+        <item android:id="@+id/fin"
+            android:title="Cerrar Sesión"/>
+
+    </group>
+    <item android:id="@+id/mPD"
+        android:icon="@drawable/pd"
+        android:title="Plantas Decorativas"/>
+    <item android:id="@+id/mPH"
+        android:icon="@drawable/ph"
+        android:title="Plantas de Huerto"/>
+    <item android:id="@+id/mPA"
+        android:icon="@drawable/pa"
+        android:title="Plantas Acuaticas"/>
+    <item android:id="@+id/mA"
+        android:icon="@drawable/a"
+        android:title="Árboles"/>
+    <item android:id="@+id/mAH"
+        android:icon="@drawable/ah"
+        android:title="Algas y Hongos"/>
+    <item android:id="@+id/mF"
+        android:icon="@drawable/f"
+        android:title="Fertilizantes"/>
+    <item android:id="@+id/mH"
+        android:icon="@drawable/h"
+        android:title="Herramientas"/>
+    <item android:id="@+id/ventas"
+        android:title="Tus Ventas"/>
+    <item android:id="@+id/postal"
+        android:title="Tus Compras"/>
+    <item android:id="@+id/premium"
+        android:title="Apartado PREMIUM"/>
+    <item android:id="@+id/faq"
+        android:title="Preguntas Frecuentes sobre la APP"/>
+
+</menu>

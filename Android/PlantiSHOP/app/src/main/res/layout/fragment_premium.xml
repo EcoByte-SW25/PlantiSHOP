@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Premium">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apartado PREMIUM"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-black"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¡Pon a tu Disposición una Programación Especial de PlantiSHOP; y ten Acceso a nuestro ChatBot 'Basil.IA', tu nuevo Asistente Personal de Jardineria, y a un Analista Estadistico-Predictivo de tus Actividades Comerciales en la Aplicación y del Mercado Botanico de PlantiSHOP!"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-condensed-medium"/>
+    <LinearLayout android:id="@+id/no"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:alpha="0.75"
+        android:background="@color/gray">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="¡Suscribete a PlantiSHOP!"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Clave Bancaria Estandarizada (CLABE) de tu Cuenta Bancaria:"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/clabe"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="numberPassword"
+            android:maxLength="18"
+            android:hint="Campo OBLIGATORIO"
+            android:autofillHints="password"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Número de tu Tarjeta Bancaria:"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/n"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="numberPassword"
+            android:maxLength="16"
+            android:hint="Campo OBLIGATORIO"
+            android:autofillHints="password"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Número de Teléfono asociado a la Cuenta:"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <EditText android:id="@+id/tel"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:autofillHints="phone"
+            android:hint="Campo OBLIGATORIO"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Plan de Suscripción:"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <Spinner android:id="@+id/s"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"/>
+        <CheckBox android:id="@+id/ac"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Acepto y Confirmo esta Transferencia Bancaria a EcoByte para el uso del Apartado PREMIUM de PlantiSHOP"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-condensed-medium"/>
+        <Button android:id="@+id/bS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:text="SUSCRIBIRSE"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-black"
+            android:backgroundTint="@color/yellow"/>
+
+    </LinearLayout>
+    <LinearLayout android:id="@+id/yes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp">
+
+        <Button android:id="@+id/bIA"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Basil.IA"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/cyan"
+            android:fontFamily="sans-serif-black"/>
+        <Button android:id="@+id/bAD"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Tus Finanzas y el Mercado"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-black"
+            android:backgroundTint="@color/orange"/>
+        <TextView android:id="@+id/msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-condensed-medium"/>
+        <TextView android:id="@+id/msgU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+
+    </LinearLayout>
+
+</LinearLayout>
