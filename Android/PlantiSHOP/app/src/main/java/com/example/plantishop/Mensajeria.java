@@ -1,13 +1,19 @@
 package com.example.plantishop;
 
+import android.app.NotificationChannel;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -142,13 +148,15 @@ public class Mensajeria extends Fragment {
             fT.createNewFile();
             r = s.executeQuery("SELECT * FROM Notificaciones WHERE V='"+Cortes.sesion+"'");
             while (r.next()) {
-                Toast.makeText(getActivity(), (r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+" ha "+(r.getBoolean(6) ? "ACEPTADO" : "CANCELADO")+" este Pedido: "+r.getString(7)), Toast.LENGTH_LONG).show();
+                if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                    NotificationManagerCompat.from(getActivity()).notify(((int) r.getLong(1)), (new NotificationCompat.Builder(getActivity(), NotificationChannel.DEFAULT_CHANNEL_ID)).setCategory(null).setVisibility(NotificationCompat.VISIBILITY_PUBLIC).setPriority(NotificationCompat.PRIORITY_DEFAULT).setContentTitle(r.getBoolean(6) ? "ACEPTACIÓN" : "CANCELACIÓN").setSmallIcon(R.drawable.ecobyte).setContentText(r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+" ha "+(r.getBoolean(6) ? "ACEPTADO" : "CANCELADO")+" este Pedido: "+r.getString(7)).setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo)).setStyle((new NotificationCompat.BigTextStyle()).bigText(r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+" ha "+(r.getBoolean(6) ? "ACEPTADO" : "CANCELADO")+" este Pedido: "+r.getString(7))).setAutoCancel(true).build());
+                } else {
+                    Toast.makeText(getActivity(), (r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+" ha "+(r.getBoolean(6) ? "ACEPTADO" : "CANCELADO")+" este Pedido: "+r.getString(7)), Toast.LENGTH_LONG).show();
+                }
                 if (r.getBoolean(6)) {
                     registerForActivityResult(new ActivityResultContract<>() {
                         @Override
-                        public Object parseResult(int i, @Nullable Intent intent) {
-                            return null;
-                        }
+                        public Object parseResult(int i, @Nullable Intent intent) { return null; }
 
                         @NonNull
                         @Override
@@ -160,9 +168,7 @@ public class Mensajeria extends Fragment {
                                 w.flush();
                                 w.close();
                                 w = null;
-                                dwld.addCategory(Intent.CATEGORY_OPENABLE);
-                                dwld.setDataAndTypeAndNormalize(Uri.fromFile(fT), "text/plain");
-                                dwld.putExtra(Intent.EXTRA_TITLE, ("venta"+r.getLong(1)+".txt"));
+                                dwld.addCategory(Intent.CATEGORY_OPENABLE).setDataAndTypeAndNormalize(Uri.fromFile(fT), "text/plain").putExtra(Intent.EXTRA_TITLE, ("venta"+r.getLong(1)+".txt"));
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
