@@ -1,0 +1,14 @@
+body {
+    background-color: #e2e2e2;
+}
+
+.card-analytics {
+    min-height: 150px;
+}
+
+canvas {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+}

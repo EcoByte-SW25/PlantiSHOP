@@ -1,0 +1,52 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #e5e5e5;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+main {
+    flex: 1;
+}
+.accordion-header{
+    background-color: #e5e5e5;
+}
+.accordion-button {
+    background-color: #2d7a44;
+    color: white;
+    border-radius: 10px;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #256437;
+    color: white;
+}
+
+.accordion-body {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+
+.faq-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.feedback-box {
+    background-color: #ddd;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.feedback-box::placeholder {
+    color: #888;
+}

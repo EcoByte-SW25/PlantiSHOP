@@ -2,66 +2,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Preguntas Frecuentes - PlantiSHOP</title>
+    <title>FAQ</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            background-color: #e5e5e5;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        main {
-            flex: 1;
-        }
-
-        .accordion-button {
-            background-color: #2d7a44;
-            color: white;
-            border-radius: 10px;
-        }
-
-        .accordion-button:not(.collapsed) {
-            background-color: #256437;
-            color: white;
-        }
-
-        .accordion-body {
-            background-color: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        .faq-container {
-            max-width: 700px;
-            margin: 2rem auto;
-            padding: 1rem;
-        }
-
-        .feedback-box {
-            background-color: #ddd;
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-top: 2rem;
-            text-align: center;
-            font-size: 0.95rem;
-        }
-
-        .feedback-box::placeholder {
-            color: #888;
-        }
-    </style>
+    <link rel="stylesheet" href="src/faq.css">   
 </head>
 <body>
+    
     <%@ include file="navbar.jsp" %>
 
     <main>
@@ -69,78 +18,83 @@
             <h2 class="fw-bold">FAQ</h2>
 
             <div class="accordion" id="faqAccordion">
-                <%-- Ejemplo de ítems de FAQ --%>
+                <!-- PREGUENTAS FRECUENTES -->
+                <!-- 
+                Esta seccion llenala con las preguntas que ya habias implementado
+                en tu version, la unica conexion con back es la de preguntas o
+                feedback del usuario.
+                -->
                 <div class="accordion-item mb-3">
-                    <h2 class="accordion-header" id="headingOne">
+                    <h2 class="accordion-header" id="heading1">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            ¿Preguntan?
+                                data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                            ¿Cuál es el tiempo de entrega?
                         </button>
                     </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1"
                          data-bs-parent="#faqAccordion">
                         <div class="accordion-body">
-                            Responden Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                            El tiempo de entrega es de 3 a 5 días hábiles dependiendo de tu ubicación.
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="accordion-item mb-3">
-                    <h2 class="accordion-header" id="headingOne">
+                    <h2 class="accordion-header" id="heading2">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            ¿Preguntan?
+                                data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                            ¿Puedo devolver una planta si llega dañada?
                         </button>
                     </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
                          data-bs-parent="#faqAccordion">
                         <div class="accordion-body">
-                            Responden Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                            Sí, puedes devolver cualquier planta dañada dentro de los primeros 3 días después de recibirla.
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="accordion-item mb-3">
-                    <h2 class="accordion-header" id="headingOne">
+                    <h2 class="accordion-header" id="heading3">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            ¿Preguntan?
+                                data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                            ¿Hacen envíos a todo México?
                         </button>
                     </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3"
                          data-bs-parent="#faqAccordion">
                         <div class="accordion-body">
-                            Responden Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                            Sí, realizamos envíos a todos los estados de la República Mexicana.
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="accordion-item mb-3">
-                    <h2 class="accordion-header" id="headingOne">
+                    <h2 class="accordion-header" id="heading4">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            ¿Preguntan?
+                                data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                            ¿Qué métodos de pago aceptan?
                         </button>
                     </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
                          data-bs-parent="#faqAccordion">
                         <div class="accordion-body">
-                            Responden Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                            Aceptamos tarjetas de crédito, débito, PayPal y pagos en OXXO.
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="accordion-item mb-3">
-                    <h2 class="accordion-header" id="headingOne">
+                    <h2 class="accordion-header" id="heading5">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            ¿Preguntan?
+                                data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                            ¿Puedo programar una entrega para una fecha específica?
                         </button>
                     </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
                          data-bs-parent="#faqAccordion">
                         <div class="accordion-body">
-                            Responden Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                            Claro, puedes elegir una fecha de entrega durante el proceso de compra.
                         </div>
                     </div>
                 </div>

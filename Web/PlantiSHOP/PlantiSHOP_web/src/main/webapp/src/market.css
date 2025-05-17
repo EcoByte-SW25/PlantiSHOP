@@ -1,0 +1,43 @@
+body {
+    background-color: #f1f1f1;
+}
+
+.market-header {
+    background: url('../img/bgmain.png') center/cover no-repeat;
+    color: white;
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.filter-btn {
+    background-color: #128048;
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+}
+
+.card-product {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    margin: 1rem 0;
+    padding: 1rem;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.filter-container {
+    background-color: rgba(255, 255, 255, 0.35);
+    border-radius: 1rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+}
