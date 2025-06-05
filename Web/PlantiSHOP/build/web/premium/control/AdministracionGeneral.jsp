@@ -230,6 +230,9 @@
                     while (r.next()) {
                         out.print("<tr><td>"+r.getString(1)+"</td><td>"+r.getString(2)+"</td><td>"+r.getString(3)+"</td><td>"+r.getString(4)+"</td><td>"+r.getString(5)+"</td></tr>");
                     }
+                    r.close();
+                    s.close();
+                    c.close();
                 } catch (Exception e) {
                     out.print("<script>alert('Lo sentimos, se produjo un ERROR... intentalo de NUEVO...');</script>");
                     out.print("<script>history.back();</script>");
@@ -238,8 +241,3 @@
         </table>
     </body>
 </html>
-<%
-    r.close();
-    s.close();
-    c.close();
-%>

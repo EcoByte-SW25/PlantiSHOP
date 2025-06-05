@@ -78,28 +78,28 @@ public class Jardin extends Fragment {
             rU = container.findViewById(R.id.rU);
             rD = container.findViewById(R.id.rD);
             t = container.findViewById(R.id.t);
-            t.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, new String[]{"Planta Decorativa", "Planta de Huerto", "Planta Acuatica", "Arbol", "Alga u Hongo"}));
+            t.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, new String[]{"Planta Decorativa", "Planta de Huerto", "Planta Acuatica", "Arbol", "Alga u Hongo"}));
             bCUD = container.findViewById(R.id.bCUD);
             bCUD.setOnClickListener((v) -> {
                 try {
                     switch (bCUD.getText().toString()) {
                         case "REGISTRAR": {
                             ResultSet rs = s.executeQuery("SELECT Id FROM Jardines WHERE CE='"+Cortes.sesion+"' AND N='"+n.getText()+"'");
-                            if (!rs.next() && !n.getText().toString().isEmpty() && t.getSelectedItem() != null && Float.parseFloat(l.getText().toString()) >= 0 && Float.parseFloat(l.getText().toString()) <= 100f && Byte.parseByte(p.getText().toString()) > 0 && Byte.parseByte(p.getText().toString()) < 11) {
-                                switch ((String) t.getSelectedItem()) {
-                                    case "Planta Decorativa": {
+                            if (!rs.next() && !n.getText().toString().isEmpty() && t.getSelectedItemPosition() >= 0 && Float.parseFloat(l.getText().toString()) >= 0 && Float.parseFloat(l.getText().toString()) <= 100f && Byte.parseByte(p.getText().toString()) > 0 && Byte.parseByte(p.getText().toString()) < 11) {
+                                switch (t.getSelectedItemPosition()) {
+                                    case 0: {
                                         s.executeUpdate("INSERT INTO Jardin(CE,N,T,C,L,P) VALUES ('"+Cortes.sesion+"','"+n.getText()+"','PD',"+(txt.getText().toString().isEmpty() ? null : "'"+txt.getText()+"'")+","+l.getText()+","+p.getText()+")");
                                     } break;
-                                    case "Planta de Huerto": {
+                                    case 1: {
                                         s.executeUpdate("INSERT INTO Jardin(CE,N,T,C,L,P) VALUES ('"+Cortes.sesion+"','"+n.getText()+"','PH',"+(txt.getText().toString().isEmpty() ? null : "'"+txt.getText()+"'")+","+l.getText()+","+p.getText()+")");
                                     } break;
-                                    case "Planta Acuatica": {
+                                    case 2: {
                                         s.executeUpdate("INSERT INTO Jardin(CE,N,T,C,L,P) VALUES ('"+Cortes.sesion+"','"+n.getText()+"','PA',"+(txt.getText().toString().isEmpty() ? null : "'"+txt.getText()+"'")+","+l.getText()+","+p.getText()+")");
                                     } break;
-                                    case "Arbol": {
+                                    case 3: {
                                         s.executeUpdate("INSERT INTO Jardin(CE,N,T,C,L,P) VALUES ('"+Cortes.sesion+"','"+n.getText()+"','A',"+(txt.getText().toString().isEmpty() ? null : "'"+txt.getText()+"'")+","+l.getText()+","+p.getText()+")");
                                     } break;
-                                    case "Alga u Hongo": {
+                                    case 4: {
                                         s.executeUpdate("INSERT INTO Jardin(CE,N,T,C,L,P) VALUES ('"+Cortes.sesion+"','"+n.getText()+"','AH',"+(txt.getText().toString().isEmpty() ? null : "'"+txt.getText()+"'")+","+l.getText()+","+p.getText()+")");
                                     } break;
                                 }

@@ -1,5 +1,6 @@
 package com.example.plantishop;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -8,6 +9,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.sql.Connection;
@@ -19,7 +23,7 @@ public class MainActivity5 extends AppCompatActivity {
 
     EditText req;
     TextView res;
-    Button toAD, rt, send;
+    Button toAD, rt, send, aIMG;
 
 
     @Override
@@ -57,6 +61,25 @@ public class MainActivity5 extends AppCompatActivity {
         send = findViewById(R.id.send);
         send.setOnClickListener((v) -> {
 
+        });
+        aIMG = findViewById(R.id.aIMG);
+        aIMG.setOnClickListener((v) -> {
+            registerForActivityResult(new ActivityResultContract<>() {
+                @Override
+                public Object parseResult(int i, @Nullable Intent intent) { return intent; }
+
+                @NonNull
+                @Override
+                public Intent createIntent(@NonNull Context context, Object o) {
+                    return (new Intent(Intent.ACTION_OPEN_DOCUMENT)).addCategory(Intent.CATEGORY_OPENABLE).setTypeAndNormalize("image/*");
+                }
+            }, (o) -> {
+                if (o != null) {
+
+                } else {
+                    Toast.makeText(this, "Basil.IA necesita una IMAGEN para poder ANALIZARLA", Toast.LENGTH_SHORT).show();
+                }
+            }).launch(null);
         });
     }
 

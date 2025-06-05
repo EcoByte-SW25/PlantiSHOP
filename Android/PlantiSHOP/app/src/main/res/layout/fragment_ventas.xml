@@ -54,7 +54,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Actualizador de tus Productos"
+            android:text="Registro y Actualizador de tus Productos"
             android:gravity="center"
             android:textSize="18sp"
             android:textColor="@color/black"
@@ -91,6 +91,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Tipo:"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"/>
+        <Spinner android:id="@+id/t"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Precio:"
             android:textSize="15sp"
             android:textColor="@color/black"
@@ -103,13 +113,13 @@
             android:maxLength="10"
             android:autofillHints="1-1000000"
             android:hint="$1.00 - $1,000,000.00"/>
-        <Button android:id="@+id/bUD"
+        <Button android:id="@+id/bCUD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="ACTUALIZAR"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/blue"
+            android:text="REGISTRAR"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/lime"
             android:fontFamily="sans-serif-black"/>
 
     </LinearLayout>

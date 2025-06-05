@@ -1,37 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="25dp"
-    android:orientation="vertical"
+    android:background="@drawable/fondo4"
     tools:context=".MainActivity6">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <Button android:id="@+id/rt"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button android:id="@+id/rt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="REGRESAR"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/cyan"
+                android:fontFamily="sans-serif-black"
+                android:layout_marginEnd="5dp"
+                android:layout_alignParentEnd="true"/>
+            <Button android:id="@+id/toIA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Basil.IA"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/green"
+                android:fontFamily="sans-serif-black"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/rt"/>
+
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="REGRESAR"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/cyan"
-            android:fontFamily="sans-serif-black"
-            android:layout_marginEnd="5dp"
-            android:layout_alignParentEnd="true"/>
-        <Button android:id="@+id/toIA"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Analista Estadistico-Predictivo de tus Actividades Comerciales en la Aplicación"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/orange"
+            android:fontFamily="sans-serif-black"/>
+        <LinearLayout
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
-            android:text="Basil.IA"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/green"
-            android:fontFamily="sans-serif-black"
-            android:layout_marginEnd="5dp"
-            android:layout_toStartOf="@id/rt"/>
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:alpha="0.75"
+            android:padding="5dp"
+            android:background="@color/bone">
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Estadisticas"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/brown"
+                android:fontFamily="sans-serif-black"/>
+            <TextView android:id="@+id/total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:textColor="@color/brown"
+                android:fontFamily="sans-serif-condensed-medium"/>
+            <TextView android:id="@+id/moda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/brown"
+                android:fontFamily="sans-serif-condensed-medium"/>
+            <TextView android:id="@+id/plus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/brown"
+                android:fontFamily="sans-serif-condensed-medium"/>
+            <TextView android:id="@+id/promd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/brown"
+                android:fontFamily="sans-serif-condensed-medium"/>
+            <TextView android:id="@+id/promd2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/brown"
+                android:fontFamily="sans-serif-condensed-medium"/>
 
+        </LinearLayout>
+        <ImageView android:id="@+id/vpm"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:contentDescription="Ventas por Mes"/>
+        <ImageView android:id="@+id/dpp"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:contentDescription="Distribución por Producto"/>
+        <ImageView android:id="@+id/iaalldt"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:contentDescription="Ingresos Acumulados a lo largo del Tiempo"/>
+        <TextView android:id="@+id/future"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="16sp"
+            android:textColor="@color/red"
+            android:fontFamily="sans-serif-black"/>
 
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

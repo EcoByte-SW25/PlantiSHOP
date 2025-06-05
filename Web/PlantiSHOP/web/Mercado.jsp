@@ -7,7 +7,6 @@
     Connection c;
     Statement s;
     ResultSet r;
-    boolean k;
 %>
 <%
     try {
@@ -34,63 +33,6 @@
                 background-attachment: fixed;
                 background-position: center center;
             }
-            header, nav {
-                margin: 0;
-            }
-            header {
-                background-color: #cccccc;
-                display: grid;
-                grid-template-columns: 90% 10%;
-            }
-            img {
-                width: 2em;
-                height: 2em;
-                vertical-align: middle;
-            }
-            #Gral {
-                position: relative;
-            }
-            #Gral img {
-                width: 95%;
-                height: 5em;
-                margin: 0.5em auto 0 auto;
-            }
-            ul {
-                display: none;
-                position: absolute;
-                list-style-type: none;
-                padding: 0;
-                background-color: #009900;
-            }
-            #Gral:hover ul {
-                display: block;
-            }
-            li a:link, li a:active, li a:visited {
-                display: block;
-                color: white;
-                padding: 1.2em;
-                border: 1px solid white;
-                font-weight: bold;
-                text-decoration: none;
-                font-family: Coco Gothic;
-            }
-            nav {
-                padding: 0;
-                overflow: hidden;
-                background-color: green;
-            }
-            nav a:link, nav a:active, nav a:visited {
-                float: left;
-                color: white;
-                padding: 1.5em;
-                font-weight: bold;
-                text-decoration: none;
-                font-family: Coco Gothic;
-            }
-            li a:hover, nav a:hover {
-                color: black;
-                background-color: greenyellow;
-            }
             h1, p {
                 text-align: center;
                 font-family: Agrandir;
@@ -98,11 +40,6 @@
             h2, h3, section p {
                 text-align: left;
                 font-family: Coco Gothic;
-            }
-            header h2 {
-                color: black;
-                text-align: left;
-                margin-left: 1.5em;
             }
             fieldset {
                 border: 2px double maroon;
@@ -164,29 +101,6 @@
         </script>
     </head>
     <body>
-        <header>
-            <h2><img src="imgs/logo.png" alt="Logo"/>&nbsp;&nbsp;PlantiSHOP</h2>
-            <div>
-                <img src="imgs/perfil.jpg" alt="Perfil"/>
-                <ul>
-                    <li><a href="Perfil.jsp">Tu Perfil</a></li>
-                    <li><a href="Interfaz.jsp?x=E">Cerrar Sesión</a></li>
-                </ul>
-            </div>
-        </header>
-        <nav>
-            <a href="Mercado.jsp#PD">Plantas Decorativas</a>
-            <a href="Mercado.jsp#PH">Plantas de Huerto</a>
-            <a href="Mercado.jsp#PA">Plantas Acuaticas</a>
-            <a href="Mercado.jsp#A">Árboles</a>
-            <a href="Mercado.jsp#AH">Algas y Hongos</a>
-            <a href="Mercado.jsp#F">Fertilizantes</a>
-            <a href="Mercado.jsp#H">Herramientas</a>
-            <a href="Ventas.jsp">Tus Ventas</a>
-            <a href="Mensajeria.jsp">Tus Compras</a>
-            <a href="FAQ.html">FAQ</a>
-            <a href="premium/Premium.jsp">Apartado PREMIUM</a>
-        </nav>
         <h1>Mercado</h1>
         <hr>
         <fieldset id="PD">
@@ -194,13 +108,8 @@
             <%
                 try {
                     r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='PD' ORDER BY Productos.Pop DESC");
-                    if (r.next()) {
-                        k = true;
+                    if (r.getFetchSize() > 0) {
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Planta Decorativa'/>");
@@ -229,13 +138,8 @@
             <%
                 try {
                     r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='PH' ORDER BY Productos.Pop DESC");
-                    if (r.next()) {
-                        k = true;
+                    if (r.getFetchSize() > 0) {
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Planta de Huerto'/>");
@@ -264,13 +168,8 @@
             <%
                 try {
                     r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='PA' ORDER BY Productos.Pop DESC");
-                    if (r.next()) {
-                        k = true;
+                    if (r.getFetchSize() > 0) {
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Planta Acuatica'/>");
@@ -299,13 +198,8 @@
             <%
                 try {
                     r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='A' ORDER BY Productos.Pop DESC");
-                    if (r.next()) {
-                        k = true;
+                    if (r.getFetchSize() > 0) {
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Árbol'/>");
@@ -334,13 +228,8 @@
             <%
                 try {
                     r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='AH' ORDER BY Productos.Pop DESC");
-                    if (r.next()) {
-                        k = true;
+                    if (r.getFetchSize() > 0) {
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Alga / Hongo'/>");
@@ -369,13 +258,8 @@
             <%
                 try {
                     r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='F' ORDER BY Productos.Pop DESC");
-                    if (r.next()) {
-                        k = true;
+                    if (r.getFetchSize() > 0) {
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Fertilizante'/>");
@@ -404,13 +288,8 @@
             <%
                 try {
                     r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='H' ORDER BY Productos.Pop DESC");
-                    if (r.next()) {
-                        k = true;
+                    if (r.getFetchSize() > 0) {
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Herramienta'/>");
@@ -428,6 +307,9 @@
                     } else {
                         out.print("<p>Lo sentimos... NO hay Ofertas en este apartado!</p>");
                     }
+                    r.close();
+                    s.close();
+                    c.close();
                 } catch (Exception e) {
                     out.print("<script>alert('Lo sentimos, se produjo un ERROR... intentalo de NUEVO...');</script>");
                     out.print("<script>history.back();</script>");
@@ -436,8 +318,3 @@
         </fieldset>
     </body>
 </html>
-<%
-    r.close();
-    s.close();
-    c.close();
-%>

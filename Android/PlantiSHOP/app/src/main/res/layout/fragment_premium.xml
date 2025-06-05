@@ -58,20 +58,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Número de tu Tarjeta Bancaria:"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:fontFamily="sans-serif-medium"/>
-        <EditText android:id="@+id/n"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:inputType="numberPassword"
-            android:maxLength="16"
-            android:hint="Campo OBLIGATORIO"
-            android:autofillHints="password"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="Número de Teléfono asociado a la Cuenta:"
             android:textSize="15sp"
             android:textColor="@color/black"

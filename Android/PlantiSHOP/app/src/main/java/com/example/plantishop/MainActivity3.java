@@ -58,11 +58,19 @@ public class MainActivity3 extends AppCompatActivity {
                 if (k) {
                     if (ce.getText().toString().contains("@") && !c1.getText().toString().isEmpty() && !c2.getText().toString().isEmpty() && !ce.getText().toString().equals(".") && !ce.getText().toString().equals(".") && !ce.getText().toString().equals(".") && !ce.getText().toString().equals(".")) {
                         r = s.executeQuery("SELECT FhN1,FhN2,I1,I2,C1,C2,FfS FROM Usuarios WHERE CE='"+ce.getText()+"'");
-                        if (r.next() && (r.getTimestamp(1) != null || r.getTimestamp(2) != null || r.getDate(7) != null)) {
-                            if (r.getTimestamp(1).before(Timestamp.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))))) { s.executeUpdate("UPDATE Usuario SET I1=5,FhN1=NULL WHERE CE='"+ce.getText()+"'"); }
-                            if (r.getTimestamp(2).before(Timestamp.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))))) { s.executeUpdate("UPDATE Usuario SET I2=2,FhN2=NULL WHERE CE='"+ce.getText()+"'"); }
-                            if (r.getDate(7).before(Date.valueOf(LocalDateTime.now().toLocalDate().format(DateTimeFormatter.ofPattern("uuuu-MM-dd"))))) { s.executeUpdate("UPDATE Usuario SET P=FALSE,FfS=NULL WHERE CE='"+ce.getText()+"'"); }
-                            s.execute("COMMIT");
+                        if (r.next()) {
+                            if (r.getTimestamp(1) != null) { if (r.getTimestamp(1).before(Timestamp.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))))) {
+                                s.executeUpdate("UPDATE Usuario SET I1=5,FhN1=NULL WHERE CE='"+ce.getText()+"'");
+                                s.execute("COMMIT");
+                            } }
+                            if (r.getTimestamp(2) != null) { if (r.getTimestamp(2).before(Timestamp.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))))) {
+                                s.executeUpdate("UPDATE Usuario SET I2=2,FhN2=NULL WHERE CE='"+ce.getText()+"'");
+                                s.execute("COMMIT");
+                            } }
+                            if (r.getDate(7) != null) { if (r.getDate(7).before(Date.valueOf(LocalDateTime.now().toLocalDate().format(DateTimeFormatter.ofPattern("uuuu-MM-dd"))))) {
+                                s.executeUpdate("UPDATE Usuario SET P=FALSE,FfS=NULL WHERE CE='"+ce.getText()+"'");
+                                s.execute("COMMIT");
+                            } }
                         }
                         if (r.first() && r.getByte(3) > 0 && r.getByte(4) > 0 && r.getFetchSize() == 1) {
                             Hash h = new Hash();

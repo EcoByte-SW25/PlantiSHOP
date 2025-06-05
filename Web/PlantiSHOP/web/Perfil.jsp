@@ -43,71 +43,9 @@
                 background-attachment: fixed;
                 background-position: center center;
             }
-            header, nav {
-                margin: 0;
-            }
-            header {
-                background-color: #cccccc;
-                display: grid;
-                grid-template-columns: 90% 10%;
-            }
-            img {
-                width: 2em;
-                height: 2em;
-                vertical-align: middle;
-            }
-            #Gral {
-                position: relative;
-            }
-            #Gral img {
-                width: 95%;
-                height: 5em;
-                margin: 0.5em auto 0 auto;
-            }
-            ul {
-                display: none;
-                position: absolute;
-                list-style-type: none;
-                padding: 0;
-                background-color: #009900;
-            }
-            #Gral:hover ul {
-                display: block;
-            }
-            li a:link, li a:active, li a:visited {
-                display: block;
-                color: white;
-                padding: 1.2em;
-                border: 1px solid white;
-                font-weight: bold;
-                text-decoration: none;
-                font-family: Coco Gothic;
-            }
-            nav {
-                padding: 0;
-                overflow: hidden;
-                background-color: green;
-            }
-            nav a:link, nav a:active, nav a:visited {
-                float: left;
-                color: white;
-                padding: 1.5em;
-                font-weight: bold;
-                text-decoration: none;
-                font-family: Coco Gothic;
-            }
-            li a:hover, nav a:hover {
-                color: black;
-                background-color: greenyellow;
-            }
             h1, h2, h3 {
                 text-align: center;
                 font-family: Agrandir;
-            }
-            header h2 {
-                color: black;
-                text-align: left;
-                margin-left: 1.5em;
             }
             div {
                 display: grid;
@@ -262,12 +200,12 @@
                     } break;
                 }
             }
-            let latd, lngd;
-            (new google.maps.Geocoder()).geocode({ address: "<%= u %>" }).then(function (r) {
-                latd = r.results[0].geometry.location.lat;
-                lngd = r.results[0].geometry.location.lng;
-            });
             window.initMap = function () {
+                let latd, lngd;
+                (new google.maps.Geocoder()).geocode({ address: "<%= u %>" }).then(function (r) {
+                    latd = r.results[0].geometry.location.lat;
+                    lngd = r.results[0].geometry.location.lng;
+                });
                 (new google.maps.Map(document.getElementById('gMap'), {
                     center: {
                         lat: (latd ?? 19.4326077),
@@ -289,29 +227,6 @@
         </script>
     </head>
     <body>
-        <header>
-            <h2><img src="imgs/logo.png" alt="Logo"/>&nbsp;&nbsp;PlantiSHOP</h2>
-            <div>
-                <img src="imgs/perfil.jpg" alt="Perfil"/>
-                <ul>
-                    <li><a href="Jardin.jsp">Tu Jardín</a></li>
-                    <li><a href="Interfaz.jsp?x=E">Cerrar Sesión</a></li>
-                </ul>
-            </div>
-        </header>
-        <nav>
-            <a href="Mercado.jsp#PD">Plantas Decorativas</a>
-            <a href="Mercado.jsp#PH">Plantas de Huerto</a>
-            <a href="Mercado.jsp#PA">Plantas Acuaticas</a>
-            <a href="Mercado.jsp#A">Árboles</a>
-            <a href="Mercado.jsp#AH">Algas y Hongos</a>
-            <a href="Mercado.jsp#F">Fertilizantes</a>
-            <a href="Mercado.jsp#H">Herramientas</a>
-            <a href="Ventas.jsp">Tus Ventas</a>
-            <a href="Mensajeria.jsp">Tus Compras</a>
-            <a href="FAQ.html">FAQ</a>
-            <a href="premium/Premium.jsp">Apartado PREMIUM</a>
-        </nav>
         <div>
             <article>
                 <img src="imgs/perfil.jpg" alt="Perfil"/>

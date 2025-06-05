@@ -21,7 +21,7 @@ public class Epistula {
         Session s = Session.getDefaultInstance(p, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("ecobyte.sw@gmail.com", "");
+                return new PasswordAuthentication("ecobyte.sw@gmail.com", "Jj+1914-N.I.CartoonsJW*FWY--Java+MySQL+Android");
             }
         });
         MimeMessage m = new MimeMessage(s);

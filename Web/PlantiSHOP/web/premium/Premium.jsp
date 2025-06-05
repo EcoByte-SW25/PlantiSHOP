@@ -26,71 +26,9 @@
                 background-attachment: fixed;
                 background-position: center center;
             }
-            header, nav {
-                margin: 0;
-            }
-            header {
-                background-color: #cccccc;
-                display: grid;
-                grid-template-columns: 90% 10%;
-            }
-            img {
-                width: 2em;
-                height: 2em;
-                vertical-align: middle;
-            }
-            #Gral {
-                position: relative;
-            }
-            #Gral img {
-                width: 95%;
-                height: 5em;
-                margin: 0.5em auto 0 auto;
-            }
-            ul {
-                display: none;
-                position: absolute;
-                list-style-type: none;
-                padding: 0;
-                background-color: #009900;
-            }
-            #Gral:hover ul {
-                display: block;
-            }
-            li a:link, li a:active, li a:visited {
-                display: block;
-                color: white;
-                padding: 1.2em;
-                border: 1px solid white;
-                font-weight: bold;
-                text-decoration: none;
-                font-family: Coco Gothic;
-            }
-            nav {
-                padding: 0;
-                overflow: hidden;
-                background-color: green;
-            }
-            nav a:link, nav a:active, nav a:visited {
-                float: left;
-                color: white;
-                padding: 1.5em;
-                font-weight: bold;
-                text-decoration: none;
-                font-family: Coco Gothic;
-            }
-            li a:hover, nav a:hover {
-                color: black;
-                background-color: greenyellow;
-            }
             h1, h2 {
                 text-align: center;
                 font-family: Agrandir;
-            }
-            header h2 {
-                color: black;
-                text-align: left;
-                margin-left: 1.5em;
             }
             h3, p {
                 text-align: center;
@@ -184,33 +122,15 @@
         </script>
     </head>
     <body>
-        <header>
-            <h2><img src="imgs/logo.png" alt="Logo"/>&nbsp;&nbsp;PlantiSHOP</h2>
-            <div id="Gral">
-                <img src="imgs/perfil.jpg" alt="Perfil"/>
-                <ul>
-                    <li><a href="Perfil.jsp">Tu Perfil</a></li>
-                    <li><a href="Interfaz.jsp?x=E">Cerrar Sesión</a></li>
-                </ul>
-            </div>
-        </header>
-        <nav>
-            <a href="Mercado.jsp#PD">Plantas Decorativas</a>
-            <a href="Mercado.jsp#PH">Plantas de Huerto</a>
-            <a href="Mercado.jsp#PA">Plantas Acuaticas</a>
-            <a href="Mercado.jsp#A">Árboles</a>
-            <a href="Mercado.jsp#AH">Algas y Hongos</a>
-            <a href="Mercado.jsp#F">Fertilizantes</a>
-            <a href="Mercado.jsp#H">Herramientas</a>
-            <a href="Ventas.jsp">Tus Ventas</a>
-            <a href="Mensajeria.jsp">Tus Compras</a>
-            <a href="FAQ.html">FAQ</a>
-        </nav>
         <h1>PREMIUM</h1>
         <p>¡Pon a tu Disposición una Programación Especial de PlantiSHOP; y ten Acceso a nuestro ChatBot "Basil.IA", tu nuevo Asistente Personal de Jardineria, y a un Analista Estadistico-Predictivo de tus Actividades Comerciales en la Aplicación y del Mercado Botanico de PlantiSHOP!</p>
         <hr>
         <%
             try {
+                if (session.getAttribute("msg") != null) {
+                    out.print("<script>alert('"+session.getAttribute("msg")+"');</script>");
+                    session.removeAttribute("msg");
+                }
                 Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
                 c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Lector", "Abcd**12345");
                 s = c.createStatement();
@@ -230,16 +150,14 @@
                         out.print("<p>"+session.getAttribute("u")+"</p>");
                         out.print("<label for='i1'>Clave Bancaria Estandarizada (CLABE) de tu Cuenta Bancaria:</label>");
                         out.print("<input id='i1' name='CLABE' type='password' pattern='[0-9]{18}' maxlength='18' required>");
-                        out.print("<label for='i2'>Número de tu Tarjeta Bancaria:</label>");
-                        out.print("<input id='i2' name='nTG' type='password' pattern='[0-9]{16}' maxlength='16' required>");
-                        out.print("<label for='i3'>Número de Teléfono asociado a la Cuenta:</label>");
-                        out.print("<input id='i3' name='tf' type='tel' maxlength='10' required>");
-                        out.print("<label for='i4'>Plan de Suscripción:</label>");
-                        out.print("<select id='i4' required>");
-                            out.print("<option value='1' selected>Mensual (30 días).- $</option>");
-                            out.print("<option value='3'>Trimestral (3 meses).- $</option>");
-                            out.print("<option value='6'>Semestral (6 meses).- $</option>");
-                            out.print("<option value='12'>Anual (365 días).- $</option>");
+                        out.print("<label for='i2'>Número de Teléfono asociado a la Cuenta:</label>");
+                        out.print("<input id='i2' name='tf' type='tel' maxlength='10' required>");
+                        out.print("<label for='i3'>Plan de Suscripción:</label>");
+                        out.print("<select id='i3' name='ps' required>");
+                            out.print("<option value='' selected>Mensual (30 días).- $</option>");
+                            out.print("<option value=''>Trimestral (3 meses).- $</option>");
+                            out.print("<option value=''>Semestral (6 meses).- $</option>");
+                            out.print("<option value=''>Anual (365 días).- $</option>");
                         out.print("</select>");
                         out.print("<p><input name='SI' type='checkbox' onclick='sM(this.checked)' value='Yo, "+r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+" ("+session.getAttribute("u")+"), Acepto y Confirmo esta Transferencia Bancaria a EcoByte, realizada el día "+LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))+", para el uso del Apartado PREMIUM de PlantiSHOP' required> Yo, "+r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+" ("+session.getAttribute("u")+"), Acepto y Confirmo esta Transferencia Bancaria a EcoByte, realizada el día "+LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))+", para el uso del Apartado PREMIUM de PlantiSHOP</p>");
                         out.print("<input id='sm' type='submit' value='SUSCRIBIRSE' disabled='true'>");

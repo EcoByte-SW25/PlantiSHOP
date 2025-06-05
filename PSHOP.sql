@@ -21,6 +21,7 @@ create table Usuario (
     FhN2 datetime,
     P boolean not null default false,
     FfS date,
+    A decimal(65,2) not null default 0.00,
     primary key (CE)
 );
 create or replace view Usuarios as select * from Usuario;

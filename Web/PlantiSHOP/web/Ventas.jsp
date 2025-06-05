@@ -8,7 +8,6 @@
     Statement s;
     ResultSet r;
     String na;
-    boolean k;
 %>
 <%
     try {
@@ -42,71 +41,9 @@
                 background-attachment: fixed;
                 background-position: center center;
             }
-            header, nav {
-                margin: 0;
-            }
-            header {
-                background-color: #cccccc;
-                display: grid;
-                grid-template-columns: 90% 10%;
-            }
-            img {
-                width: 2em;
-                height: 2em;
-                vertical-align: middle;
-            }
-            #Gral {
-                position: relative;
-            }
-            #Gral img {
-                width: 95%;
-                height: 5em;
-                margin: 0.5em auto 0 auto;
-            }
-            ul {
-                display: none;
-                position: absolute;
-                list-style-type: none;
-                padding: 0;
-                background-color: #009900;
-            }
-            #Gral:hover ul {
-                display: block;
-            }
-            li a:link, li a:active, li a:visited {
-                display: block;
-                color: white;
-                padding: 1.2em;
-                border: 1px solid white;
-                font-weight: bold;
-                text-decoration: none;
-                font-family: Coco Gothic;
-            }
-            nav {
-                padding: 0;
-                overflow: hidden;
-                background-color: green;
-            }
-            nav a:link, nav a:active, nav a:visited {
-                float: left;
-                color: white;
-                padding: 1.5em;
-                font-weight: bold;
-                text-decoration: none;
-                font-family: Coco Gothic;
-            }
-            li a:hover, nav a:hover {
-                color: black;
-                background-color: greenyellow;
-            }
             h1, h2 {
                 text-align: center;
                 font-family: Agrandir;
-            }
-            header h2 {
-                color: black;
-                text-align: left;
-                margin-left: 1.5em;
             }
             label, input, select, textarea {
                 display: block;
@@ -210,28 +147,6 @@
         </script>
     </head>
     <body>
-        <header>
-            <h2><img src="imgs/logo.png" alt="Logo"/>&nbsp;&nbsp;PlantiSHOP</h2>
-            <div>
-                <img src="imgs/perfil.jpg" alt="Perfil"/>
-                <ul>
-                    <li><a href="Perfil.jsp">Tu Perfil</a></li>
-                    <li><a href="Interfaz.jsp?x=E">Cerrar Sesión</a></li>
-                </ul>
-            </div>
-        </header>
-        <nav>
-            <a href="Mercado.jsp#PD">Plantas Decorativas</a>
-            <a href="Mercado.jsp#PH">Plantas de Huerto</a>
-            <a href="Mercado.jsp#PA">Plantas Acuaticas</a>
-            <a href="Mercado.jsp#A">Árboles</a>
-            <a href="Mercado.jsp#AH">Algas y Hongos</a>
-            <a href="Mercado.jsp#F">Fertilizantes</a>
-            <a href="Mercado.jsp#H">Herramientas</a>
-            <a href="Mensajeria.jsp">Tus Compras</a>
-            <a href="FAQ.html">FAQ</a>
-            <a href="premium/Premium.jsp">Apartado PREMIUM</a>
-        </nav>
         <h1>Ventas de <%= na %></h1>
         <hr>
         <form action="UpVentas" method="post" enctype="multipart/form-data">
@@ -256,28 +171,23 @@
             <label for="i4">Precio del Producto:</label>
             <input id="i4" name="p" type="number" min="1" max="5000000" required>
             <label for="i5">Imagen del Producto:</label>
-            <input id="i5" name="i" type="file" required>
+            <input id="i5" name="i" type="file" accept="image/*" required>
             <input id="sm" type="submit" value="REGISTRAR">
         </form>
         <hr>
         <%
             try {
                 r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='PD' ORDER BY Pop DESC");
-                if (r.next()) {
+                if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Plantas Decorativas</legend>");
-                        k = true;
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div class='pD'>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Planta Decorativa'/>");
                                     out.print("<form action='UpVentas' method='post' enctype='multipart/form-data'>");
                                         out.print("<input name='x' type='hidden' value='false'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
-                                        out.print("<input name='i' type='file' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
+                                        out.print("<input name='i' type='file' accept='image/*' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
                                     out.print("</form>");
                                     out.print("<button class='d' onclick=\"location.assign('Interfaz.jsp?x=D2&t=Producto&id="+r.getLong(2)+"')\">ELIMINAR</button>");
                                 out.print("</aside>");
@@ -298,21 +208,16 @@
                     out.print("</fieldset>");
                 }
                 r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='PH' ORDER BY Pop DESC");
-                if (r.next()) {
+                if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Plantas de Huerto</legend>");
-                        k = true;
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div class='pH'>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Planta de Huerto'/>");
                                     out.print("<form action='UpVentas' method='post' enctype='multipart/form-data'>");
                                         out.print("<input name='x' type='hidden' value='false'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
-                                        out.print("<input name='i' type='file' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
+                                        out.print("<input name='i' type='file' accept='image/*' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
                                     out.print("</form>");
                                     out.print("<button class='d' onclick=\"location.assign('Interfaz.jsp?x=D2&t=Producto&id="+r.getLong(2)+"')\">ELIMINAR</button>");
                                 out.print("</aside>");
@@ -333,21 +238,16 @@
                     out.print("</fieldset>");
                 }
                 r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='PA' ORDER BY Pop DESC");
-                if (r.next()) {
+                if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Plantas Acuaticas</legend>");
-                        k = true;
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div class='pA'>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Planta Acuatica'/>");
                                     out.print("<form action='UpVentas' method='post' enctype='multipart/form-data'>");
                                         out.print("<input name='x' type='hidden' value='false'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
-                                        out.print("<input name='i' type='file' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
+                                        out.print("<input name='i' type='file' accept='image/*' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
                                     out.print("</form>");
                                     out.print("<button class='d' onclick=\"location.assign('Interfaz.jsp?x=D2&t=Producto&id="+r.getLong(2)+"')\">ELIMINAR</button>");
                                 out.print("</aside>");
@@ -368,21 +268,16 @@
                     out.print("</fieldset>");
                 }
                 r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='A' ORDER BY Pop DESC");
-                if (r.next()) {
+                if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Árboles</legend>");
-                        k = true;
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div class='A'>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Árbol'/>");
                                     out.print("<form action='UpVentas' method='post' enctype='multipart/form-data'>");
                                         out.print("<input name='x' type='hidden' value='false'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
-                                        out.print("<input name='i' type='file' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
+                                        out.print("<input name='i' type='file' accept='image/*' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
                                     out.print("</form>");
                                     out.print("<button class='d' onclick=\"location.assign('Interfaz.jsp?x=D2&t=Producto&id="+r.getLong(2)+"')\">ELIMINAR</button>");
                                 out.print("</aside>");
@@ -403,21 +298,16 @@
                     out.print("</fieldset>");
                 }
                 r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='AH' ORDER BY Pop DESC");
-                if (r.next()) {
+                if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Algas y/u Hongos</legend>");
-                        k = true;
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div class='aH'>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Alga / Hongo'/>");
                                     out.print("<form action='UpVentas' method='post' enctype='multipart/form-data'>");
                                         out.print("<input name='x' type='hidden' value='false'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
-                                        out.print("<input name='i' type='file' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
+                                        out.print("<input name='i' type='file' accept='image/*' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
                                     out.print("</form>");
                                     out.print("<button class='d' onclick=\"location.assign('Interfaz.jsp?x=D2&t=Producto&id="+r.getLong(2)+"')\">ELIMINAR</button>");
                                 out.print("</aside>");
@@ -438,21 +328,16 @@
                     out.print("</fieldset>");
                 }
                 r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='F' ORDER BY Pop DESC");
-                if (r.next()) {
+                if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Fertilizantes</legend>");
-                        k = true;
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div class='F'>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Fertilizante'/>");
                                     out.print("<form action='UpVentas' method='post' enctype='multipart/form-data'>");
                                         out.print("<input name='x' type='hidden' value='false'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
-                                        out.print("<input name='i' type='file' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
+                                        out.print("<input name='i' type='file' accept='image/*' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
                                     out.print("</form>");
                                     out.print("<button class='d' onclick=\"location.assign('Interfaz.jsp?x=D2&t=Producto&id="+r.getLong(2)+"')\">ELIMINAR</button>");
                                 out.print("</aside>");
@@ -473,21 +358,16 @@
                     out.print("</fieldset>");
                 }
                 r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='H' ORDER BY Pop DESC");
-                if (r.next()) {
+                if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Herramientas</legend>");
-                        k = true;
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div class='H'>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Herramienta'/>");
                                     out.print("<form action='UpVentas' method='post' enctype='multipart/form-data'>");
                                         out.print("<input name='x' type='hidden' value='false'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
-                                        out.print("<input name='i' type='file' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
+                                        out.print("<input name='i' type='file' accept='image/*' required><input class='u' type='submit' value='CAMBIAR esta Imagen'>");
                                     out.print("</form>");
                                     out.print("<button class='d' onclick=\"location.assign('Interfaz.jsp?x=D2&t=Producto&id="+r.getLong(2)+"')\">ELIMINAR</button>");
                                 out.print("</aside>");
@@ -507,6 +387,9 @@
                         }
                     out.print("</fieldset>");
                 }
+                r.close();
+                s.close();
+                c.close();
             } catch (Exception e) {
                 out.print("<script>alert('Lo sentimos, se produjo un ERROR... intentalo de NUEVO...');</script>");
                 out.print("<script>history.back();</script>");
@@ -514,8 +397,3 @@
         %>
     </body>
 </html>
-<%
-    r.close();
-    s.close();
-    c.close();
-%>

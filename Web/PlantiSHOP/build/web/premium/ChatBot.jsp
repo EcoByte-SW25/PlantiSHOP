@@ -86,7 +86,7 @@
                 width: 90%;
             }
             input {
-                width: 40%;
+                width: 50%;
                 background-color: black;
                 color: white;
                 font-weight: bold;
@@ -97,6 +97,13 @@
                 color: black;
                 background-color: white;
                 border-color: black;
+            }
+            #fP, #fP:hover {
+                width: 95%;
+                background-color: yellowgreen;
+                color: goldenrod;
+                border: none;
+                font-family: Coco Gothic;
             }
         </style>
         <script>
@@ -122,8 +129,15 @@
             }
         %>
         <form action="" method="post">
+            <input name="x" type="hidden" value="true">
             <textarea name="req" required></textarea>
             <input type="submit" value="ENVIAR">
+        </form>
+        <br>
+        <form action="" method="post" enctype="multipart/form-data">
+            <input name="x" type="hidden" value="false">
+            <input id="fP" name="img" type="file" accept="image/*" required>
+            <input type="submit" value="BUSCAR Plantación">
         </form>
     </body>
 </html>

@@ -193,6 +193,7 @@
                         } else {
                             s.executeUpdate("UPDATE Producto SET N='"+request.getParameter("n")+"',D='"+request.getParameter("d")+"',T='"+request.getParameter("t")+"',P="+request.getParameter("p")+" WHERE Id="+request.getParameter("id"));
                         }
+                        s.execute("COMMIT");
                         out.print("<div>");
                             out.print("<h1>Registro modificado EXITOSAMENTE</h1>");
                             out.print("<img src='usql.png' alt='U'/>");
@@ -201,6 +202,7 @@
                     }
                 } else {
                     s.executeUpdate("DELETE FROM "+request.getParameter("t")+" WHERE "+request.getParameter("i")+"="+(Boolean.parseBoolean(request.getParameter("sn")) ? "'"+request.getParameter("id")+"'" : request.getParameter("id")));
+                    s.execute("COMMIT");
                     if (request.getParameter("t").equals("Producto")) {
                         r = s.executeQuery("SELECT Img FROM Productos WHERE Id="+request.getParameter("id"));
                         r.next();

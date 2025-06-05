@@ -13,11 +13,8 @@
     Statement s;
     ResultSet r;
     Hash h;
-    File f;
-    FileWriter w;
-    boolean k;
     long i;
-    String na, u, minFH;
+    String na, u;
 %>
 <%
     try {
@@ -49,63 +46,6 @@
                 background-attachment: fixed;
                 background-position: center center;
             }
-            header, nav {
-                margin: 0;
-            }
-            header {
-                background-color: #cccccc;
-                display: grid;
-                grid-template-columns: 90% 10%;
-            }
-            img {
-                width: 2em;
-                height: 2em;
-                vertical-align: middle;
-            }
-            #Gral {
-                position: relative;
-            }
-            #Gral img {
-                width: 95%;
-                height: 5em;
-                margin: 0.5em auto 0 auto;
-            }
-            ul {
-                display: none;
-                position: absolute;
-                list-style-type: none;
-                padding: 0;
-                background-color: #009900;
-            }
-            #Gral:hover ul {
-                display: block;
-            }
-            li a:link, li a:active, li a:visited {
-                display: block;
-                color: white;
-                padding: 1.2em;
-                border: 1px solid white;
-                font-weight: bold;
-                text-decoration: none;
-                font-family: Coco Gothic;
-            }
-            nav {
-                padding: 0;
-                overflow: hidden;
-                background-color: green;
-            }
-            nav a:link, nav a:active, nav a:visited {
-                float: left;
-                color: white;
-                padding: 1.5em;
-                font-weight: bold;
-                text-decoration: none;
-                font-family: Coco Gothic;
-            }
-            li a:hover, nav a:hover {
-                color: black;
-                background-color: greenyellow;
-            }
             h1, p {
                 text-align: center;
                 font-family: Agrandir;
@@ -116,11 +56,6 @@
             h2, h3, section p, .vU article p {
                 text-align: left;
                 font-family: Coco Gothic;
-            }
-            header h2 {
-                color: black;
-                text-align: left;
-                margin-left: 1.5em;
             }
             .pc, article h2 {
                 text-align: center;
@@ -187,68 +122,39 @@
                     window.location.hash = "no-back-button";
                 };
             });
-            let latd, lngd;
-            (new google.maps.Geocoder()).geocode({ address: "<%= u %>" }).then(function (r) {
-                latd = r.results[0].geometry.location.lat;
-                lngd = r.results[0].geometry.location.lng;
-            });
-            function initMap(n) {
-                (new google.maps.Map(document.getElementById('gMap'+n), {
-                    center: {
-                        lat: (latd ?? 19.4326077),
-                        lng: (lngd ?? -99.133208)
-                    },
-                    zoom: 8,
-                    mapTypeControl: false
-                })).addListener('click', function (ev) {
-                    (new google.maps.Geocoder()).geocode({ location: ev.latLng }).then(
-                        function (r) {
-                            document.getElementById('m'+n).value = r.results[0].formatted_address;
-                        },
-                        function (er) {
-                            alert('Lo sentimos, se produjo un ERROR:\n'+er);
-                        }
-                    );
+            window.initMap = function () {
+                let latd, lngd;
+                (new google.maps.Geocoder()).geocode({ address: "<%= u %>" }).then(function (r) {
+                    latd = r.results[0].geometry.location.lat;
+                    lngd = r.results[0].geometry.location.lng;
                 });
-            }
+                <%
+                    try {
+                        r = s.executeQuery("SELECT Compras.X FROM Compras INNER JOIN Usuarios ON Compras.V=Usuarios.CE WHERE Compras.C='"+session.getAttribute("u")+"' ORDER BY Compras.X DESC, Compras.Fh ASC");
+                        i = 1L;
+                        while (r.next()) {
+                            if (r.getByte(1) == 1) {
+                                out.print("(new google.maps.Map(document.getElementById('gMap'"+i+"), { center: { lat: (latd ?? 19.4326077), lng: (lngd ?? -99.133208) }, zoom: 8, mapTypeControl: false })).addListener('click', function (ev) { (new google.maps.Geocoder()).geocode({ location: ev.latLng }).then(function (r) { document.getElementById('m'"+i+").value = r.results[0].formatted_address; }, function (er) { alert('Lo sentimos, se produjo un ERROR:\n'+er); }); });");
+                            }
+                            i = i + 1L;
+                        }
+                    } catch (Exception e) {
+                        out.print("alert('Lo sentimos, se produjo un ERROR... intentalo de NUEVO...');");
+                        out.print("history.back();");
+                    }
+                %>
+            };
         </script>
     </head>
     <body>
-        <header>
-            <h2><img src="imgs/logo.png" alt="Logo"/>&nbsp;&nbsp;PlantiSHOP</h2>
-            <div>
-                <img src="imgs/perfil.jpg" alt="Perfil"/>
-                <ul>
-                    <li><a href="Perfil.jsp">Tu Perfil</a></li>
-                    <li><a href="Interfaz.jsp?x=E">Cerrar Sesión</a></li>
-                </ul>
-            </div>
-        </header>
-        <nav>
-            <a href="Mercado.jsp#PD">Plantas Decorativas</a>
-            <a href="Mercado.jsp#PH">Plantas de Huerto</a>
-            <a href="Mercado.jsp#PA">Plantas Acuaticas</a>
-            <a href="Mercado.jsp#A">Árboles</a>
-            <a href="Mercado.jsp#AH">Algas y Hongos</a>
-            <a href="Mercado.jsp#F">Fertilizantes</a>
-            <a href="Mercado.jsp#H">Herramientas</a>
-            <a href="Ventas.jsp">Tus Ventas</a>
-            <a href="FAQ.html">FAQ</a>
-            <a href="premium/Premium.jsp">Apartado PREMIUM</a>
-        </nav>
         <h1>Pedidos de <%= na %></h1>
         <%
             try {
                 r = s.executeQuery("SELECT Compras.ImgP,Compras.NP,Compras.PP,Compras.DP,Usuarios.N,Usuarios.AP,Usuarios.AM,Compras.X,Compras.BMsg,Compras.Id FROM Compras INNER JOIN Usuarios ON Compras.V=Usuarios.CE WHERE Compras.C='"+session.getAttribute("u")+"' ORDER BY Compras.X DESC, Compras.Fh ASC");
-                if (r.next()) {
-                    k = true;
+                if (r.getFetchSize() > 0) {
                     i = 1L;
-                    minFH = LocalDateTime.now().plusDays(1L).format(DateTimeFormatter.ofPattern("uuuu-MM-ddTHH:mm"));
+                    String minFH = LocalDateTime.now().plusDays(1L).format(DateTimeFormatter.ofPattern("uuuu-MM-ddTHH:mm"));
                     while (r.next()) {
-                        if (k) {
-                            r.first();
-                            k = false;
-                        }
                         out.print("<div class='cU'>");
                             out.print("<aside>");
                                 out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Producto'/>");
@@ -271,7 +177,7 @@
                                                 out.print("<p>Número de Lotes a Comprar: <input name='n' type='number' min='1' max='100' step='1' onchange=\"document.getElementById('t"+i+"').value = Number.parseFloat(this.value) * "+r.getFloat(3)+"\" value='1' required></p>");
                                                 out.print("<p>Precio Total: <input id='t"+i+"' name='pt' type='number' min='1' max='500000000' readonly value='"+r.getFloat(3)+"' required></p>");
                                             out.print("</div>");
-                                            out.print("<div id='gMap"+i+"' onload='initMap("+i+")'></div>");
+                                            out.print("<div id='gMap"+i+"'></div>");
                                             out.print("<div>");
                                                 out.print("<p>Lugar de la Compra: <input id='m"+i+"' name='u' type='text' readonly value='"+u+"' required></p>");
                                                 out.print("<p>Fecha y Hora de la Compra: <input name='fh' type='datetime-local' min='"+minFH+"' required></p>");
@@ -303,15 +209,9 @@
         <h1 id="tV">Ofertas de Venta</h1>
         <%
             try {
-                r = s.executeQuery("SELECT Compras.ImgP,Compras.NP,Compras.PP,Compras.DP,Usuarios.N,Usuarios.AP,Usuarios.AM,Compras.X,Compras.LP,Compras.TP,Compras.Fh,Compras.U,Compras.Id FROM Compras INNER JOIN Usuarios ON Compras.C=Usuarios.CE WHERE Compras.V='"+session.getAttribute("u")+"' ORDER BY Compras.X, Compras.Fh");
-                if (r.next()) {
-                    k = true;
-                    while (r.next() && r.getByte(8) != 1) {
-                        if (k) {
-                            r.first();
-                            if (r.getByte(8) == 1) { continue; }
-                            k = false;
-                        }
+                r = s.executeQuery("SELECT Compras.ImgP,Compras.NP,Compras.PP,Compras.DP,Usuarios.N,Usuarios.AP,Usuarios.AM,Compras.X,Compras.LP,Compras.TP,Compras.Fh,Compras.U,Compras.Id FROM Compras INNER JOIN Usuarios ON Compras.C=Usuarios.CE WHERE Compras.V='"+session.getAttribute("u")+"' AND Compras.X>1 AND Compras.X<4 ORDER BY Compras.X, Compras.Fh");
+                if (r.getFetchSize() > 0) {
+                    while (r.next()) {
                         out.print("<div class='vU'>");
                             out.print("<aside>");
                                 out.print("<img src='imgs/prods/"+r.getString(1)+"' alt='Producto'/>");
@@ -340,6 +240,8 @@
                     out.print("<p>Sin Ofertas de Venta para TI...</p>");
                 }
                 r = s.executeQuery("SELECT * FROM Notificaciones WHERE V='"+session.getAttribute("u")+"'");
+                File f;
+                FileWriter w;
                 while (r.next()) {
                     out.print("<script>alert('"+r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+" ha "+(r.getBoolean(6) ? "ACEPTADO" : "CANCELADO")+" este Pedido: "+r.getString(7)+"');</script>");
                     if (r.getBoolean(6)) {
@@ -355,6 +257,9 @@
                     s.executeUpdate("DELETE FROM Notificacion WHERE V='"+session.getAttribute("u")+"'");
                     s.execute("COMMIT");
                 }
+                r.close();
+                s.close();
+                c.close();
             } catch (Exception e) {
                 out.print("<script>alert('Lo sentimos, se produjo un ERROR... intentalo de NUEVO...');</script>");
                 out.print("<script>history.back();</script>");
@@ -362,8 +267,3 @@
         %>
     </body>
 </html>
-<%
-    r.close();
-    s.close();
-    c.close();
-%>

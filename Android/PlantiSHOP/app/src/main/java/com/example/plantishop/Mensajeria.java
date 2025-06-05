@@ -223,13 +223,12 @@ public class Mensajeria extends Fragment {
                                 r = s.executeQuery("SELECT Productos.Pop,Productos.Id,Usuarios.CE,Usuarios.N,Usuarios.AP,Usuarios.AM,Compras.NP,Compras.LP,Compras.TP,Compras.Fh,Compras.U FROM Productos (INNER JOIN Usuarios ON Productos.CE=Usuarios.CE (INNER JOIN Compras ON Usuarios.CE=Compras.V)) WHERE Compras.C='"+Cortes.sesion+"' AND Compras.Id="+id1.get(position));
                                 r.next();
                                 if (cf.isSelected()) {
+                                    s.executeUpdate("UPDATE Compra SET X=4 WHERE Id="+id1.get(position));
                                     s.executeUpdate("UPDATE Producto SET Pop="+(r.getLong(1) + 1L)+" WHERE Id="+r.getLong(2));
                                     s.executeUpdate("INSERT INTO Notificacion(V,C,APC,AMC,N,P,LP,TP,Fh,U) VALUES ('"+r.getString(3)+"','"+$c[0]+"','"+$c[1]+"','"+$c[2]+"',TRUE,'"+r.getString(7)+"',"+r.getByte(8)+","+r.getFloat(9)+",'"+r.getString(10)+"','"+h.cifrar(r.getString(11))+"')");
                                     registerForActivityResult(new ActivityResultContract<>() {
                                         @Override
-                                        public Object parseResult(int i, @Nullable Intent intent) {
-                                            return null;
-                                        }
+                                        public Object parseResult(int i, @Nullable Intent intent) { return null; }
 
                                         @NonNull
                                         @Override
@@ -241,9 +240,7 @@ public class Mensajeria extends Fragment {
                                                 w.flush();
                                                 w.close();
                                                 w = null;
-                                                dwld.addCategory(Intent.CATEGORY_OPENABLE);
-                                                dwld.setDataAndTypeAndNormalize(Uri.fromFile(fT), "text/plain");
-                                                dwld.putExtra(Intent.EXTRA_TITLE, ("compra"+id1.get(position)+".txt"));
+                                                dwld.addCategory(Intent.CATEGORY_OPENABLE).setDataAndTypeAndNormalize(Uri.fromFile(fT), "text/plain").putExtra(Intent.EXTRA_TITLE, ("compra"+id1.get(position)+".txt"));
                                             } catch (Exception e) {
                                                 throw new RuntimeException(e);
                                             }
@@ -252,8 +249,8 @@ public class Mensajeria extends Fragment {
                                     }, (o) -> {}).launch(null);
                                 } else {
                                     s.executeUpdate("INSERT INTO Notificacion(V,C,APC,AMC,N,P) VALUES ('"+r.getString(3)+"','"+$c[0]+"','"+$c[1]+"','"+$c[2]+"',FALSE,'"+r.getString(7)+"')");
+                                    s.executeUpdate("DELETE FROM Compra WHERE Id="+id1.get(position));
                                 }
-                                s.executeUpdate("DELETE FROM Compra WHERE Id="+id1.get(position));
                                 s.execute("COMMIT");
                             }
                         }
@@ -270,6 +267,7 @@ public class Mensajeria extends Fragment {
                 try {
                     if (Byte.parseByte(l.getText().toString()) > 0 && Byte.parseByte(l.getText().toString()) < 101 && !uC.getText().toString().isEmpty()) {
                         s.executeUpdate("UPDATE Compra SET X=2,LP="+l.getText()+",TP="+$tP.getText()+",U='"+h.cifrar(uC.getText().toString())+"',Fh='"+LocalDateTime.parse((fC.getYear()+"-"+(fC.getMonth() + 1)+"-"+fC.getDayOfMonth()+" "+hC.getHour()+":"+hC.getMinute()+":00"), DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))+"' WHERE Id="+id);
+                        s.execute("COMMIT");
                     } else {
                         Toast.makeText(getActivity(), "Compra INVALIDA", Toast.LENGTH_SHORT).show();
                     }

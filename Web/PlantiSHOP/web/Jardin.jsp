@@ -8,7 +8,6 @@
     Statement s;
     ResultSet r;
     String na;
-    boolean k;
 %>
 <%
     try {
@@ -38,71 +37,9 @@
                 background-attachment: fixed;
                 background-position: center center;
             }
-            header, nav {
-                margin: 0;
-            }
-            header {
-                background-color: #cccccc;
-                display: grid;
-                grid-template-columns: 90% 10%;
-            }
-            img {
-                width: 2em;
-                height: 2em;
-                vertical-align: middle;
-            }
-            #Gral {
-                position: relative;
-            }
-            #Gral img {
-                width: 95%;
-                height: 5em;
-                margin: 0.5em auto 0 auto;
-            }
-            ul {
-                display: none;
-                position: absolute;
-                list-style-type: none;
-                padding: 0;
-                background-color: #009900;
-            }
-            #Gral:hover ul {
-                display: block;
-            }
-            li a:link, li a:active, li a:visited {
-                display: block;
-                color: white;
-                padding: 1.2em;
-                border: 1px solid white;
-                font-weight: bold;
-                text-decoration: none;
-                font-family: Coco Gothic;
-            }
-            nav {
-                padding: 0;
-                overflow: hidden;
-                background-color: green;
-            }
-            nav a:link, nav a:active, nav a:visited {
-                float: left;
-                color: white;
-                padding: 1.5em;
-                font-weight: bold;
-                text-decoration: none;
-                font-family: Coco Gothic;
-            }
-            li a:hover, nav a:hover {
-                color: black;
-                background-color: greenyellow;
-            }
             h1, h2 {
                 text-align: center;
                 font-family: Agrandir;
-            }
-            header h2 {
-                color: black;
-                text-align: left;
-                margin-left: 1.5em;
             }
             #rtrn:link, #rtrn:active, #rtrn:visited {
                 color: blue;
@@ -211,29 +148,6 @@
         </script>
     </head>
     <body>
-        <header>
-            <h2><img src="imgs/logo.png" alt="Logo"/>&nbsp;&nbsp;PlantiSHOP</h2>
-            <div>
-                <img src="imgs/perfil.jpg" alt="Perfil"/>
-                <ul>
-                    <li><a href="Perfil.jsp">Tu Perfil</a></li>
-                    <li><a href="Interfaz.jsp?x=E">Cerrar Sesión</a></li>
-                </ul>
-            </div>
-        </header>
-        <nav>
-            <a href="Mercado.jsp#PD">Plantas Decorativas</a>
-            <a href="Mercado.jsp#PH">Plantas de Huerto</a>
-            <a href="Mercado.jsp#PA">Plantas Acuaticas</a>
-            <a href="Mercado.jsp#A">Árboles</a>
-            <a href="Mercado.jsp#AH">Algas y Hongos</a>
-            <a href="Mercado.jsp#F">Fertilizantes</a>
-            <a href="Mercado.jsp#H">Herramientas</a>
-            <a href="Ventas.jsp">Tus Ventas</a>
-            <a href="Mensajeria.jsp">Tus Compras</a>
-            <a href="FAQ.html">FAQ</a>
-            <a href="premium/Premium.jsp">Apartado PREMIUM</a>
-        </nav>
         <h1>Jardin Virtual Personal de <%= na %></h1>
         <a id="rtrn" href="Perfil.jsp">Regresar al Perfil</a>
         <hr>
@@ -262,15 +176,10 @@
         <%
             try {
                 r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardines WHERE CE='"+session.getAttribute("u")+"' AND T='PD' ORDER BY P DESC");
-                if (r.next()) {
+                if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Tus Plantas Decorativas</legend>");
-                        k = true;
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div class='pD'>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/PD.png' alt='Planta Decorativa'/>");
@@ -297,15 +206,10 @@
                     out.print("</fieldset>");
                 }
                 r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardines WHERE CE='"+session.getAttribute("u")+"' AND T='PH' ORDER BY P DESC");
-                if (r.next()) {
+                if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Tus Plantas de Huerto</legend>");
-                        k = true;
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div class='pH'>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/PH.png' alt='Planta de Huerto'/>");
@@ -332,15 +236,10 @@
                     out.print("</fieldset>");
                 }
                 r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardines WHERE CE='"+session.getAttribute("u")+"' AND T='PA' ORDER BY P DESC");
-                if (r.next()) {
+                if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Tus Plantas Acuaticas</legend>");
-                        k = true;
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div class='pA'>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/PA.png' alt='Planta Acuatica'/>");
@@ -367,15 +266,10 @@
                     out.print("</fieldset>");
                 }
                 r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardines WHERE CE='"+session.getAttribute("u")+"' AND T='A' ORDER BY P DESC");
-                if (r.next()) {
+                if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Tus Árboles</legend>");
-                        k = true;
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div class='A'>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/A.png' alt='Árbol'/>");
@@ -402,15 +296,10 @@
                     out.print("</fieldset>");
                 }
                 r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardines WHERE CE='"+session.getAttribute("u")+"' AND T='AH' ORDER BY P DESC");
-                if (r.next()) {
+                if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Tus Algas y/u Hongos</legend>");
-                        k = true;
                         while (r.next()) {
-                            if (k) {
-                                r.first();
-                                k = false;
-                            }
                             out.print("<div class='aH'>");
                                 out.print("<aside>");
                                     out.print("<img src='imgs/AH.png' alt='Alga / Hongo'/>");
@@ -436,6 +325,9 @@
                         }
                     out.print("</fieldset>");
                 }
+                r.close();
+                s.close();
+                c.close();
             } catch (Exception e) {
                 out.print("<script>alert('Lo sentimos, se produjo un ERROR... intentalo de NUEVO...');</script>");
                 out.print("<script>history.back();</script>");
@@ -443,8 +335,3 @@
         %>
     </body>
 </html>
-<%
-    r.close();
-    s.close();
-    c.close();
-%>

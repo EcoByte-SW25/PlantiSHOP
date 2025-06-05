@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="25dp"
     android:orientation="vertical"
+    android:background="@drawable/fondo4"
     tools:context=".MainActivity5">
 
     <RelativeLayout
@@ -46,22 +47,40 @@
         android:text="¡Hola! Soy Basil.IA, tu Asistente de Jardineria Personal\nDime... ¿En que te puedo Ayudar?"
         android:gravity="center"
         android:textSize="16sp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:fontFamily="sans-serif-medium"/>
     <EditText android:id="@+id/req"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:backgroundTint="@color/bone"
+        android:textColor="@color/bone"
+        android:textColorHint="@color/bone"
         android:inputType="textMultiLine"
         android:autofillHints="[A-Za-z0-9]"
         android:hint="Hazle una Solicitud a Basil.IA"/>
-    <Button android:id="@+id/send"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="ENVIAR Solicitud"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/lime"
-        android:fontFamily="sans-serif-black"/>
+        android:gravity="center">
+
+        <Button android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ENVIAR Solicitud"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/blue"
+            android:fontFamily="sans-serif-black"/>
+        <Button android:id="@+id/aIMG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/send"
+            android:layout_marginStart="5dp"
+            android:text="BUSCAR Plantación"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/lime"
+            android:fontFamily="sans-serif-black"/>
+
+    </RelativeLayout>
     <TextView android:id="@+id/res"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
