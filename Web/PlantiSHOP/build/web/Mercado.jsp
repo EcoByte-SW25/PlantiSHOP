@@ -11,7 +11,7 @@
 <%
     try {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Lector", "Abcd**12345");
+        c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Lector", "Abcd**12345");
         s = c.createStatement();
     } catch (Exception e) {
         out.print("<script>alert('Lo sentimos, se produjo un ERROR... intentalo de NUEVO...');</script>");
@@ -107,7 +107,7 @@
             <legend>Plantas Decorativas</legend>
             <%
                 try {
-                    r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='PD' ORDER BY Productos.Pop DESC");
+                    r = s.executeQuery("SELECT Producto.Img,Producto.Id,Producto.N,Producto.P,Producto.D,Usuario.N,Usuario.AP,Usuario.AM,Producto.Cupo FROM Producto INNER JOIN Usuario ON Producto.CE=Usuario.CE WHERE Producto.T='PD' AND Producto.Cupo>0 ORDER BY Producto.Pop DESC, Producto.Cupo DESC");
                     if (r.getFetchSize() > 0) {
                         while (r.next()) {
                             out.print("<div>");
@@ -121,6 +121,7 @@
                                     out.print("<p>"+r.getString(5)+"</p>");
                                     out.print("<br>");
                                     out.print("<h3>Vendedor: "+r.getString(6)+" "+r.getString(7)+" "+r.getString(8)+"</h3>");
+                                    out.print("<h3>Cupo: "+r.getInt(9)+"</h3>");
                                 out.print("</section>");
                             out.print("</div>");
                         }
@@ -137,7 +138,7 @@
             <legend>Plantas de Huerto</legend>
             <%
                 try {
-                    r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='PH' ORDER BY Productos.Pop DESC");
+                    r = s.executeQuery("SELECT Producto.Img,Producto.Id,Producto.N,Producto.P,Producto.D,Usuario.N,Usuario.AP,Usuario.AM,Producto.Cupo FROM Producto INNER JOIN Usuario ON Producto.CE=Usuario.CE WHERE Producto.T='PH' AND Producto.Cupo>0 ORDER BY Producto.Pop DESC, Producto.Cupo DESC");
                     if (r.getFetchSize() > 0) {
                         while (r.next()) {
                             out.print("<div>");
@@ -151,6 +152,7 @@
                                     out.print("<p>"+r.getString(5)+"</p>");
                                     out.print("<br>");
                                     out.print("<h3>Vendedor: "+r.getString(6)+" "+r.getString(7)+" "+r.getString(8)+"</h3>");
+                                    out.print("<h3>Cupo: "+r.getInt(9)+"</h3>");
                                 out.print("</section>");
                             out.print("</div>");
                         }
@@ -167,7 +169,7 @@
             <legend>Plantas Acuaticas</legend>
             <%
                 try {
-                    r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='PA' ORDER BY Productos.Pop DESC");
+                    r = s.executeQuery("SELECT Producto.Img,Producto.Id,Producto.N,Producto.P,Producto.D,Usuario.N,Usuario.AP,Usuario.AM,Producto.Cupo FROM Producto INNER JOIN Usuario ON Producto.CE=Usuario.CE WHERE Producto.T='PA' AND Producto.Cupo>0 ORDER BY Producto.Pop DESC, Producto.Cupo DESC");
                     if (r.getFetchSize() > 0) {
                         while (r.next()) {
                             out.print("<div>");
@@ -181,6 +183,7 @@
                                     out.print("<p>"+r.getString(5)+"</p>");
                                     out.print("<br>");
                                     out.print("<h3>Vendedor: "+r.getString(6)+" "+r.getString(7)+" "+r.getString(8)+"</h3>");
+                                    out.print("<h3>Cupo: "+r.getInt(9)+"</h3>");
                                 out.print("</section>");
                             out.print("</div>");
                         }
@@ -197,7 +200,7 @@
             <legend>Árboles</legend>
             <%
                 try {
-                    r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='A' ORDER BY Productos.Pop DESC");
+                    r = s.executeQuery("SELECT Producto.Img,Producto.Id,Producto.N,Producto.P,Producto.D,Usuario.N,Usuario.AP,Usuario.AM,Producto.Cupo FROM Producto INNER JOIN Usuario ON Producto.CE=Usuario.CE WHERE Producto.T='A' AND Producto.Cupo>0 ORDER BY Producto.Pop DESC, Producto.Cupo DESC");
                     if (r.getFetchSize() > 0) {
                         while (r.next()) {
                             out.print("<div>");
@@ -211,6 +214,7 @@
                                     out.print("<p>"+r.getString(5)+"</p>");
                                     out.print("<br>");
                                     out.print("<h3>Vendedor: "+r.getString(6)+" "+r.getString(7)+" "+r.getString(8)+"</h3>");
+                                    out.print("<h3>Cupo: "+r.getInt(9)+"</h3>");
                                 out.print("</section>");
                             out.print("</div>");
                         }
@@ -227,7 +231,7 @@
             <legend>Algas y Hongos</legend>
             <%
                 try {
-                    r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='AH' ORDER BY Productos.Pop DESC");
+                    r = s.executeQuery("SELECT Producto.Img,Producto.Id,Producto.N,Producto.P,Producto.D,Usuario.N,Usuario.AP,Usuario.AM,Producto.Cupo FROM Producto INNER JOIN Usuario ON Producto.CE=Usuario.CE WHERE Producto.T='AH' AND Producto.Cupo>0 ORDER BY Producto.Pop DESC, Producto.Cupo DESC");
                     if (r.getFetchSize() > 0) {
                         while (r.next()) {
                             out.print("<div>");
@@ -241,6 +245,7 @@
                                     out.print("<p>"+r.getString(5)+"</p>");
                                     out.print("<br>");
                                     out.print("<h3>Vendedor: "+r.getString(6)+" "+r.getString(7)+" "+r.getString(8)+"</h3>");
+                                    out.print("<h3>Cupo: "+r.getInt(9)+"</h3>");
                                 out.print("</section>");
                             out.print("</div>");
                         }
@@ -257,7 +262,7 @@
             <legend>Fertilizantes</legend>
             <%
                 try {
-                    r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='F' ORDER BY Productos.Pop DESC");
+                    r = s.executeQuery("SELECT Producto.Img,Producto.Id,Producto.N,Producto.P,Producto.D,Usuario.N,Usuario.AP,Usuario.AM,Producto.Cupo FROM Producto INNER JOIN Usuario ON Producto.CE=Usuario.CE WHERE Producto.T='F' AND Producto.Cupo>0 ORDER BY Producto.Pop DESC, Producto.Cupo DESC");
                     if (r.getFetchSize() > 0) {
                         while (r.next()) {
                             out.print("<div>");
@@ -271,6 +276,7 @@
                                     out.print("<p>"+r.getString(5)+"</p>");
                                     out.print("<br>");
                                     out.print("<h3>Vendedor: "+r.getString(6)+" "+r.getString(7)+" "+r.getString(8)+"</h3>");
+                                    out.print("<h3>Cupo: "+r.getInt(9)+"</h3>");
                                 out.print("</section>");
                             out.print("</div>");
                         }
@@ -287,7 +293,7 @@
             <legend>Herramientas</legend>
             <%
                 try {
-                    r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='H' ORDER BY Productos.Pop DESC");
+                    r = s.executeQuery("SELECT Producto.Img,Producto.Id,Producto.N,Producto.P,Producto.D,Usuario.N,Usuario.AP,Usuario.AM,Producto.Cupo FROM Producto INNER JOIN Usuario ON Producto.CE=Usuario.CE WHERE Producto.T='H' AND Producto.Cupo>0 ORDER BY Producto.Pop DESC, Producto.Cupo DESC");
                     if (r.getFetchSize() > 0) {
                         while (r.next()) {
                             out.print("<div>");
@@ -301,6 +307,7 @@
                                     out.print("<p>"+r.getString(5)+"</p>");
                                     out.print("<br>");
                                     out.print("<h3>Vendedor: "+r.getString(6)+" "+r.getString(7)+" "+r.getString(8)+"</h3>");
+                                    out.print("<h3>Cupo: "+r.getInt(9)+"</h3>");
                                 out.print("</section>");
                             out.print("</div>");
                         }

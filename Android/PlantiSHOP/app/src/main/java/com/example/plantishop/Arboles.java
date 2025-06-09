@@ -34,9 +34,9 @@ public class Arboles extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
+            c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
             s = c.createStatement();
-            r = s.executeQuery("SELECT Productos.Img,Productos.Id,Productos.N,Productos.P,Productos.D,Usuarios.N,Usuarios.AP,Usuarios.AM FROM Productos INNER JOIN Usuarios ON Productos.CE=Usuarios.CE WHERE Productos.T='A' ORDER BY Productos.Pop DESC LIMIT 50");
+            r = s.executeQuery("SELECT Producto.Img,Producto.Id,Producto.N,Producto.P,Producto.D,Usuario.N,Usuario.AP,Usuario.AM,Producto.Cupo FROM Producto INNER JOIN Usuario ON Producto.CE=Usuario.CE WHERE Producto.T='A' AND Producto.Cupo>0 ORDER BY Producto.Pop DESC,Producto.Cupo DESC LIMIT 50");
             list = container.findViewById(R.id.list);
             img = new ArrayList<>();
             id = new ArrayList<>();
@@ -48,16 +48,16 @@ public class Arboles extends Fragment {
                 id.add(r.getLong(2));
                 nP.add(r.getString(3));
                 p.add(r.getFloat(4));
-                d.add("Vendedor: " + r.getString(6) + " " + r.getString(7) + " " + r.getString(8) + (r.getString(5) == null ? "" : "\n"+r.getString(5)));
+                d.add("Vendedor: " + r.getString(6) + " " + r.getString(7) + " " + r.getString(8) + "\nCupo: " + r.getInt(9) + (r.getString(5) == null ? "" : ("\n"+r.getString(5))));
             }
             list.setAdapter(new XAdaptador(getActivity(), img, nP, p, d));
             list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long identifier) {
                     try {
-                        r = s.executeQuery("SELECT CE,N,D,P,Img FROM Productos WHERE Id="+id.get(position));
+                        r = s.executeQuery("SELECT CE,N,D,P,Img,Cupo FROM Producto WHERE Id="+id.get(position));
                         r.next();
-                        s.executeUpdate("INSERT INTO Compra(V,C,NP,DP,PP,ImgP,X) VALUES ('"+r.getString(1)+"','"+Cortes.sesion+"','"+r.getString(2)+"','"+r.getString(3)+"',"+r.getFloat(4)+",'"+r.getString(5)+"',1)");
+                        s.executeUpdate("INSERT INTO Compra(V,C,NP,DP,PP,ImgP,X,LP) VALUES ('"+r.getString(1)+"','"+Cortes.sesion+"','"+r.getString(2)+"','"+r.getString(3)+"',"+r.getFloat(4)+",'"+r.getString(5)+"',1,"+((r.getInt(6) < 100) ? r.getInt(6) : 0)+")");
                         s.execute("COMMIT");
                         Toast.makeText(getActivity(), "Producto COMPRADO", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {

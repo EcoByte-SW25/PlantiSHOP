@@ -19,9 +19,9 @@
 <%
     try {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
+        c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
         s = c.createStatement();
-        r = s.executeQuery("SELECT N,AP,AM,U FROM Usuarios WHERE CE='"+session.getAttribute("u")+"'");
+        r = s.executeQuery("SELECT N,AP,AM,U FROM Usuario WHERE CE='"+session.getAttribute("u")+"'");
         r.next();
         na = r.getString(1) + " " + r.getString(2) + " " + r.getString(3);
         h = new Hash();
@@ -130,7 +130,7 @@
                 });
                 <%
                     try {
-                        r = s.executeQuery("SELECT Compras.X FROM Compras INNER JOIN Usuarios ON Compras.V=Usuarios.CE WHERE Compras.C='"+session.getAttribute("u")+"' ORDER BY Compras.X DESC, Compras.Fh ASC");
+                        r = s.executeQuery("SELECT Compra.X FROM Compra INNER JOIN Usuario ON Compra.V=Usuario.CE WHERE Compra.C='"+session.getAttribute("u")+"' ORDER BY Compra.X DESC, Compra.Fh ASC");
                         i = 1L;
                         while (r.next()) {
                             if (r.getByte(1) == 1) {
@@ -150,7 +150,7 @@
         <h1>Pedidos de <%= na %></h1>
         <%
             try {
-                r = s.executeQuery("SELECT Compras.ImgP,Compras.NP,Compras.PP,Compras.DP,Usuarios.N,Usuarios.AP,Usuarios.AM,Compras.X,Compras.BMsg,Compras.Id FROM Compras INNER JOIN Usuarios ON Compras.V=Usuarios.CE WHERE Compras.C='"+session.getAttribute("u")+"' ORDER BY Compras.X DESC, Compras.Fh ASC");
+                r = s.executeQuery("SELECT Compra.ImgP,Compra.NP,Compra.PP,Compra.DP,Usuario.N,Usuario.AP,Usuario.AM,Compra.X,Compra.BMsg,Compra.Id,Compra.LP FROM Compra INNER JOIN Usuario ON Compra.V=Usuario.CE WHERE Compra.C='"+session.getAttribute("u")+"' ORDER BY Compra.X DESC, Compra.Fh ASC");
                 if (r.getFetchSize() > 0) {
                     i = 1L;
                     String minFH = LocalDateTime.now().plusDays(1L).format(DateTimeFormatter.ofPattern("uuuu-MM-ddTHH:mm"));
@@ -174,7 +174,7 @@
                                             out.print("<h2>Datos del Pedido</h2>");
                                             out.print("<div>");
                                                 out.print("<input name='x' type='hidden' value='B1'>");
-                                                out.print("<p>Número de Lotes a Comprar: <input name='n' type='number' min='1' max='100' step='1' onchange=\"document.getElementById('t"+i+"').value = Number.parseFloat(this.value) * "+r.getFloat(3)+"\" value='1' required></p>");
+                                                out.print("<p>Número de Lotes a Comprar: <input name='n' type='number' min='1' max='"+((r.getByte(11) == 0) ? 100 : r.getByte(11))+"' step='1' onchange=\"document.getElementById('t"+i+"').value = Number.parseFloat(this.value) * "+r.getFloat(3)+"\" value='1' required></p>");
                                                 out.print("<p>Precio Total: <input id='t"+i+"' name='pt' type='number' min='1' max='500000000' readonly value='"+r.getFloat(3)+"' required></p>");
                                             out.print("</div>");
                                             out.print("<div id='gMap"+i+"'></div>");
@@ -209,7 +209,7 @@
         <h1 id="tV">Ofertas de Venta</h1>
         <%
             try {
-                r = s.executeQuery("SELECT Compras.ImgP,Compras.NP,Compras.PP,Compras.DP,Usuarios.N,Usuarios.AP,Usuarios.AM,Compras.X,Compras.LP,Compras.TP,Compras.Fh,Compras.U,Compras.Id FROM Compras INNER JOIN Usuarios ON Compras.C=Usuarios.CE WHERE Compras.V='"+session.getAttribute("u")+"' AND Compras.X>1 AND Compras.X<4 ORDER BY Compras.X, Compras.Fh");
+                r = s.executeQuery("SELECT Compra.ImgP,Compra.NP,Compra.PP,Compra.DP,Usuario.N,Usuario.AP,Usuario.AM,Compra.X,Compra.LP,Compra.TP,Compra.Fh,Compra.U,Compra.Id FROM Compra INNER JOIN Usuario ON Compra.C=Usuario.CE WHERE Compra.V='"+session.getAttribute("u")+"' AND Compra.X>1 AND Compra.X<4 ORDER BY Compra.X, Compra.Fh");
                 if (r.getFetchSize() > 0) {
                     while (r.next()) {
                         out.print("<div class='vU'>");
@@ -239,7 +239,7 @@
                 } else {
                     out.print("<p>Sin Ofertas de Venta para TI...</p>");
                 }
-                r = s.executeQuery("SELECT * FROM Notificaciones WHERE V='"+session.getAttribute("u")+"'");
+                r = s.executeQuery("SELECT * FROM Notificacion WHERE V='"+session.getAttribute("u")+"'");
                 File f;
                 FileWriter w;
                 while (r.next()) {

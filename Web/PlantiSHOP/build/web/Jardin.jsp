@@ -12,9 +12,9 @@
 <%
     try {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Lector", "Abcd**12345");
+        c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Lector", "Abcd**12345");
         s = c.createStatement();
-        r = s.executeQuery("SELECT N,AP,AM FROM Usuarios WHERE CE='"+session.getAttribute("u")+"'");
+        r = s.executeQuery("SELECT N,AP,AM FROM Usuario WHERE CE='"+session.getAttribute("u")+"'");
         r.next();
         na = r.getString(1) + " " + r.getString(2) + " " + r.getString(3);
     } catch (Exception e) {
@@ -175,7 +175,7 @@
         <hr>
         <%
             try {
-                r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardines WHERE CE='"+session.getAttribute("u")+"' AND T='PD' ORDER BY P DESC");
+                r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardin WHERE CE='"+session.getAttribute("u")+"' AND T='PD' ORDER BY P DESC");
                 if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Tus Plantas Decorativas</legend>");
@@ -205,7 +205,7 @@
                         }
                     out.print("</fieldset>");
                 }
-                r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardines WHERE CE='"+session.getAttribute("u")+"' AND T='PH' ORDER BY P DESC");
+                r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardin WHERE CE='"+session.getAttribute("u")+"' AND T='PH' ORDER BY P DESC");
                 if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Tus Plantas de Huerto</legend>");
@@ -235,7 +235,7 @@
                         }
                     out.print("</fieldset>");
                 }
-                r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardines WHERE CE='"+session.getAttribute("u")+"' AND T='PA' ORDER BY P DESC");
+                r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardin WHERE CE='"+session.getAttribute("u")+"' AND T='PA' ORDER BY P DESC");
                 if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Tus Plantas Acuaticas</legend>");
@@ -265,7 +265,7 @@
                         }
                     out.print("</fieldset>");
                 }
-                r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardines WHERE CE='"+session.getAttribute("u")+"' AND T='A' ORDER BY P DESC");
+                r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardin WHERE CE='"+session.getAttribute("u")+"' AND T='A' ORDER BY P DESC");
                 if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Tus Árboles</legend>");
@@ -295,7 +295,7 @@
                         }
                     out.print("</fieldset>");
                 }
-                r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardines WHERE CE='"+session.getAttribute("u")+"' AND T='AH' ORDER BY P DESC");
+                r = s.executeQuery("SELECT Id,N,C,L,P FROM Jardin WHERE CE='"+session.getAttribute("u")+"' AND T='AH' ORDER BY P DESC");
                 if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Tus Algas y/u Hongos</legend>");

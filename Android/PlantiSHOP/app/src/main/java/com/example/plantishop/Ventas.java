@@ -40,31 +40,34 @@ public class Ventas extends Fragment {
     ListView list;
     Button bCUD;
     RadioButton rU, rD;
-    EditText n, txt, p;
+    EditText n, txt, p, cupo;
     Spinner t;
     ArrayList<Long> $id;
     ArrayList<Float> $p;
+    ArrayList<Integer> $c;
     ArrayList<String> $n, $txt, up;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
+            c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
             s = c.createStatement();
-            r = s.executeQuery("SELECT Id,N,D,P,Img FROM Productos WHERE CE='"+Cortes.sesion+"' ORDER BY Pop DESC LIMIT 50");
+            r = s.executeQuery("SELECT Id,N,Cupo,D,P,Img FROM Producto WHERE CE='"+Cortes.sesion+"' ORDER BY Pop DESC,Cupo ASC LIMIT 50");
             list = container.findViewById(R.id.list);
             $id = new ArrayList<>();
             $n = new ArrayList<>();
+            $c = new ArrayList<>();
             $txt = new ArrayList<>();
             $p = new ArrayList<>();
             up = new ArrayList<>();
             while (r.next()) {
                 $id.add(r.getLong(1));
                 $n.add(r.getString(2));
-                $txt.add(r.getString(3));
-                $p.add(r.getFloat(4));
-                up.add(r.getString(5));
+                $c.add(r.getInt(3));
+                $txt.add("Cantidad: " + r.getInt(3) + "\n" + r.getString(4));
+                $p.add(r.getFloat(5));
+                up.add(r.getString(6));
             }
             list.setAdapter(new XAdaptador(getActivity(), up, $n, $p, $txt));
             n = container.findViewById(R.id.n);
@@ -72,6 +75,7 @@ public class Ventas extends Fragment {
             t = container.findViewById(R.id.t);
             t.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_expandable_list_item_1, new String[]{"Planta Decorativa", "Planta de Huerto", "Planta Acuatica", "Arbol", "Alga u Hongo", "Fertilizante", "Herramienta"}));
             p = container.findViewById(R.id.p);
+            cupo = container.findViewById(R.id.cupo);
             rU = container.findViewById(R.id.rU);
             rD = container.findViewById(R.id.rD);
             bCUD = container.findViewById(R.id.bCUD);
@@ -91,29 +95,29 @@ public class Ventas extends Fragment {
                             }, (o) -> {
                                 if (o != null) {
                                     try {
-                                        r = s.executeQuery("SELECT Img FROM Productos WHERE Img='"+((Intent) o).getData().getLastPathSegment()+"'");
-                                        if (!r.next() && ((Intent) o).getData().getLastPathSegment() != null && !n.getText().toString().isEmpty() && Float.parseFloat(p.getText().toString()) >= 1f && Float.parseFloat(p.getText().toString()) <= 5000000f) {
+                                        r = s.executeQuery("SELECT Img FROM Producto WHERE Img='"+((Intent) o).getData().getLastPathSegment()+"'");
+                                        if (!r.next() && ((Intent) o).getData().getLastPathSegment() != null && !n.getText().toString().isEmpty() && Float.parseFloat(p.getText().toString()) >= 1f && Float.parseFloat(p.getText().toString()) <= 5000000f && Integer.parseInt(cupo.getText().toString()) > 0 && Integer.parseInt(cupo.getText().toString()) < 1000001) {
                                             switch (t.getSelectedItemPosition()) {
                                                 case 0: {
-                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'PD',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"')");
+                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img,Cupo) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'PD',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"',"+cupo.getText()+")");
                                                 } break;
                                                 case 1: {
-                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'PH',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"')");
+                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img,Cupo) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'PH',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"',"+cupo.getText()+")");
                                                 } break;
                                                 case 2: {
-                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'PA',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"')");
+                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img,Cupo) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'PA',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"',"+cupo.getText()+")");
                                                 } break;
                                                 case 3: {
-                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'A',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"')");
+                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img,Cupo) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'A',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"',"+cupo.getText()+")");
                                                 } break;
                                                 case 4: {
-                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'AH',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"')");
+                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img,Cupo) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'AH',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"',"+cupo.getText()+")");
                                                 } break;
                                                 case 5: {
-                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'F',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"')");
+                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img,Cupo) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'F',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"',"+cupo.getText()+")");
                                                 } break;
                                                 case 6: {
-                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'H',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"')");
+                                                    s.executeUpdate("INSERT INTO Producto(CE,N,D,T,P,Img,Cupo) VALUES ('"+Cortes.sesion+"','"+n.getText()+"',"+(txt.getText().toString().isEmpty() ? null : ("'"+txt.getText()+"'"))+",'H',"+p.getText()+",'"+((Intent) o).getData().getLastPathSegment()+"',"+cupo.getText()+")");
                                                 } break;
                                             }
                                             s.execute("COMMIT");
@@ -131,8 +135,8 @@ public class Ventas extends Fragment {
                             }).launch(null);
                         } break;
                         case "ACTUALIZAR": {
-                            if (!n.getText().toString().isEmpty() && Float.parseFloat(p.getText().toString()) >= 1f && Float.parseFloat(p.getText().toString()) <= 1000000f) {
-                                s.executeUpdate("UPDATE Producto SET N='"+n.getText()+"',D="+(txt.getText().toString().isEmpty() ? null : "'"+txt.getText()+"'")+",P="+p.getText()+" WHERE Id="+id);
+                            if (!n.getText().toString().isEmpty() && Float.parseFloat(p.getText().toString()) >= 1f && Float.parseFloat(p.getText().toString()) <= 1000000f && Integer.parseInt(cupo.getText().toString()) > 0 && Integer.parseInt(cupo.getText().toString()) < 1000001) {
+                                s.executeUpdate("UPDATE Producto SET N='"+n.getText()+"',D="+(txt.getText().toString().isEmpty() ? null : "'"+txt.getText()+"'")+",P="+p.getText()+",Cupo="+cupo.getText()+" WHERE Id="+id);
                                 s.execute("COMMIT");
                                 Toast.makeText(getActivity(), "Producto correctamente ACTUALIZADO", Toast.LENGTH_SHORT).show();
                                 getParentFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment(R.layout.fragment_perfil)).commit();
@@ -143,7 +147,7 @@ public class Ventas extends Fragment {
                         case "ELIMINAR": {
                             s.executeUpdate("DELETE FROM Producto WHERE Id="+id);
                             s.execute("COMMIT");
-                            r = s.executeQuery("SELECT Img FROM Productos WHERE Id="+id);
+                            r = s.executeQuery("SELECT Img FROM Producto WHERE Id="+id);
                             r.next();
                             Files.delete((new File(".", r.getString(1))).toPath());
                             Toast.makeText(getActivity(), "Producto correctamente ELIMINADO", Toast.LENGTH_SHORT).show();
@@ -165,6 +169,7 @@ public class Ventas extends Fragment {
                         n.setText($n.get(position));
                         txt.setText($txt.get(position));
                         p.setText(String.valueOf($p.get(position).floatValue()));
+                        cupo.setText(String.valueOf($c.get(position).intValue()));
                     } else if (rD.isSelected()) {
                         bCUD.setText("ELIMINAR");
                         bCUD.setTextColor(getResources().getColor(R.color.white, null));

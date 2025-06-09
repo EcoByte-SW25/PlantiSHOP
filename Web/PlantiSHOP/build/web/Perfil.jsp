@@ -13,9 +13,9 @@
 <%
     try {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Lector", "Abcd**12345");
+        c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Lector", "Abcd**12345");
         s = c.createStatement();
-        r = s.executeQuery("SELECT N,AP,AM,U FROM Usuarios WHERE CE='"+session.getAttribute("u")+"'");
+        r = s.executeQuery("SELECT N,AP,AM,U FROM Usuario WHERE CE='"+session.getAttribute("u")+"'");
         r.next();
         n = r.getString(1);
         a = r.getString(2) + " " + r.getString(3);

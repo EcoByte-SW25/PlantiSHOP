@@ -34,7 +34,7 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
+            c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
             s = c.createStatement();
         } catch (Exception e) {
             Toast.makeText(this, "Lo sentimos, ha ocurrido un ERROR... intentalo de NUEVO", Toast.LENGTH_SHORT).show();
@@ -58,7 +58,7 @@ public class MainActivity2 extends AppCompatActivity {
         bC = findViewById(R.id.C);
         bC.setOnClickListener((v) -> {
             try {
-                ResultSet r = s.executeQuery("SELECT CE FROM Usuarios WHERE CE='"+ce.getText()+"'");
+                ResultSet r = s.executeQuery("SELECT CE FROM Usuario WHERE CE='"+ce.getText()+"'");
                 if (ce.getText().toString().contains("@") && !r.next() && c1.getText().toString().length() > 11 && c2.getText().toString().length() > 11 && !n.getText().toString().isEmpty() && !ap.getText().toString().isEmpty() && !am.getText().toString().isEmpty() && !u.isEmpty()) {
                     r.close();
                     Hash h = new Hash();

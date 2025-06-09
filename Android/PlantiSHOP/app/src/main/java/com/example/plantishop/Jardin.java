@@ -45,9 +45,9 @@ public class Jardin extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
+            c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
             s = c.createStatement();
-            ResultSet r = s.executeQuery("SELECT Id,N,T,C,L,P FROM Jardines WHERE CE='"+Cortes.sesion+"' ORDER BY P DESC LIMIT 50");
+            ResultSet r = s.executeQuery("SELECT Id,N,T,C,L,P FROM Jardin WHERE CE='"+Cortes.sesion+"' ORDER BY P DESC LIMIT 50");
             list = container.findViewById(R.id.list);
             $id = new ArrayList<>();
             $n = new ArrayList<>();
@@ -84,7 +84,7 @@ public class Jardin extends Fragment {
                 try {
                     switch (bCUD.getText().toString()) {
                         case "REGISTRAR": {
-                            ResultSet rs = s.executeQuery("SELECT Id FROM Jardines WHERE CE='"+Cortes.sesion+"' AND N='"+n.getText()+"'");
+                            ResultSet rs = s.executeQuery("SELECT Id FROM Jardin WHERE CE='"+Cortes.sesion+"' AND N='"+n.getText()+"'");
                             if (!rs.next() && !n.getText().toString().isEmpty() && t.getSelectedItemPosition() >= 0 && Float.parseFloat(l.getText().toString()) >= 0 && Float.parseFloat(l.getText().toString()) <= 100f && Byte.parseByte(p.getText().toString()) > 0 && Byte.parseByte(p.getText().toString()) < 11) {
                                 switch (t.getSelectedItemPosition()) {
                                     case 0: {

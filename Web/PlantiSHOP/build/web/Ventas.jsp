@@ -16,9 +16,9 @@
             session.removeAttribute("msg");
         }
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Lector", "Abcd**12345");
+        c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Lector", "Abcd**12345");
         s = c.createStatement();
-        r = s.executeQuery("SELECT N,AP,AM FROM Usuarios WHERE CE='"+session.getAttribute("u")+"'");
+        r = s.executeQuery("SELECT N,AP,AM FROM Usuario WHERE CE='"+session.getAttribute("u")+"'");
         r.next();
         na = r.getString(1) + " " + r.getString(2) + " " + r.getString(3);
     } catch (Exception e) {
@@ -151,7 +151,7 @@
         <hr>
         <form action="UpVentas" method="post" enctype="multipart/form-data">
             <input name="x" type="hidden" value="true">
-            <h2>Registro de Productos en el Sistema</h2>
+            <h2>Registro de Producto en el Sistema</h2>
             <label for="i1">Nombre del Producto:</label>
             <input id="i1" name="n" type="text" pattern="[A-Za-z0-9\s]+" maxlength="80" required>
             <label for="i2">Descripción del Producto:</label>
@@ -170,14 +170,16 @@
             </select>
             <label for="i4">Precio del Producto:</label>
             <input id="i4" name="p" type="number" min="1" max="5000000" required>
-            <label for="i5">Imagen del Producto:</label>
-            <input id="i5" name="i" type="file" accept="image/*" required>
+            <label for="i5">Cantidad del Producto:</label>
+            <input id="i5" name="c" type="number" min="1" max="1000000" step="1" required>
+            <label for="i6">Imagen del Producto:</label>
+            <input id="i6" name="i" type="file" accept="image/*" required>
             <input id="sm" type="submit" value="REGISTRAR">
         </form>
         <hr>
         <%
             try {
-                r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='PD' ORDER BY Pop DESC");
+                r = s.executeQuery("SELECT Img,Id,N,P,D,Cupo FROM Producto WHERE CE='"+session.getAttribute("u")+"' AND T='PD' ORDER BY Pop DESC, Cupo ASC");
                 if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Plantas Decorativas</legend>");
@@ -202,12 +204,16 @@
                                         out.print("<textarea name='txt' pattern='[A-Za-z0-9\\s]+' maxlength='800' value='"+r.getString(5)+"'></textarea>");
                                         out.print("<input class='u' type='submit' value='CAMBIAR esta Descripción'>");
                                     out.print("</form>");
+                                    out.print("<form action='Interfaz.jsp' method='post'>");
+                                        out.print("<input name='x' type='hidden' value='Ucv'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
+                                        out.print("<p>Cantidad: <input name='c' type='number' min='1' max='1000000' step='1' value='"+r.getInt(6)+"' required><input class='u' type='submit' value='CAMBIAR'></p>");
+                                    out.print("</form>");
                                 out.print("</section>");
                             out.print("</div>");
                         }
                     out.print("</fieldset>");
                 }
-                r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='PH' ORDER BY Pop DESC");
+                r = s.executeQuery("SELECT Img,Id,N,P,D,Cupo FROM Producto WHERE CE='"+session.getAttribute("u")+"' AND T='PH' ORDER BY Pop DESC, Cupo ASC");
                 if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Plantas de Huerto</legend>");
@@ -232,12 +238,16 @@
                                         out.print("<textarea name='txt' pattern='[A-Za-z0-9\\s]+' maxlength='800' value='"+r.getString(5)+"'></textarea>");
                                         out.print("<input class='u' type='submit' value='CAMBIAR esta Descripción'>");
                                     out.print("</form>");
+                                    out.print("<form action='Interfaz.jsp' method='post'>");
+                                        out.print("<input name='x' type='hidden' value='Ucv'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
+                                        out.print("<p>Cantidad: <input name='c' type='number' min='1' max='1000000' step='1' value='"+r.getInt(6)+"' required><input class='u' type='submit' value='CAMBIAR'></p>");
+                                    out.print("</form>");
                                 out.print("</section>");
                             out.print("</div>");
                         }
                     out.print("</fieldset>");
                 }
-                r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='PA' ORDER BY Pop DESC");
+                r = s.executeQuery("SELECT Img,Id,N,P,D,Cupo FROM Producto WHERE CE='"+session.getAttribute("u")+"' AND T='PA' ORDER BY Pop DESC, Cupo ASC");
                 if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Plantas Acuaticas</legend>");
@@ -262,12 +272,16 @@
                                         out.print("<textarea name='txt' pattern='[A-Za-z0-9\\s]+' maxlength='800' value='"+r.getString(5)+"'></textarea>");
                                         out.print("<input class='u' type='submit' value='CAMBIAR esta Descripción'>");
                                     out.print("</form>");
+                                    out.print("<form action='Interfaz.jsp' method='post'>");
+                                        out.print("<input name='x' type='hidden' value='Ucv'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
+                                        out.print("<p>Cantidad: <input name='c' type='number' min='1' max='1000000' step='1' value='"+r.getInt(6)+"' required><input class='u' type='submit' value='CAMBIAR'></p>");
+                                    out.print("</form>");
                                 out.print("</section>");
                             out.print("</div>");
                         }
                     out.print("</fieldset>");
                 }
-                r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='A' ORDER BY Pop DESC");
+                r = s.executeQuery("SELECT Img,Id,N,P,D,Cupo FROM Producto WHERE CE='"+session.getAttribute("u")+"' AND T='A' ORDER BY Pop DESC, Cupo ASC");
                 if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Árboles</legend>");
@@ -292,12 +306,16 @@
                                         out.print("<textarea name='txt' pattern='[A-Za-z0-9\\s]+' maxlength='800' value='"+r.getString(5)+"'></textarea>");
                                         out.print("<input class='u' type='submit' value='CAMBIAR esta Descripción'>");
                                     out.print("</form>");
+                                    out.print("<form action='Interfaz.jsp' method='post'>");
+                                        out.print("<input name='x' type='hidden' value='Ucv'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
+                                        out.print("<p>Cantidad: <input name='c' type='number' min='1' max='1000000' step='1' value='"+r.getInt(6)+"' required><input class='u' type='submit' value='CAMBIAR'></p>");
+                                    out.print("</form>");
                                 out.print("</section>");
                             out.print("</div>");
                         }
                     out.print("</fieldset>");
                 }
-                r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='AH' ORDER BY Pop DESC");
+                r = s.executeQuery("SELECT Img,Id,N,P,D,Cupo FROM Producto WHERE CE='"+session.getAttribute("u")+"' AND T='AH' ORDER BY Pop DESC, Cupo ASC");
                 if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Algas y/u Hongos</legend>");
@@ -322,12 +340,16 @@
                                         out.print("<textarea name='txt' pattern='[A-Za-z0-9\\s]+' maxlength='800' value='"+r.getString(5)+"'></textarea>");
                                         out.print("<input class='u' type='submit' value='CAMBIAR esta Descripción'>");
                                     out.print("</form>");
+                                    out.print("<form action='Interfaz.jsp' method='post'>");
+                                        out.print("<input name='x' type='hidden' value='Ucv'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
+                                        out.print("<p>Cantidad: <input name='c' type='number' min='1' max='1000000' step='1' value='"+r.getInt(6)+"' required><input class='u' type='submit' value='CAMBIAR'></p>");
+                                    out.print("</form>");
                                 out.print("</section>");
                             out.print("</div>");
                         }
                     out.print("</fieldset>");
                 }
-                r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='F' ORDER BY Pop DESC");
+                r = s.executeQuery("SELECT Img,Id,N,P,D,Cupo FROM Producto WHERE CE='"+session.getAttribute("u")+"' AND T='F' ORDER BY Pop DESC, Cupo ASC");
                 if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Fertilizantes</legend>");
@@ -352,12 +374,16 @@
                                         out.print("<textarea name='txt' pattern='[A-Za-z0-9\\s]+' maxlength='800' value='"+r.getString(5)+"'></textarea>");
                                         out.print("<input class='u' type='submit' value='CAMBIAR esta Descripción'>");
                                     out.print("</form>");
+                                    out.print("<form action='Interfaz.jsp' method='post'>");
+                                        out.print("<input name='x' type='hidden' value='Ucv'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
+                                        out.print("<p>Cantidad: <input name='c' type='number' min='1' max='1000000' step='1' value='"+r.getInt(6)+"' required><input class='u' type='submit' value='CAMBIAR'></p>");
+                                    out.print("</form>");
                                 out.print("</section>");
                             out.print("</div>");
                         }
                     out.print("</fieldset>");
                 }
-                r = s.executeQuery("SELECT Img,Id,N,P,D FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND T='H' ORDER BY Pop DESC");
+                r = s.executeQuery("SELECT Img,Id,N,P,D,Cupo FROM Producto WHERE CE='"+session.getAttribute("u")+"' AND T='H' ORDER BY Pop DESC, Cupo ASC");
                 if (r.getFetchSize() > 0) {
                     out.print("<fieldset>");
                         out.print("<legend>Herramientas</legend>");
@@ -381,6 +407,10 @@
                                         out.print("<input name='x' type='hidden' value='Utxtv'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
                                         out.print("<textarea name='txt' pattern='[A-Za-z0-9\\s]+' maxlength='800' value='"+r.getString(5)+"'></textarea>");
                                         out.print("<input class='u' type='submit' value='CAMBIAR esta Descripción'>");
+                                    out.print("</form>");
+                                    out.print("<form action='Interfaz.jsp' method='post'>");
+                                        out.print("<input name='x' type='hidden' value='Ucv'><input name='id' type='hidden' value='"+r.getLong(2)+"'>");
+                                        out.print("<p>Cantidad: <input name='c' type='number' min='1' max='1000000' step='1' value='"+r.getInt(6)+"' required><input class='u' type='submit' value='CAMBIAR'></p>");
                                     out.print("</form>");
                                 out.print("</section>");
                             out.print("</div>");

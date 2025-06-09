@@ -11,7 +11,7 @@
 <%
     try {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Lector", "Abcd**12345");
+        c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Lector", "Abcd**12345");
         s = c.createStatement();
     } catch (Exception e) {
         out.print("<script>alert('Lo sentimos, se produjo un ERROR... intentalo de NUEVO...');</script>");
@@ -100,12 +100,13 @@
                 <th>Fin del Veto para el CV</th>
                 <th>Premium</th>
                 <th>Fin de la Suscripción Premium</th>
+                <th>Nuevos Ingresos</th>
             </tr>
             <%
                 try {
-                    r = s.executeQuery("SELECT * FROM Usuarios");
+                    r = s.executeQuery("SELECT * FROM Usuario");
                     while (r.next()) {
-                        out.print("<tr><td><button class='u' onclick=\"location.assign('Admin.jsp?ud=true&w=true&x=true&id="+r.getString(1)+"')\">MODIFICAR</button><button class='d' onclick=\"location.assign('Admin.jsp?ud=false&t=Usuario&i=CE&id="+r.getString(1)+"&sn=true')\">ELIMINAR</button></td><td>"+r.getString(1)+"</td><td>"+r.getString(2)+"</td><td>"+r.getString(3)+"</td><td>"+r.getString(4)+"</td><td>"+r.getString(5)+"</td><td>"+r.getString(6)+"</td><td>"+r.getString(7)+"</td><td>"+r.getString(8)+"</td><td>"+r.getString(9)+"</td><td>"+r.getString(10)+"</td><td>"+r.getString(11)+"</td><td>"+r.getString(12)+"</td><td>"+r.getString(13)+"</td><td>"+r.getString(14)+"</td></tr>");
+                        out.print("<tr><td><button class='u' onclick=\"location.assign('Admin.jsp?ud=true&w=true&x=true&id="+r.getString(1)+"')\">MODIFICAR</button><button class='d' onclick=\"location.assign('Admin.jsp?ud=false&t=Usuario&i=CE&id="+r.getString(1)+"&sn=true')\">ELIMINAR</button></td><td>"+r.getString(1)+"</td><td>"+r.getString(2)+"</td><td>"+r.getString(3)+"</td><td>"+r.getString(4)+"</td><td>"+r.getString(5)+"</td><td>"+r.getString(6)+"</td><td>"+r.getString(7)+"</td><td>"+r.getString(8)+"</td><td>"+r.getString(9)+"</td><td>"+r.getString(10)+"</td><td>"+r.getString(11)+"</td><td>"+r.getString(12)+"</td><td>"+r.getString(13)+"</td><td>"+r.getString(14)+"</td><td>"+r.getString(15)+"</td></tr>");
                     }
                 } catch (Exception e) {
                     out.print("<script>alert('Lo sentimos, se produjo un ERROR... intentalo de NUEVO...');</script>");
@@ -121,13 +122,14 @@
                 <th>Nombre de la Plantación</th>
                 <th>Tipo de Plantación</th>
                 <th>Consideraciones</th>
+                <th>Porcentaje de Luz</th>
                 <th>Nivel de Prioridad</th>
             </tr>
             <%
                 try {
-                    r = s.executeQuery("SELECT * FROM Jardines");
+                    r = s.executeQuery("SELECT * FROM Jardin");
                     while (r.next()) {
-                        out.print("<tr><td><button class='d' onclick=\"location.assign('Admin.jsp?ud=false&t=Jardin&i=Id&id="+r.getString(1)+"&sn=false')\">ELIMINAR</button></td><td>"+r.getString(1)+"</td><td>"+r.getString(2)+"</td><td>"+r.getString(3)+"</td><td>"+r.getString(4)+"</td><td>"+r.getString(5)+"</td><td>"+r.getString(6)+"</td></tr>");
+                        out.print("<tr><td><button class='d' onclick=\"location.assign('Admin.jsp?ud=false&t=Jardin&i=Id&id="+r.getString(1)+"&sn=false')\">ELIMINAR</button></td><td>"+r.getString(1)+"</td><td>"+r.getString(2)+"</td><td>"+r.getString(3)+"</td><td>"+r.getString(4)+"</td><td>"+r.getString(5)+"</td><td>"+r.getString(6)+"</td><td>"+r.getString(7)+"</td></tr>");
                     }
                 } catch (Exception e) {
                     out.print("<script>alert('Lo sentimos, se produjo un ERROR... intentalo de NUEVO...');</script>");
@@ -146,12 +148,13 @@
                 <th>Precio</th>
                 <th>Imagen</th>
                 <th>Popularidad del Producto</th>
+                <th>Cantidad del Producto</th>
             </tr>
             <%
                 try {
-                    r = s.executeQuery("SELECT * FROM Productos");
+                    r = s.executeQuery("SELECT * FROM Producto");
                     while (r.next()) {
-                        out.print("<tr><td><button class='u' onclick=\"location.assign('Admin.jsp?ud=true&w=true&x=false&id="+r.getString(1)+"')\">MODIFICAR</button><button class='d' onclick=\"location.assign('Admin.jsp?ud=false&t=Producto&i=Id&id="+r.getString(1)+"&sn=false')\">ELIMINAR</button></td><td>"+r.getString(1)+"</td><td>"+r.getString(2)+"</td><td>"+r.getString(3)+"</td><td>"+r.getString(4)+"</td><td>"+r.getString(5)+"</td><td>"+r.getString(6)+"</td><td><img src='../../imgs/prods/"+r.getString(7)+"' alt='"+r.getString(7)+"'/></td><td>"+r.getString(8)+"</td></tr>");
+                        out.print("<tr><td><button class='u' onclick=\"location.assign('Admin.jsp?ud=true&w=true&x=false&id="+r.getString(1)+"')\">MODIFICAR</button><button class='d' onclick=\"location.assign('Admin.jsp?ud=false&t=Producto&i=Id&id="+r.getString(1)+"&sn=false')\">ELIMINAR</button></td><td>"+r.getString(1)+"</td><td>"+r.getString(2)+"</td><td>"+r.getString(3)+"</td><td>"+r.getString(4)+"</td><td>"+r.getString(5)+"</td><td>"+r.getString(6)+"</td><td><img src='../../imgs/prods/"+r.getString(7)+"' alt='"+r.getString(7)+"'/></td><td>"+r.getString(8)+"</td><td>"+r.getString(9)+"</td></tr>");
                     }
                 } catch (Exception e) {
                     out.print("<script>alert('Lo sentimos, se produjo un ERROR... intentalo de NUEVO...');</script>");
@@ -178,7 +181,7 @@
             </tr>
             <%
                 try {
-                    r = s.executeQuery("SELECT * FROM Compras");
+                    r = s.executeQuery("SELECT * FROM Compra");
                     while (r.next()) {
                         out.print("<tr><td><button class='d' onclick=\"location.assign('Admin.jsp?ud=false&t=Compra&i=Id&id="+r.getString(1)+"&sn=false')\">ELIMINAR</button></td><td>"+r.getString(1)+"</td><td>"+r.getString(2)+"</td><td>"+r.getString(3)+"</td><td>"+r.getString(4)+"</td><td>"+r.getString(5)+"</td><td>"+r.getString(6)+"</td><td><img src='../../imgs/prods/"+r.getString(7)+"' alt='"+r.getString(7)+"'/></td><td>"+r.getString(8)+"</td><td>"+r.getString(9)+"</td><td>"+r.getString(10)+"</td><td>"+r.getString(11)+"</td><td>"+r.getString(12)+"</td><td>"+r.getString(13)+"</td></tr>");
                     }
@@ -205,7 +208,7 @@
             </tr>
             <%
                 try {
-                    r = s.executeQuery("SELECT * FROM Notificaciones");
+                    r = s.executeQuery("SELECT * FROM Notificacion");
                     while (r.next()) {
                         out.print("<tr><td><button class='d' onclick=\"location.assign('Admin.jsp?ud=false&t=Notificacion&i=Id&id="+r.getString(1)+"&sn=false')\">ELIMINAR</button></td><td>"+r.getString(1)+"</td><td>"+r.getString(2)+"</td><td>"+r.getString(3)+"</td><td>"+r.getString(4)+"</td><td>"+r.getString(5)+"</td><td>"+r.getString(6)+"</td><td>"+r.getString(7)+"</td><td>"+r.getString(8)+"</td><td>"+r.getString(9)+"</td><td>"+r.getString(10)+"</td><td>"+r.getString(11)+"</td></tr>");
                     }

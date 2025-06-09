@@ -17,15 +17,15 @@
 <%
     try {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
+        c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
         s = c.createStatement();
-        r = s.executeQuery("SELECT P FROM Usuarios WHERE CE='"+session.getAttribute("u")+"'");
+        r = s.executeQuery("SELECT P FROM Usuario WHERE CE='"+session.getAttribute("u")+"'");
         r.next();
         if (!r.getBoolean(1)) {
             out.print("<script>alert('Lo sentimos, NO eres un Usuario PREMIUM... por lo que NO puedes hacer uso de este APARTADO...');</script>");
             out.print("<script>location.assign('../index.html');</script>");
         } else {
-            r = s.executeQuery("SELECT TP FROM Compras WHERE V='"+session.getAttribute("u")+"' AND X=4 ORDER BY TP");
+            r = s.executeQuery("SELECT TP FROM Compra WHERE V='"+session.getAttribute("u")+"' AND X=4 ORDER BY TP");
             double x, dt, md;
             x_md = x = md = g_h = vt = i = sp = 0;
             dt = 1d;
@@ -64,7 +64,7 @@
                     g_h = r.getFetchSize() / g_h;
                 }
             }
-            r = s.executeQuery("SELECT N,Pop FROM Productos WHERE CE='"+session.getAttribute("u")+"' AND Pop>0 ORDER BY Pop DESC");
+            r = s.executeQuery("SELECT N,Pop FROM Producto WHERE CE='"+session.getAttribute("u")+"' AND Pop>0 ORDER BY Pop DESC");
             mo = "<li>NINGUNO</li>";
             lDP = "\"Sin DATOS\"";
             vDP = "0";
@@ -94,7 +94,7 @@
             }
             xVM = yVM = xIAlT = yIAlT = "";
             for (byte m = 6; m > 0; m--) {
-                r = s.executeQuery("SELECT TP FROM Compras WHERE V='"+session.getAttribute("u")+"' AND X=4 AND Fh>='"+LocalDate.now().minusMonths(m).withDayOfMonth(1)+" 00:00:00' AND Fh<'"+LocalDate.now().minusMonths(m - 1).withDayOfMonth(1)+" 00:00:00'");
+                r = s.executeQuery("SELECT TP FROM Compra WHERE V='"+session.getAttribute("u")+"' AND X=4 AND Fh>='"+LocalDate.now().minusMonths(m).withDayOfMonth(1)+" 00:00:00' AND Fh<'"+LocalDate.now().minusMonths(m - 1).withDayOfMonth(1)+" 00:00:00'");
                 if (r.getFetchSize() > 0) {
                     x = 0;
                     while (r.next()) {
@@ -110,7 +110,7 @@
             yVM = yVM.substring(0, (yVM.length() - 2));
             x = 0;
             for (byte sm = 16; sm > 0; sm--) {
-                r = s.executeQuery("SELECT TP FROM Compras WHERE V='"+session.getAttribute("u")+"' AND X=4 AND Fh>='"+LocalDate.now().minusWeeks(sm)+" 00:00:00' AND Fh<'"+LocalDate.now().minusWeeks(sm - 1)+" 00:00:00'");
+                r = s.executeQuery("SELECT TP FROM Compra WHERE V='"+session.getAttribute("u")+"' AND X=4 AND Fh>='"+LocalDate.now().minusWeeks(sm)+" 00:00:00' AND Fh<'"+LocalDate.now().minusWeeks(sm - 1)+" 00:00:00'");
                 while (r.next()) {
                     x += r.getDouble(1);
                 }
@@ -119,7 +119,7 @@
             }
             xIAlT = xIAlT.substring(0, (xIAlT.length() - 2));
             yIAlT = yIAlT.substring(0, (yIAlT.length() - 2));
-            r = s.executeQuery("SELECT TP FROM Compras WHERE X=4 ORDER BY TP");
+            r = s.executeQuery("SELECT TP FROM Compra WHERE X=4 ORDER BY TP");
             x_mdG = x = md = g_hG = vtG = spG = 0;
             dt = 1d;
             cvG = true;
@@ -157,7 +157,7 @@
                     g_hG = r.getFetchSize() / g_hG;
                 }
             }
-            r = s.executeQuery("SELECT N,Pop FROM Productos WHERE Pop>0 ORDER BY Pop DESC");
+            r = s.executeQuery("SELECT N,Pop FROM Producto WHERE Pop>0 ORDER BY Pop DESC");
             moG = "<li>NINGUNO</li>";
             if (r.getFetchSize() > 0) {
                 moG = "";
@@ -176,7 +176,7 @@
                     spG = (3d * (x - md)) / dt;
                 }
             }
-            r = s.executeQuery("SELECT A FROM Usuarios WHERE CE='"+session.getAttribute("u")+"'");
+            r = s.executeQuery("SELECT A FROM Usuario WHERE CE='"+session.getAttribute("u")+"'");
             r.next();
             i = vt - r.getDouble(1);
             s.executeUpdate("UPDATE Usuario SET A="+vt+" WHERE CE='"+session.getAttribute("u")+"'");

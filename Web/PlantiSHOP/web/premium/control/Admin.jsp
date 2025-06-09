@@ -13,7 +13,7 @@
 <%
     try {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Admin", "EcoByte.PlantiSHOP--IPN*Cecyt9/6im9*9++NIctJW.FWY");
+        c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Admin", "EcoByte.PlantiSHOP--IPN*Cecyt9/6im9*9++NIctJW.FWY");
         s = c.createStatement();
     } catch (Exception e) {
         out.print("<script>alert('Lo sentimos, se produjo un ERROR... intentalo de NUEVO...');</script>");
@@ -125,7 +125,7 @@
                 if (Boolean.parseBoolean(request.getParameter("ud"))) {
                     if (Boolean.parseBoolean(request.getParameter("w"))) {
                         if (Boolean.parseBoolean(request.getParameter("x"))) {
-                            r = s.executeQuery("SELECT N,AP,AM,I1,FhN1,I2,FhN2,P,FfS FROM Usuarios WHERE CE='"+request.getParameter("id")+"'");
+                            r = s.executeQuery("SELECT N,AP,AM,I1,FhN1,I2,FhN2,P,FfS FROM Usuario WHERE CE='"+request.getParameter("id")+"'");
                             r.next();
                             out.print("<form action='Admin.jsp' method='post'>");
                                 out.print("<h1>Usuario ("+request.getParameter("id")+")</h1>");
@@ -157,7 +157,7 @@
                                 out.print("<p><input id='rs' type='reset' value='RESETEAR'><input id='sm' type='submit' value='CAMBIAR'></p>");
                             out.print("</form>");
                         } else {
-                            r = s.executeQuery("SELECT N,D,T,P FROM Productos WHERE Id="+request.getParameter("id"));
+                            r = s.executeQuery("SELECT N,D,T,P FROM Producto WHERE Id="+request.getParameter("id"));
                             r.next();
                             out.print("<form action='Admin.jsp' method='post'>");
                                 out.print("<h1>Producto ("+request.getParameter("id")+")</h1>");
@@ -204,7 +204,7 @@
                     s.executeUpdate("DELETE FROM "+request.getParameter("t")+" WHERE "+request.getParameter("i")+"="+(Boolean.parseBoolean(request.getParameter("sn")) ? "'"+request.getParameter("id")+"'" : request.getParameter("id")));
                     s.execute("COMMIT");
                     if (request.getParameter("t").equals("Producto")) {
-                        r = s.executeQuery("SELECT Img FROM Productos WHERE Id="+request.getParameter("id"));
+                        r = s.executeQuery("SELECT Img FROM Producto WHERE Id="+request.getParameter("id"));
                         r.next();
                         (new File("imgs\\prods\\"+r.getString(1))).delete();
                         r.close();

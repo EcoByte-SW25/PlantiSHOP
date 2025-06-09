@@ -50,6 +50,7 @@ public class Mensajeria extends Fragment {
     private ResultSet r;
     private long id;
     private float $pP;
+    private Byte limLP;
     private Hash h;
     private File fT;
     ListView ps, ss;
@@ -60,7 +61,7 @@ public class Mensajeria extends Fragment {
     Button b1;
     RadioButton ac, rc, cf, cn;
     private ArrayList<Long> id1, id2;
-    private ArrayList<Byte> x, lP;
+    private ArrayList<Byte> x, lP, limL;
     private ArrayList<Float> pP, tP;
     private ArrayList<Boolean> bMsg;
     private ArrayList<String> imgP, nP, dP, vc, fh, u;
@@ -90,9 +91,9 @@ public class Mensajeria extends Fragment {
             cn = container.findViewById(R.id.cn);
             h = new Hash();
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
+            c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
             s = c.createStatement();
-            r = s.executeQuery("SELECT Compras.ImgP,Compras.NP,Compras.PP,Compras.DP,Usuarios.N,Usuarios.AP,Usuarios.AM,Compras.X,Compras.LP,Compras.TP,Compras.Fh,Compras.U,Compras.Id FROM Compras INNER JOIN Usuarios ON Compras.C=Usuarios.CE WHERE Compras.V='"+Cortes.sesion+"' ORDER BY Compras.X, Compras.Fh");
+            r = s.executeQuery("SELECT Compra.ImgP,Compra.NP,Compra.PP,Compra.DP,Usuario.N,Usuario.AP,Usuario.AM,Compra.X,Compra.LP,Compra.TP,Compra.Fh,Compra.U,Compra.Id FROM Compra INNER JOIN Usuario ON Compra.C=Usuario.CE WHERE Compra.V='"+Cortes.sesion+"' ORDER BY Compra.X, Compra.Fh");
             ss = container.findViewById(R.id.ss);
             imgP = new ArrayList<>();
             nP = new ArrayList<>();
@@ -125,7 +126,7 @@ public class Mensajeria extends Fragment {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     try {
-                        r = s.executeQuery("SELECT X FROM Compras WHERE Id="+id2.get(position));
+                        r = s.executeQuery("SELECT X FROM Compra WHERE Id="+id2.get(position));
                         r.next();
                         if (r.getByte(1) == 2) {
                             if (ac.isSelected()) {
@@ -146,7 +147,7 @@ public class Mensajeria extends Fragment {
             });
             fT = new File(getActivity().getCacheDir(), "f.txt");
             fT.createNewFile();
-            r = s.executeQuery("SELECT * FROM Notificaciones WHERE V='"+Cortes.sesion+"'");
+            r = s.executeQuery("SELECT * FROM Notificacion WHERE V='"+Cortes.sesion+"'");
             while (r.next()) {
                 if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
                     NotificationManagerCompat.from(getActivity()).notify(((int) r.getLong(1)), (new NotificationCompat.Builder(getActivity(), NotificationChannel.DEFAULT_CHANNEL_ID)).setCategory(null).setVisibility(NotificationCompat.VISIBILITY_PUBLIC).setPriority(NotificationCompat.PRIORITY_DEFAULT).setContentTitle(r.getBoolean(6) ? "ACEPTACIÓN" : "CANCELACIÓN").setSmallIcon(R.drawable.ecobyte).setContentText(r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+" ha "+(r.getBoolean(6) ? "ACEPTADO" : "CANCELADO")+" este Pedido: "+r.getString(7)).setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo)).setStyle((new NotificationCompat.BigTextStyle()).bigText(r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+" ha "+(r.getBoolean(6) ? "ACEPTADO" : "CANCELADO")+" este Pedido: "+r.getString(7))).setAutoCancel(true).build());
@@ -181,7 +182,7 @@ public class Mensajeria extends Fragment {
                 s.executeUpdate("DELETE FROM Notificacion WHERE V='"+Cortes.sesion+"'");
                 s.execute("COMMIT");
             }
-            r = s.executeQuery("SELECT Compras.ImgP,Compras.NP,Compras.PP,Compras.DP,Usuarios.N,Usuarios.AP,Usuarios.AM,Compras.X,Compras.BMsg,Compras.Id FROM Compras INNER JOIN Usuarios ON Compras.V=Usuarios.CE WHERE Compras.C='"+Cortes.sesion+"' ORDER BY Compras.X DESC, Compras.Fh ASC");
+            r = s.executeQuery("SELECT Compra.ImgP,Compra.NP,Compra.PP,Compra.DP,Usuario.N,Usuario.AP,Usuario.AM,Compra.X,Compra.BMsg,Compra.Id,Compra.LP FROM Compra INNER JOIN Usuario ON Compra.V=Usuario.CE WHERE Compra.C='"+Cortes.sesion+"' ORDER BY Compra.X DESC, Compra.Fh ASC");
             ps = container.findViewById(R.id.ps);
             imgP = new ArrayList<>();
             nP = new ArrayList<>();
@@ -191,6 +192,7 @@ public class Mensajeria extends Fragment {
             x = new ArrayList<>();
             bMsg = new ArrayList<>();
             id1 = new ArrayList<>();
+            limL = new ArrayList<>();
             while (r.next()) {
                 imgP.add(r.getString(1));
                 nP.add(r.getString(2));
@@ -200,6 +202,7 @@ public class Mensajeria extends Fragment {
                 x.add(r.getByte(8));
                 bMsg.add(r.getBoolean(9));
                 id1.add(r.getLong(10));
+                limL.add((r.getInt(11) < 100) ? r.getByte(11) : null);
             }
             ps.setAdapter(new XAdaptador(getActivity(), imgP, nP, pP, dP, vc, x, bMsg));
             ps.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -208,23 +211,24 @@ public class Mensajeria extends Fragment {
                     try {
                         if (x.get(position) == 1) {
                             id = id1.get(position);
+                            limLP = limL.get(position);
                             txt.setText(nP.get(position));
                             l.setText("1");
                             $pP = pP.get(position);
                             $tP.setText(String.valueOf(pP.get(position).floatValue()));
-                            r = s.executeQuery("SELECT U FROM Usuarios WHERE CE='"+Cortes.sesion+"'");
+                            r = s.executeQuery("SELECT U FROM Usuario WHERE CE='"+Cortes.sesion+"'");
                             r.next();
                             uC.setText(h.descifrar(r.getString(1)));
                         } else if (x.get(position) == 3) {
                             if (cf.isSelected() || cn.isSelected()) {
-                                r = s.executeQuery("SELECT N,AP,AM FROM Usuarios WHERE CE='"+Cortes.sesion+"'");
+                                r = s.executeQuery("SELECT N,AP,AM FROM Usuario WHERE CE='"+Cortes.sesion+"'");
                                 r.next();
                                 String[] $c = {r.getString(1), r.getString(2), r.getString(3)};
-                                r = s.executeQuery("SELECT Productos.Pop,Productos.Id,Usuarios.CE,Usuarios.N,Usuarios.AP,Usuarios.AM,Compras.NP,Compras.LP,Compras.TP,Compras.Fh,Compras.U FROM Productos (INNER JOIN Usuarios ON Productos.CE=Usuarios.CE (INNER JOIN Compras ON Usuarios.CE=Compras.V)) WHERE Compras.C='"+Cortes.sesion+"' AND Compras.Id="+id1.get(position));
+                                r = s.executeQuery("SELECT Producto.Pop,Producto.Id,Usuario.CE,Usuario.N,Usuario.AP,Usuario.AM,Compra.NP,Compra.LP,Compra.TP,Compra.Fh,Compra.U,Producto.Cupo FROM Producto (INNER JOIN Usuario ON Producto.CE=Usuario.CE (INNER JOIN Compra ON Usuario.CE=Compra.V)) WHERE Compra.C='"+Cortes.sesion+"' AND Compra.Id="+id1.get(position));
                                 r.next();
                                 if (cf.isSelected()) {
-                                    s.executeUpdate("UPDATE Compra SET X=4 WHERE Id="+id1.get(position));
-                                    s.executeUpdate("UPDATE Producto SET Pop="+(r.getLong(1) + 1L)+" WHERE Id="+r.getLong(2));
+                                    s.executeUpdate("UPDATE Compra SET X=4,DP=NULL,PP=0.00,LP=0,U=NULL,BMsg=NULL WHERE Id="+id1.get(position));
+                                    s.executeUpdate("UPDATE Producto SET Pop="+(r.getLong(1) + 1L)+",Cupo="+(r.getInt(12) - r.getByte(8))+" WHERE Id="+r.getLong(2));
                                     s.executeUpdate("INSERT INTO Notificacion(V,C,APC,AMC,N,P,LP,TP,Fh,U) VALUES ('"+r.getString(3)+"','"+$c[0]+"','"+$c[1]+"','"+$c[2]+"',TRUE,'"+r.getString(7)+"',"+r.getByte(8)+","+r.getFloat(9)+",'"+r.getString(10)+"','"+h.cifrar(r.getString(11))+"')");
                                     registerForActivityResult(new ActivityResultContract<>() {
                                         @Override
@@ -265,7 +269,7 @@ public class Mensajeria extends Fragment {
             fC.setMinDate(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC) * 1000L);
             b1.setOnClickListener((v) -> {
                 try {
-                    if (Byte.parseByte(l.getText().toString()) > 0 && Byte.parseByte(l.getText().toString()) < 101 && !uC.getText().toString().isEmpty()) {
+                    if (Byte.parseByte(l.getText().toString()) > 0 && Byte.parseByte(l.getText().toString()) <= ((limLP == null) ? 100 : limLP) && !uC.getText().toString().isEmpty()) {
                         s.executeUpdate("UPDATE Compra SET X=2,LP="+l.getText()+",TP="+$tP.getText()+",U='"+h.cifrar(uC.getText().toString())+"',Fh='"+LocalDateTime.parse((fC.getYear()+"-"+(fC.getMonth() + 1)+"-"+fC.getDayOfMonth()+" "+hC.getHour()+":"+hC.getMinute()+":00"), DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))+"' WHERE Id="+id);
                         s.execute("COMMIT");
                     } else {

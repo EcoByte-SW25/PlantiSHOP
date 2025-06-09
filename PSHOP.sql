@@ -1,10 +1,11 @@
 create database PSHOP;
-create user 'Admin'@'' identified by 'EcoByte.PlantiSHOP--IPN*Cecyt9/6im9*9++NIctJW.FWY';
-grant all privileges on PSHOP.* to 'Admin'@'';
-create user 'Lector'@'' identified by 'Abcd**12345';
-grant select on PSHOP.* to 'Lector'@'';
-create user 'Crud'@'' identified by 'PlantiSHOP-+CrUd*/https:02468.!?';
-grant insert, select, update, delete on PSHOP.* to 'Crud'@'';
+create user 'Admin'@'192.168.1.66' identified by 'EcoByte.PlantiSHOP--IPN*Cecyt9/6im9*9++NIctJW.FWY';
+grant all privileges on PSHOP.* to 'Admin'@'192.168.1.66';
+create user 'Lector'@'192.168.1.66' identified by 'Abcd**12345';
+grant select on PSHOP.* to 'Lector'@'192.168.1.66';
+create user 'Crud'@'192.168.1.66' identified by 'PlantiSHOP-+CrUd*/https:02468.!?';
+grant insert, select, update, delete on PSHOP.* to 'Crud'@'192.168.1.66';
+
 use PSHOP;
 create table Usuario (
 	CE varchar(100) not null,
@@ -24,7 +25,6 @@ create table Usuario (
     A decimal(65,2) not null default 0.00,
     primary key (CE)
 );
-create or replace view Usuarios as select * from Usuario;
 create table Jardin (
 	Id bigint not null auto_increment,
     CE varchar(100) not null,
@@ -36,7 +36,6 @@ create table Jardin (
     primary key (Id),
     foreign key (CE) references Usuario(CE)
 );
-create or replace view Jardines as select * from Jardin;
 create table Producto (
 	Id bigint not null auto_increment,
     CE varchar(100) not null,
@@ -46,10 +45,10 @@ create table Producto (
     P decimal(7,2) not null,
     Img varchar(50) not null,
     Pop bigint not null default 0,
+    Cupo mediumint(7) not null default 1,
     primary key (Id),
     foreign key (CE) references Usuario(CE)
 );
-create or replace view Productos as select * from Producto;
 create table Compra (
     Id bigint not null auto_increment,
     V varchar(100) not null,
@@ -68,7 +67,6 @@ create table Compra (
     foreign key (V) references Usuario(CE),
     foreign key (C) references Usuario(CE)
 );
-create or replace view Compras as select * from Compra;
 create table Notificacion (
     Id bigint not null auto_increment,
     V varchar(100) not null,
@@ -84,7 +82,6 @@ create table Notificacion (
     primary key (Id),
     foreign key (V) references Usuario(CE)
 );
-create or replace view Notificaciones as select * from Notificacion;
 create table Administracion (
 	T varchar(12) not null,
 	Ev tinyint(1) not null,
@@ -92,6 +89,7 @@ create table Administracion (
     Id varchar(100),
     Fh timestamp not null
 );
+
 delimiter $
 create trigger HalconU1 after insert on Usuario
 for each row

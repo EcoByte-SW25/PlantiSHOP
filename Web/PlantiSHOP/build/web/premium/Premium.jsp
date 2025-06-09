@@ -132,9 +132,9 @@
                     session.removeAttribute("msg");
                 }
                 Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-                c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Lector", "Abcd**12345");
+                c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Lector", "Abcd**12345");
                 s = c.createStatement();
-                r = s.executeQuery("SELECT P,FfS,N,AP,AM FROM Usuarios WHERE CE='"+session.getAttribute("u")+"'");
+                r = s.executeQuery("SELECT P,FfS,N,AP,AM FROM Usuario WHERE CE='"+session.getAttribute("u")+"'");
                 r.next();
                 if (r.getBoolean(1)) {
                     out.print("<button id='iA' onclick=\"location.assign('ChatBot.jsp')\">Basil.IA</button>");
@@ -154,10 +154,10 @@
                         out.print("<input id='i2' name='tf' type='tel' maxlength='10' required>");
                         out.print("<label for='i3'>Plan de Suscripción:</label>");
                         out.print("<select id='i3' name='ps' required>");
-                            out.print("<option value='' selected>Mensual (30 días).- $</option>");
-                            out.print("<option value=''>Trimestral (3 meses).- $</option>");
-                            out.print("<option value=''>Semestral (6 meses).- $</option>");
-                            out.print("<option value=''>Anual (365 días).- $</option>");
+                            out.print("<option value='25.00' selected>Mensual (30 días).- $25</option>");
+                            out.print("<option value='75.00'>Trimestral (3 meses).- $75</option>");
+                            out.print("<option value='150.00'>Semestral (6 meses).- $150</option>");
+                            out.print("<option value='300.00'>Anual (365 días).- $300</option>");
                         out.print("</select>");
                         out.print("<p><input name='SI' type='checkbox' onclick='sM(this.checked)' value='Yo, "+r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+" ("+session.getAttribute("u")+"), Acepto y Confirmo esta Transferencia Bancaria a EcoByte, realizada el día "+LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))+", para el uso del Apartado PREMIUM de PlantiSHOP' required> Yo, "+r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+" ("+session.getAttribute("u")+"), Acepto y Confirmo esta Transferencia Bancaria a EcoByte, realizada el día "+LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))+", para el uso del Apartado PREMIUM de PlantiSHOP</p>");
                         out.print("<input id='sm' type='submit' value='SUSCRIBIRSE' disabled='true'>");

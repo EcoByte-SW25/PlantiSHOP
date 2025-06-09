@@ -37,7 +37,7 @@ public class MainActivity3 extends AppCompatActivity {
         setContentView(R.layout.activity_main3);
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
+            c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
             s = c.createStatement();
         } catch (Exception e) {
             Toast.makeText(this, "Lo sentimos, ha ocurrido un ERROR... intentalo de NUEVO", Toast.LENGTH_SHORT).show();
@@ -57,7 +57,7 @@ public class MainActivity3 extends AppCompatActivity {
             try {
                 if (k) {
                     if (ce.getText().toString().contains("@") && !c1.getText().toString().isEmpty() && !c2.getText().toString().isEmpty() && !ce.getText().toString().equals(".") && !ce.getText().toString().equals(".") && !ce.getText().toString().equals(".") && !ce.getText().toString().equals(".")) {
-                        r = s.executeQuery("SELECT FhN1,FhN2,I1,I2,C1,C2,FfS FROM Usuarios WHERE CE='"+ce.getText()+"'");
+                        r = s.executeQuery("SELECT FhN1,FhN2,I1,I2,C1,C2,FfS FROM Usuario WHERE CE='"+ce.getText()+"'");
                         if (r.next()) {
                             if (r.getTimestamp(1) != null) { if (r.getTimestamp(1).before(Timestamp.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))))) {
                                 s.executeUpdate("UPDATE Usuario SET I1=5,FhN1=NULL WHERE CE='"+ce.getText()+"'");
@@ -108,7 +108,7 @@ public class MainActivity3 extends AppCompatActivity {
                     }
                 } else {
                     if (!cv.getText().toString().isEmpty()) {
-                        r = s.executeQuery("SELECT CV,I2 FROM Usuarios WHERE CE='"+ce.getText()+"'");
+                        r = s.executeQuery("SELECT CV,I2 FROM Usuario WHERE CE='"+ce.getText()+"'");
                         r.next();
                         if (cv.getText().toString().equals(r.getString(1))) {
                             Cortes.sesion = ce.getText().toString();

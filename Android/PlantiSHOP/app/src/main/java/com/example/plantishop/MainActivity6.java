@@ -43,12 +43,12 @@ public class MainActivity6 extends AppCompatActivity {
         iaalldt = findViewById(R.id.iaalldt);
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            Connection c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
+            Connection c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
             Statement s = c.createStatement();
-            ResultSet r = s.executeQuery("SELECT P FROM Usuarios WHERE CE='"+Cortes.sesion+"'");
+            ResultSet r = s.executeQuery("SELECT P FROM Usuario WHERE CE='"+Cortes.sesion+"'");
             r.next();
             if (r.getBoolean(1)) {
-                r = s.executeQuery("SELECT TP FROM Compras WHERE V='"+Cortes.sesion+"' AND X=4 ORDER BY TP");
+                r = s.executeQuery("SELECT TP FROM Compra WHERE V='"+Cortes.sesion+"' AND X=4 ORDER BY TP");
                 boolean cv;
                 double x_md, g_h, vt, i, sp, x, dt, md;
                 String mo, xVM, yVM, lDP, vDP, xIAlT, yIAlT;
@@ -89,7 +89,7 @@ public class MainActivity6 extends AppCompatActivity {
                         g_h = r.getFetchSize() / g_h;
                     }
                 }
-                r = s.executeQuery("SELECT N,Pop FROM Productos WHERE CE='"+Cortes.sesion+"' AND Pop>0 ORDER BY Pop DESC");
+                r = s.executeQuery("SELECT N,Pop FROM Producto WHERE CE='"+Cortes.sesion+"' AND Pop>0 ORDER BY Pop DESC");
                 mo = "NINGUNO";
                 lDP = "\"Sin DATOS\"";
                 vDP = "0";
@@ -119,7 +119,7 @@ public class MainActivity6 extends AppCompatActivity {
                 }
                 xVM = yVM = xIAlT = yIAlT = "";
                 for (byte m = 6; m > 0; m--) {
-                    r = s.executeQuery("SELECT TP FROM Compras WHERE V='"+Cortes.sesion+"' AND X=4 AND Fh>='"+LocalDate.now().minusMonths(m).withDayOfMonth(1)+" 00:00:00' AND Fh<'"+LocalDate.now().minusMonths(m - 1).withDayOfMonth(1)+" 00:00:00'");
+                    r = s.executeQuery("SELECT TP FROM Compra WHERE V='"+Cortes.sesion+"' AND X=4 AND Fh>='"+LocalDate.now().minusMonths(m).withDayOfMonth(1)+" 00:00:00' AND Fh<'"+LocalDate.now().minusMonths(m - 1).withDayOfMonth(1)+" 00:00:00'");
                     if (r.getFetchSize() > 0) {
                         x = 0;
                         while (r.next()) {
@@ -135,7 +135,7 @@ public class MainActivity6 extends AppCompatActivity {
                 yVM = yVM.substring(0, (yVM.length() - 2));
                 x = 0;
                 for (byte sm = 16; sm > 0; sm--) {
-                    r = s.executeQuery("SELECT TP FROM Compras WHERE V='"+Cortes.sesion+"' AND X=4 AND Fh>='"+LocalDate.now().minusWeeks(sm)+" 00:00:00' AND Fh<'"+LocalDate.now().minusWeeks(sm - 1)+" 00:00:00'");
+                    r = s.executeQuery("SELECT TP FROM Compra WHERE V='"+Cortes.sesion+"' AND X=4 AND Fh>='"+LocalDate.now().minusWeeks(sm)+" 00:00:00' AND Fh<'"+LocalDate.now().minusWeeks(sm - 1)+" 00:00:00'");
                     while (r.next()) {
                         x += r.getDouble(1);
                     }
@@ -144,7 +144,7 @@ public class MainActivity6 extends AppCompatActivity {
                 }
                 xIAlT = xIAlT.substring(0, (xIAlT.length() - 2));
                 yIAlT = yIAlT.substring(0, (yIAlT.length() - 2));
-                r = s.executeQuery("SELECT A FROM Usuarios WHERE CE='"+Cortes.sesion+"'");
+                r = s.executeQuery("SELECT A FROM Usuario WHERE CE='"+Cortes.sesion+"'");
                 r.next();
                 i = vt - r.getDouble(1);
                 s.executeUpdate("UPDATE Usuario SET A="+vt+" WHERE CE='"+Cortes.sesion+"'");

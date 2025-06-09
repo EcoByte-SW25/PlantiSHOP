@@ -11,9 +11,9 @@
 <%
     try {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Lector", "Abcd**12345");
+        c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Lector", "Abcd**12345");
         s = c.createStatement();
-        r = s.executeQuery("SELECT P FROM Usuarios WHERE CE='"+session.getAttribute("u")+"'");
+        r = s.executeQuery("SELECT P FROM Usuario WHERE CE='"+session.getAttribute("u")+"'");
         r.next();
         if (!r.getBoolean(1)) {
             out.print("<script>alert('Lo sentimos, NO eres un Usuario PREMIUM... por lo que NO puedes hacer uso de este APARTADO...');</script>");
@@ -114,7 +114,6 @@
                     window.location.hash = "no-back-button";
                 };
             });
-            
         </script>
     </head>
     <body>
@@ -124,19 +123,34 @@
             if (session.getAttribute("rIA") == null) {
                 out.print("<p>¡Hola! Soy Basil.IA, tu Asistente Personal de Jardineria... Dime ¿En que te puedo Ayudar?</p>");
             } else {
-                out.print("<p>"+session.getAttribute("rIA")+"</p>");
+                out.print("<p id='txt'></p>");
+                out.print("<script>");
+                    out.print("try {");
+                        out.print("let json = JSON.parse('"+session.getAttribute("rIA")+"');");
+                    if ((Boolean) session.getAttribute("k")) {
+                        out.print("document.getElementById('txt').innerHTML = json.choices[0].message.content;");
+                    } else {
+                        out.print("let aux = '';");
+                        out.print("for (let i = 0; i < Math.min(3, json.results.length); i++) { aux += 'Nombre Cientifico de la Plantación: <b>' + json.results[i].species.scientificNameWithoutAuthor + '</b> (' + (json.results[i].score * 100) + '% de CERTEZA)<br>'; }");
+                        out.print("document.getElementById('txt').innerHTML = aux;");
+                    }
+                    out.print("} catch (e) {");
+                        out.print("document.getElementById('txt').innerHTML = 'Lo lamento, ha ocurrido un ERROR... intentalo de NUEVO...';");
+                    out.print("}");
+                out.print("</script>");
+                session.removeAttribute("k");
                 session.removeAttribute("rIA");
             }
         %>
-        <form action="" method="post">
+        <form action="BasilIA" method="post">
             <input name="x" type="hidden" value="true">
             <textarea name="req" required></textarea>
             <input type="submit" value="ENVIAR">
         </form>
         <br>
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="BasilIA" method="post" enctype="multipart/form-data">
             <input name="x" type="hidden" value="false">
-            <input id="fP" name="img" type="file" accept="image/*" required>
+            <input id="fP" name="img" type="file" accept="image/jpeg" required>
             <input type="submit" value="BUSCAR Plantación">
         </form>
     </body>

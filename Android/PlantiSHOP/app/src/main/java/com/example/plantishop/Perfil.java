@@ -41,9 +41,9 @@ public class Perfil extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            c = DriverManager.getConnection("jdbc:mysql://host/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
+            c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
             s = c.createStatement();
-            r = s.executeQuery("SELECT N,AP,AM,U FROM Usuarios WHERE CE='"+Cortes.sesion+"'");
+            r = s.executeQuery("SELECT N,AP,AM,U FROM Usuario WHERE CE='"+Cortes.sesion+"'");
             h = new Hash();
             txtCE = container.findViewById(R.id.txtCE);
             txtCE.setText(Cortes.sesion);
@@ -124,7 +124,7 @@ public class Perfil extends Fragment {
             bnC1 = container.findViewById(R.id.bnC1);
             bnC1.setOnClickListener((v) -> {
                 try {
-                    r = s.executeQuery("SELECT C1,C2 FROM Usuarios WHERE CE='"+Cortes.sesion+"'");
+                    r = s.executeQuery("SELECT C1,C2 FROM Usuario WHERE CE='"+Cortes.sesion+"'");
                     r.next();
                     if (c1.getText().toString().equals(h.descifrar(r.getString(1))) && c2.getText().toString().equals(h.descifrar(r.getString(2))) && nc1.getText().toString().length() > 11) {
                         s.executeUpdate("UPDATE Usuario SET C1='"+h.cifrar(nc1.getText().toString())+"' WHERE CE='"+Cortes.sesion+"'");
@@ -140,7 +140,7 @@ public class Perfil extends Fragment {
             bnC2 = container.findViewById(R.id.bnC2);
             bnC2.setOnClickListener((v) -> {
                 try {
-                    r = s.executeQuery("SELECT C1,C2 FROM Usuarios WHERE CE='"+Cortes.sesion+"'");
+                    r = s.executeQuery("SELECT C1,C2 FROM Usuario WHERE CE='"+Cortes.sesion+"'");
                     r.next();
                     if (c1.getText().toString().equals(h.descifrar(r.getString(1))) && c2.getText().toString().equals(h.descifrar(r.getString(2))) && nc2.getText().toString().length() > 11) {
                         s.executeUpdate("UPDATE Usuario SET C2='"+h.cifrar(nc2.getText().toString())+"' WHERE CE='"+Cortes.sesion+"'");
@@ -156,7 +156,7 @@ public class Perfil extends Fragment {
             bDel = container.findViewById(R.id.bDel);
             bDel.setOnClickListener((v) -> {
                 try {
-                    r = s.executeQuery("SELECT C1,C2 FROM Usuarios WHERE CE='"+Cortes.sesion+"'");
+                    r = s.executeQuery("SELECT C1,C2 FROM Usuario WHERE CE='"+Cortes.sesion+"'");
                     r.next();
                     if (c1.getText().toString().equals(h.descifrar(r.getString(1))) && c2.getText().toString().equals(h.descifrar(r.getString(2)))) {
                         s.executeUpdate("DELETE FROM Usuario WHERE CE='"+Cortes.sesion+"'");
