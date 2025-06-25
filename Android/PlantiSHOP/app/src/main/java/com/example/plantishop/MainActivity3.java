@@ -74,7 +74,7 @@ public class MainActivity3 extends AppCompatActivity {
                         }
                         if (r.first() && r.getByte(3) > 0 && r.getByte(4) > 0 && r.getFetchSize() == 1) {
                             Hash h = new Hash();
-                            if (c1.getText().toString().equals(h.descifrar(r.getString(5))) && c2.getText().toString().equals(h.descifrar(r.getString(6)))) {
+                            if (r.getString(5).equals(h.hashPBKDF2(c1.getText().toString())) && r.getString(6).equals(h.hashPBKDF2(c2.getText().toString()))) {
                                 Cortes vv = new Cortes();
                                 String cV = vv.cV();
                                 s.executeUpdate("UPDATE Usuario SET CV='"+cV+"' WHERE CE='"+ce.getText()+"'");

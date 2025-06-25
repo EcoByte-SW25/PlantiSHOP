@@ -68,7 +68,7 @@ public class Premium extends Fragment {
                     msgU.setText("¡Faltan "+LocalDate.now().until(LocalDate.parse(r.getString(2)), ChronoUnit.DAYS)+" días para que termine tu Suscripción!");
                 }
             } else {
-                api = new OpenpayAPI("https://api.openpay.mx", "", "");
+                api = new OpenpayAPI("https://api.openpay.mx", "Llave de OpenPay BBVA", "ID de Mercante BBVA");
                 yes = container.findViewById(R.id.yes);
                 yes.setVisibility(View.GONE);
                 clabe = container.findViewById(R.id.clabe);
@@ -92,19 +92,19 @@ public class Premium extends Fragment {
                             switch (s.getSelectedItemPosition()) {
                                 case 0: {
                                     statement.executeUpdate("UPDATE Usuario SET P=TRUE,FfS='"+LocalDate.now().plusDays(30L)+"' WHERE CE='"+Cortes.sesion+"'");
-                                    api.payouts().create(api.customers().create(customer).getId(), (new CreateBankPayoutParams()).bankAccount((new BankAccount()).clabe("").holderName("").alias("EcoByte")).amount(new BigDecimal("25.00")).description("Yo, "+r.getString(1)+" "+r.getString(2)+" "+r.getString(3)+" ("+Cortes.sesion+"), Acepto y Confirmo esta Transferencia Bancaria a EcoByte, realizada el día "+LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))+", para el uso del Apartado PREMIUM de PlantiSHOP"));
+                                    api.payouts().create(api.customers().create(customer).getId(), (new CreateBankPayoutParams()).bankAccount((new BankAccount()).clabe("Alonso... tu CLABE").holderName("Alonso Moncada").alias("EcoByte")).amount(new BigDecimal("25.00")).description("Yo, "+r.getString(1)+" "+r.getString(2)+" "+r.getString(3)+" ("+Cortes.sesion+"), Acepto y Confirmo esta Transferencia Bancaria a EcoByte, realizada el día "+LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))+", para el uso del Apartado PREMIUM de PlantiSHOP"));
                                 } break;
                                 case 1: {
                                     statement.executeUpdate("UPDATE Usuario SET P=TRUE,FfS='"+LocalDate.now().plusMonths(3L)+"' WHERE CE='"+Cortes.sesion+"'");
-                                    api.payouts().create(api.customers().create(customer).getId(), (new CreateBankPayoutParams()).bankAccount((new BankAccount()).clabe("").holderName("").alias("EcoByte")).amount(new BigDecimal("75.00")).description("Yo, "+r.getString(1)+" "+r.getString(2)+" "+r.getString(3)+" ("+Cortes.sesion+"), Acepto y Confirmo esta Transferencia Bancaria a EcoByte, realizada el día "+LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))+", para el uso del Apartado PREMIUM de PlantiSHOP"));
+                                    api.payouts().create(api.customers().create(customer).getId(), (new CreateBankPayoutParams()).bankAccount((new BankAccount()).clabe("Alonso... tu CLABE").holderName("Alonso Moncada").alias("EcoByte")).amount(new BigDecimal("75.00")).description("Yo, "+r.getString(1)+" "+r.getString(2)+" "+r.getString(3)+" ("+Cortes.sesion+"), Acepto y Confirmo esta Transferencia Bancaria a EcoByte, realizada el día "+LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))+", para el uso del Apartado PREMIUM de PlantiSHOP"));
                                 } break;
                                 case 2: {
                                     statement.executeUpdate("UPDATE Usuario SET P=TRUE,FfS='"+LocalDate.now().plusMonths(6L)+"' WHERE CE='"+Cortes.sesion+"'");
-                                    api.payouts().create(api.customers().create(customer).getId(), (new CreateBankPayoutParams()).bankAccount((new BankAccount()).clabe("").holderName("").alias("EcoByte")).amount(new BigDecimal("150.00")).description("Yo, "+r.getString(1)+" "+r.getString(2)+" "+r.getString(3)+" ("+Cortes.sesion+"), Acepto y Confirmo esta Transferencia Bancaria a EcoByte, realizada el día "+LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))+", para el uso del Apartado PREMIUM de PlantiSHOP"));
+                                    api.payouts().create(api.customers().create(customer).getId(), (new CreateBankPayoutParams()).bankAccount((new BankAccount()).clabe("Alonso... tu CLABE").holderName("Alonso Moncada").alias("EcoByte")).amount(new BigDecimal("150.00")).description("Yo, "+r.getString(1)+" "+r.getString(2)+" "+r.getString(3)+" ("+Cortes.sesion+"), Acepto y Confirmo esta Transferencia Bancaria a EcoByte, realizada el día "+LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))+", para el uso del Apartado PREMIUM de PlantiSHOP"));
                                 } break;
                                 case 3: {
                                     statement.executeUpdate("UPDATE Usuario SET P=TRUE,FfS='"+LocalDate.now().plusYears(1L)+"' WHERE CE='"+Cortes.sesion+"'");
-                                    api.payouts().create(api.customers().create(customer).getId(), (new CreateBankPayoutParams()).bankAccount((new BankAccount()).clabe("").holderName("").alias("EcoByte")).amount(new BigDecimal("300.00")).description("Yo, "+r.getString(1)+" "+r.getString(2)+" "+r.getString(3)+" ("+Cortes.sesion+"), Acepto y Confirmo esta Transferencia Bancaria a EcoByte, realizada el día "+LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))+", para el uso del Apartado PREMIUM de PlantiSHOP"));
+                                    api.payouts().create(api.customers().create(customer).getId(), (new CreateBankPayoutParams()).bankAccount((new BankAccount()).clabe("Alonso... tu CLABE").holderName("Alonso Moncada").alias("EcoByte")).amount(new BigDecimal("300.00")).description("Yo, "+r.getString(1)+" "+r.getString(2)+" "+r.getString(3)+" ("+Cortes.sesion+"), Acepto y Confirmo esta Transferencia Bancaria a EcoByte, realizada el día "+LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))+", para el uso del Apartado PREMIUM de PlantiSHOP"));
                                 } break;
                             }
                             statement.execute("COMMIT");

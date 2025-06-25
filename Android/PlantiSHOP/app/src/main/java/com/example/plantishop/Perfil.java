@@ -60,7 +60,7 @@ public class Perfil extends Fragment {
             n.setText(r.getString(1));
             ap.setText(r.getString(2));
             am.setText(r.getString(3));
-            txtU.setText(u = h.descifrar(r.getString(4)));
+            txtU.setText(u = r.getString(4));
             c1 = container.findViewById(R.id.c1);
             c2 = container.findViewById(R.id.c2);
             nc1 = container.findViewById(R.id.nc1);
@@ -120,7 +120,7 @@ public class Perfil extends Fragment {
             bU.setOnClickListener((v) -> {
                 try {
                     if (!u.isEmpty()) {
-                        s.executeUpdate("UPDATE Usuario SET U='"+h.cifrar(u)+"' WHERE CE='"+Cortes.sesion+"'");
+                        s.executeUpdate("UPDATE Usuario SET U='"+u+"' WHERE CE='"+Cortes.sesion+"'");
                         s.execute("COMMIT");
                         txtU.setText(u);
                     } else {
@@ -135,8 +135,8 @@ public class Perfil extends Fragment {
                 try {
                     r = s.executeQuery("SELECT C1,C2 FROM Usuario WHERE CE='"+Cortes.sesion+"'");
                     r.next();
-                    if (c1.getText().toString().equals(h.descifrar(r.getString(1))) && c2.getText().toString().equals(h.descifrar(r.getString(2))) && nc1.getText().toString().length() > 11) {
-                        s.executeUpdate("UPDATE Usuario SET C1='"+h.cifrar(nc1.getText().toString())+"' WHERE CE='"+Cortes.sesion+"'");
+                    if (r.getString(1).equals(h.hashPBKDF2(c1.getText().toString())) && r.getString(2).equals(h.hashPBKDF2(c2.getText().toString())) && nc1.getText().toString().length() > 11) {
+                        s.executeUpdate("UPDATE Usuario SET C1='"+h.hashPBKDF2(nc1.getText().toString())+"' WHERE CE='"+Cortes.sesion+"'");
                         s.execute("COMMIT");
                         Toast.makeText(getActivity(), "Contraseña exitosamente ACTUALIZADA", Toast.LENGTH_SHORT).show();
                     } else {
@@ -151,8 +151,8 @@ public class Perfil extends Fragment {
                 try {
                     r = s.executeQuery("SELECT C1,C2 FROM Usuario WHERE CE='"+Cortes.sesion+"'");
                     r.next();
-                    if (c1.getText().toString().equals(h.descifrar(r.getString(1))) && c2.getText().toString().equals(h.descifrar(r.getString(2))) && nc2.getText().toString().length() > 11) {
-                        s.executeUpdate("UPDATE Usuario SET C2='"+h.cifrar(nc2.getText().toString())+"' WHERE CE='"+Cortes.sesion+"'");
+                    if (r.getString(1).equals(h.hashPBKDF2(c1.getText().toString())) && r.getString(2).equals(h.hashPBKDF2(c2.getText().toString())) && nc2.getText().toString().length() > 11) {
+                        s.executeUpdate("UPDATE Usuario SET C2='"+h.hashPBKDF2(nc2.getText().toString())+"' WHERE CE='"+Cortes.sesion+"'");
                         s.execute("COMMIT");
                         Toast.makeText(getActivity(), "Contraseña de Respaldo exitosamente ACTUALIZADA", Toast.LENGTH_SHORT).show();
                     } else {
@@ -167,7 +167,7 @@ public class Perfil extends Fragment {
                 try {
                     r = s.executeQuery("SELECT C1,C2 FROM Usuario WHERE CE='"+Cortes.sesion+"'");
                     r.next();
-                    if (c1.getText().toString().equals(h.descifrar(r.getString(1))) && c2.getText().toString().equals(h.descifrar(r.getString(2)))) {
+                    if (r.getString(1).equals(h.hashPBKDF2(c1.getText().toString())) && r.getString(2).equals(h.hashPBKDF2(c2.getText().toString()))) {
                         r = s.executeQuery("SELECT Img FROM Producto WHERE CE='"+Cortes.sesion+"'");
                         while (r.next()) {
                             Files.delete((new File("192.168.1.66\\C:\\Users\\Marlon\\PlantiSHOP\\src\\main\\webapp\\imgs\\prods", r.getString(1))).toPath());
