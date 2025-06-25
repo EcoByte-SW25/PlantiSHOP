@@ -88,7 +88,7 @@ public class XAdaptador extends BaseAdapter {
         TextView cd = convertView.findViewById(R.id.lamC_D);
         TextView msg = convertView.findViewById(R.id.lamMSG);
         if (this.img == null) {
-            img.setImageBitmap(BitmapFactory.decodeFile("."+up.get(position)));
+            img.setImageBitmap(BitmapFactory.decodeFile("192.168.1.66\\C:\\Users\\Marlon\\PlantiSHOP\\src\\main\\webapp\\imgs\\prods\\"+up.get(position)));
             if (vc == null) {
                 etc.setText("$ " + $p.get(position));
                 msg.setVisibility(View.GONE);

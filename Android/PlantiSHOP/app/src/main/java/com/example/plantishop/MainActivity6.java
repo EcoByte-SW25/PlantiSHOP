@@ -18,8 +18,7 @@ import java.sql.Statement;
 import java.util.Locale;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
-import org.rosuda.JRI.Rengine;
-import org.rosuda.REngine.JRI.JRIEngine;
+import org.rosuda.REngine.Rserve.RConnection;
 
 public class MainActivity6 extends AppCompatActivity {
 
@@ -149,12 +148,12 @@ public class MainActivity6 extends AppCompatActivity {
                 i = vt - r.getDouble(1);
                 s.executeUpdate("UPDATE Usuario SET A="+vt+" WHERE CE='"+Cortes.sesion+"'");
                 s.execute("COMMIT");
-                JRIEngine rJ = new JRIEngine(Rengine.getMainEngine());
+                RConnection rJ = new RConnection("192.168.1.66");
                 byte[] vm, dp, ialt;
-                vm = rJ.createRJavaRef(Rengine.getMainEngine().eval("barplot(c("+xVM+"),names.arg=c("+yVM+"),main=\"Ventas por Mes\",xlab=\"Numero de Ventas\",col=c(\"green\"),horiz=TRUE)")).asBytes();
-                dp = rJ.createRJavaRef(Rengine.getMainEngine().eval("pie(c("+vDP+"),label=c("+lDP+"),main=\"Distribucion por Producto\")")).asBytes();
-                ialt = rJ.createRJavaRef(Rengine.getMainEngine().eval("barplot(c("+xIAlT+"),names.arg=c("+yIAlT+"),main=\"Ingresos Acumulados a lo largo del Tiempo\",xlab=\"Ingresos Acumulados\",ylab=\"Semanas\",col=c(\"blue\"),horiz=TRUE)")).asBytes();
-                rJ.close();
+                vm = rJ.eval("barplot(c("+xVM+"),names.arg=c("+yVM+"),main=\"Ventas por Mes\",xlab=\"Numero de Ventas\",col=c(\"green\"),horiz=TRUE)").asBytes();
+                dp = rJ.eval("pie(c("+vDP+"),label=c("+lDP+"),main=\"Distribucion por Producto\")").asBytes();
+                ialt = rJ.eval("barplot(c("+xIAlT+"),names.arg=c("+yIAlT+"),main=\"Ingresos Acumulados a lo largo del Tiempo\",xlab=\"Ingresos Acumulados\",ylab=\"Semanas\",col=c(\"blue\"),horiz=TRUE)").asBytes();
+                rJ.shutdown();
                 vpm.setImageBitmap(BitmapFactory.decodeByteArray(vm, 0, (vm.length - 1)));
                 dpp.setImageBitmap(BitmapFactory.decodeByteArray(dp, 0, (dp.length - 1)));
                 iaalldt.setImageBitmap(BitmapFactory.decodeByteArray(ialt, 0, (ialt.length - 1)));

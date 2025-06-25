@@ -72,7 +72,7 @@ public class MainActivity5 extends AppCompatActivity {
                 HttpURLConnection c = (HttpURLConnection) (new URL("https://api.openai.com/v1/chat/completions")).openConnection();
                 c.setRequestMethod("POST");
                 c.setDoOutput(true);
-                c.setRequestProperty("Authorization", "/*Llave de OpenAI*/");
+                c.setRequestProperty("Authorization", "Bearer /*K-GPT*/");
                 c.setRequestProperty("Content-Type", "application/json");
                 try (OutputStream out = c.getOutputStream()) {
                     byte[] json = ("{\"model\"=\"gpt-3.5-turbo\",\"messages\"=[{\"role\"=\"system\",\"content\"=\"Eres un asistente virtual especializado en el cuidado de plantas. Tu trabajo es ayudar a los usuarios a cuidar mejor sus plantas.\nSolo debes responder a preguntas que estén relacionadas con plantas, jardinería, botánica o temas similares. Si el usuario te pregunta algo que no esté relacionado con plantas, responde educadamente que solo puedes ayudar en temas de jardinería y cuidado de plantas.\nSiempre pide al usuario que te diga qué planta tiene y qué desea saber sobre ella, para poder ayudarlo mejor.\"},{\"role\"=\"user\",\"content\"=\""+req.getText()+"\"}]}").getBytes(StandardCharsets.UTF_8);
@@ -104,7 +104,7 @@ public class MainActivity5 extends AppCompatActivity {
             }, (o) -> {
                 if (o != null) {
                     try {
-                        HttpURLConnection c = (HttpURLConnection) (new URL("https://my-api.plantnet.org/v2/identify/all\\*Llave de PlantNET*\\")).openConnection();
+                        HttpURLConnection c = (HttpURLConnection) (new URL("https://my-api.plantnet.org/v2/identify/all?api-key=/*K-PN*/")).openConnection();
                         c.setRequestMethod("POST");
                         c.setDoOutput(true);
                         String boundary = "===" + System.currentTimeMillis() + "===";

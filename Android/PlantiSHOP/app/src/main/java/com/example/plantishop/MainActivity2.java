@@ -14,16 +14,19 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-//import com.google.android.gms.maps.GoogleMap;
-//import com.google.android.gms.maps.SupportMapFragment;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.model.LatLng;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
 
 public class MainActivity2 extends AppCompatActivity {
 
     private Connection c;
     private Statement s;
     private String u;
-    //private GoogleMap map;
-    //private GeoApiContext geoApiContext;
+    private GoogleMap map;
+    private GeoApiContext geoApiContext;
     Button bC;
     EditText ce, c1, c2, n, ap, am;
 
@@ -36,6 +39,19 @@ public class MainActivity2 extends AppCompatActivity {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
             s = c.createStatement();
+            u = "";
+            geoApiContext = (new GeoApiContext.Builder()).apiKey("/*K-GM*/").build();
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+            mapFragment.getMapAsync((gm) -> {
+                map = gm;
+                map.setOnMapClickListener((latlng) -> {
+                    try {
+                        u = GeocodingApi.reverseGeocode(geoApiContext, new LatLng(latlng.latitude, latlng.longitude)).await()[0].formattedAddress;
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Lo sentimos, ha ocurrido un ERROR... intentalo de NUEVO", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
         } catch (Exception e) {
             Toast.makeText(this, "Lo sentimos, ha ocurrido un ERROR... intentalo de NUEVO", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, MainActivity.class));
@@ -46,15 +62,6 @@ public class MainActivity2 extends AppCompatActivity {
         n = findViewById(R.id.n);
         ap = findViewById(R.id.ap);
         am = findViewById(R.id.am);
-        u = "";
-        //geoApiContext = (new GeoApiContext).Builder().apiKey("").build();
-        //SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        /*mapFragment.getMapAsync((gm) -> {
-            map = gm;
-            map.setOnMapClickListener((latlng) -> {
-                u = GeocodingApi.geocode(geoApiContext, latlng).await().results[0].formatted_address;
-            });
-        });*/
         bC = findViewById(R.id.C);
         bC.setOnClickListener((v) -> {
             try {
@@ -67,7 +74,7 @@ public class MainActivity2 extends AppCompatActivity {
                     Toast.makeText(this, "Usuario exitosamente REGISTRADO", Toast.LENGTH_SHORT).show();
                     s.close();
                     c.close();
-                    //geoApiContext.shutdown();
+                    geoApiContext.shutdown();
                     startActivity(new Intent(this, MainActivity3.class));
                 } else {
                     r.close();

@@ -93,7 +93,7 @@ public class Mensajeria extends Fragment {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
             s = c.createStatement();
-            r = s.executeQuery("SELECT Compra.ImgP,Compra.NP,Compra.PP,Compra.DP,Usuario.N,Usuario.AP,Usuario.AM,Compra.X,Compra.LP,Compra.TP,Compra.Fh,Compra.U,Compra.Id FROM Compra INNER JOIN Usuario ON Compra.C=Usuario.CE WHERE Compra.V='"+Cortes.sesion+"' ORDER BY Compra.X, Compra.Fh");
+            r = s.executeQuery("SELECT Compra.ImgP,Compra.NP,Compra.PP,Compra.DP,Usuario.N,Usuario.AP,Usuario.AM,Compra.X,Compra.LP,Compra.TP,Compra.Fh,Compra.U,Compra.Id FROM Compra INNER JOIN Usuario ON Compra.C=Usuario.CE WHERE Compra.V='"+Cortes.sesion+"' ORDER BY Compra.X,Compra.Fh LIMIT 50");
             ss = container.findViewById(R.id.ss);
             imgP = new ArrayList<>();
             nP = new ArrayList<>();
@@ -182,7 +182,7 @@ public class Mensajeria extends Fragment {
                 s.executeUpdate("DELETE FROM Notificacion WHERE V='"+Cortes.sesion+"'");
                 s.execute("COMMIT");
             }
-            r = s.executeQuery("SELECT Compra.ImgP,Compra.NP,Compra.PP,Compra.DP,Usuario.N,Usuario.AP,Usuario.AM,Compra.X,Compra.BMsg,Compra.Id,Compra.LP FROM Compra INNER JOIN Usuario ON Compra.V=Usuario.CE WHERE Compra.C='"+Cortes.sesion+"' ORDER BY Compra.X DESC, Compra.Fh ASC");
+            r = s.executeQuery("SELECT Compra.ImgP,Compra.NP,Compra.PP,Compra.DP,Usuario.N,Usuario.AP,Usuario.AM,Compra.X,Compra.BMsg,Compra.Id,Compra.LP FROM Compra INNER JOIN Usuario ON Compra.V=Usuario.CE WHERE Compra.C='"+Cortes.sesion+"' ORDER BY Compra.X DESC,Compra.Fh ASC LIMIT 50");
             ps = container.findViewById(R.id.ps);
             imgP = new ArrayList<>();
             nP = new ArrayList<>();

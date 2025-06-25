@@ -14,13 +14,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-//import com.google.android.gms.maps.GoogleMap;
-//import com.google.android.gms.maps.SupportMapFragment;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.model.LatLng;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
 
 public class Perfil extends Fragment {
 
@@ -31,8 +36,8 @@ public class Perfil extends Fragment {
     private ResultSet r;
     private String u;
     private Hash h;
-    //private GoogleMap map;
-    //private GeoApiContext geoApiContext;
+    private GoogleMap map;
+    private GeoApiContext geoApiContext;
     TextView txtCE, txtU;
     EditText n, ap, am, c1, c2, nc1, nc2;
     Button bN, bAP, bAM, bU, bnC1, bnC2, bDel;
@@ -60,14 +65,18 @@ public class Perfil extends Fragment {
             c2 = container.findViewById(R.id.c2);
             nc1 = container.findViewById(R.id.nc1);
             nc2 = container.findViewById(R.id.nc2);
-            //geoApiContext = (new GeoApiContext).Builder().apiKey("").build();
-            //SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-            /*mapFragment.getMapAsync((gm) -> {
+            geoApiContext = (new GeoApiContext.Builder()).apiKey("/*K-GM*/").build();
+            SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map);
+            mapFragment.getMapAsync((gm) -> {
                 map = gm;
                 map.setOnMapClickListener((latlng) -> {
-                    u = GeocodingApi.geocode(geoApiContext, latlng).await().results[0].formatted_address;
+                    try {
+                        u = GeocodingApi.reverseGeocode(geoApiContext, new LatLng(latlng.latitude, latlng.longitude)).await()[0].formattedAddress;
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), "Lo sentimos, ha ocurrido un ERROR... intentalo de NUEVO", Toast.LENGTH_SHORT).show();
+                    }
                 });
-            });*/
+            });
             bN = container.findViewById(R.id.bN);
             bN.setOnClickListener((v) -> {
                 try {
@@ -159,6 +168,10 @@ public class Perfil extends Fragment {
                     r = s.executeQuery("SELECT C1,C2 FROM Usuario WHERE CE='"+Cortes.sesion+"'");
                     r.next();
                     if (c1.getText().toString().equals(h.descifrar(r.getString(1))) && c2.getText().toString().equals(h.descifrar(r.getString(2)))) {
+                        r = s.executeQuery("SELECT Img FROM Producto WHERE CE='"+Cortes.sesion+"'");
+                        while (r.next()) {
+                            Files.delete((new File("192.168.1.66\\C:\\Users\\Marlon\\PlantiSHOP\\src\\main\\webapp\\imgs\\prods", r.getString(1))).toPath());
+                        }
                         s.executeUpdate("DELETE FROM Usuario WHERE CE='"+Cortes.sesion+"'");
                         s.execute("COMMIT");
                         Toast.makeText(getActivity(), "Usuario exitosamente ELIMINADO", Toast.LENGTH_SHORT).show();
@@ -185,7 +198,7 @@ public class Perfil extends Fragment {
             r.close();
             s.close();
             c.close();
-            //geoApiContext.shutdown();
+            geoApiContext.shutdown();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

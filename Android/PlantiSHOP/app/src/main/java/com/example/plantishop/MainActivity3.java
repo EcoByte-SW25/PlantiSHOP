@@ -56,7 +56,7 @@ public class MainActivity3 extends AppCompatActivity {
         bR.setOnClickListener((v) -> {
             try {
                 if (k) {
-                    if (ce.getText().toString().contains("@") && !c1.getText().toString().isEmpty() && !c2.getText().toString().isEmpty() && !ce.getText().toString().equals(".") && !ce.getText().toString().equals(".") && !ce.getText().toString().equals(".") && !ce.getText().toString().equals(".")) {
+                    if (ce.getText().toString().contains("@") && !c1.getText().toString().isEmpty() && !c2.getText().toString().isEmpty() && !ce.getText().toString().equals("alonmc237@gmail.com") && !ce.getText().toString().equals("fernandomarlon2007.1976@gmail.com") && !ce.getText().toString().equals("juanpagon16@gmail.com") && !ce.getText().toString().equals("agarciagael93@gmail.com")) {
                         r = s.executeQuery("SELECT FhN1,FhN2,I1,I2,C1,C2,FfS FROM Usuario WHERE CE='"+ce.getText()+"'");
                         if (r.next()) {
                             if (r.getTimestamp(1) != null) { if (r.getTimestamp(1).before(Timestamp.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))))) {

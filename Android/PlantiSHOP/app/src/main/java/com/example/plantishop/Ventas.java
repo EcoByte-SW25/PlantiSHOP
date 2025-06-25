@@ -121,7 +121,7 @@ public class Ventas extends Fragment {
                                                 } break;
                                             }
                                             s.execute("COMMIT");
-                                            Files.copy((new File(((Intent) o).getDataString())).toPath(), (new File(".", ((Intent) o).getData().getLastPathSegment())).toPath());
+                                            Files.copy((new File(((Intent) o).getDataString())).toPath(), (new File("192.168.1.66\\C:\\Users\\Marlon\\PlantiSHOP\\src\\main\\webapp\\imgs\\prods", ((Intent) o).getData().getLastPathSegment())).toPath());
                                             Toast.makeText(getActivity(), "Producto subido EXITOSAMENTE", Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(getActivity(), "Registro INVALIDO", Toast.LENGTH_SHORT).show();
@@ -149,7 +149,7 @@ public class Ventas extends Fragment {
                             s.execute("COMMIT");
                             r = s.executeQuery("SELECT Img FROM Producto WHERE Id="+id);
                             r.next();
-                            Files.delete((new File(".", r.getString(1))).toPath());
+                            Files.delete((new File("192.168.1.66\\C:\\Users\\Marlon\\PlantiSHOP\\src\\main\\webapp\\imgs\\prods", r.getString(1))).toPath());
                             Toast.makeText(getActivity(), "Producto correctamente ELIMINADO", Toast.LENGTH_SHORT).show();
                             getParentFragmentManager().beginTransaction().replace(R.id.fragment, new Fragment(R.layout.fragment_perfil)).commit();
                         } break;
