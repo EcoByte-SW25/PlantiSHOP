@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="auxs.Hash"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.Statement"%>
@@ -12,7 +11,6 @@
     Connection c;
     Statement s;
     ResultSet r;
-    Hash h;
     long i;
     String na, u;
 %>
@@ -24,8 +22,7 @@
         r = s.executeQuery("SELECT N,AP,AM,U FROM Usuario WHERE CE='"+session.getAttribute("u")+"'");
         r.next();
         na = r.getString(1) + " " + r.getString(2) + " " + r.getString(3);
-        h = new Hash();
-        u = h.descifrar(r.getString(4));
+        u = r.getString(4);
     } catch (Exception e) {
         out.print("<script>alert('Lo sentimos, se produjo un ERROR... intentalo de NUEVO...');</script>");
         out.print("<script>history.back();</script>");
@@ -248,7 +245,7 @@
                         f = new File("D:\\V"+r.getLong(1)+".txt");
                         f.createNewFile();
                         w = new FileWriter(f);
-                        w.write("Registro Comercial\n\nProducto: "+r.getString(7)+"\nVendedor: "+na+"\nComprador: "+r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+"\nNo. de Lotes: "+r.getByte(8)+"\nCosto: $"+r.getFloat(9)+"\nFecha y Hora: "+r.getTimestamp(10).toLocalDateTime().format(DateTimeFormatter.ofPattern("d / MMM / uuuu -- h:mm a")).toUpperCase()+"\nUbicacion: "+h.descifrar(r.getString(11)));
+                        w.write("Registro Comercial\n\nProducto: "+r.getString(7)+"\nVendedor: "+na+"\nComprador: "+r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+"\nNo. de Lotes: "+r.getByte(8)+"\nCosto: $"+r.getFloat(9)+"\nFecha y Hora: "+r.getTimestamp(10).toLocalDateTime().format(DateTimeFormatter.ofPattern("d / MMM / uuuu -- h:mm a")).toUpperCase()+"\nUbicacion: "+r.getString(11));
                         w.close();
                         w = null;
                     }

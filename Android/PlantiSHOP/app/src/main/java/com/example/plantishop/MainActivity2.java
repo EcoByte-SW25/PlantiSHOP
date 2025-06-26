@@ -69,7 +69,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if (ce.getText().toString().contains("@") && !r.next() && c1.getText().toString().length() > 11 && c2.getText().toString().length() > 11 && !n.getText().toString().isEmpty() && !ap.getText().toString().isEmpty() && !am.getText().toString().isEmpty() && !u.isEmpty()) {
                     r.close();
                     Hash h = new Hash();
-                    s.executeUpdate("INSERT INTO Usuario(CE,C1,C2,N,AP,AM,U) VALUES ('"+ce.getText()+"','"+h.cifrar(c1.getText().toString())+"','"+h.cifrar(c2.getText().toString())+"','"+n.getText()+"','"+ap.getText()+"','"+am.getText()+"','"+h.cifrar(u)+"')");
+                    s.executeUpdate("INSERT INTO Usuario(CE,C1,C2,N,AP,AM,U) VALUES ('"+ce.getText()+"','"+h.hashPBKDF2(c1.getText().toString())+"','"+h.hashPBKDF2(c2.getText().toString())+"','"+n.getText()+"','"+ap.getText()+"','"+am.getText()+"','"+u+"')");
                     s.execute("COMMIT");
                     Toast.makeText(this, "Usuario exitosamente REGISTRADO", Toast.LENGTH_SHORT).show();
                     s.close();

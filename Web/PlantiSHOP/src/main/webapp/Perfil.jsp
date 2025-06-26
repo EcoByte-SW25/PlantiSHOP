@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="auxs.Hash"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.Statement"%>
@@ -19,7 +18,7 @@
         r.next();
         n = r.getString(1);
         a = r.getString(2) + " " + r.getString(3);
-        u = (new Hash()).descifrar(r.getString(4));
+        u = r.getString(4);
         r.close();
         s.close();
         c.close();

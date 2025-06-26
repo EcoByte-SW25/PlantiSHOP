@@ -51,7 +51,6 @@ public class Mensajeria extends Fragment {
     private long id;
     private float $pP;
     private Byte limLP;
-    private Hash h;
     private File fT;
     ListView ps, ss;
     TextView txt;
@@ -89,7 +88,6 @@ public class Mensajeria extends Fragment {
             rc = container.findViewById(R.id.rc);
             cf = container.findViewById(R.id.cf);
             cn = container.findViewById(R.id.cn);
-            h = new Hash();
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
             s = c.createStatement();
@@ -117,7 +115,7 @@ public class Mensajeria extends Fragment {
                     lP.add(r.getByte(9));
                     tP.add(r.getFloat(10));
                     fh.add(LocalDateTime.parse(r.getString(11), DateTimeFormatter.ofPattern("d / MMM / uuuu -- h:mm a")).toString().toUpperCase());
-                    u.add(h.descifrar(r.getString(12)));
+                    u.add(r.getString(12));
                     id2.add(r.getLong(13));
                 }
             }
@@ -165,7 +163,7 @@ public class Mensajeria extends Fragment {
                             Intent dwld = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                             try {
                                 FileOutputStream w = new FileOutputStream(fT);
-                                w.write(("Registro Comercial\n\nProducto: "+r.getString(7)+"\nComprador: "+r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+"\nNo. de Lotes: "+r.getByte(8)+"\nCosto: $"+r.getFloat(9)+"\nFecha y Hora: "+LocalDateTime.parse(r.getString(10), DateTimeFormatter.ofPattern("d / MMM / uuuu -- h:mm a")).toString().toUpperCase()+"\nUbicacion: "+h.descifrar(r.getString(11))).getBytes(StandardCharsets.UTF_8));
+                                w.write(("Registro Comercial\n\nProducto: "+r.getString(7)+"\nComprador: "+r.getString(3)+" "+r.getString(4)+" "+r.getString(5)+"\nNo. de Lotes: "+r.getByte(8)+"\nCosto: $"+r.getFloat(9)+"\nFecha y Hora: "+LocalDateTime.parse(r.getString(10), DateTimeFormatter.ofPattern("d / MMM / uuuu -- h:mm a")).toString().toUpperCase()+"\nUbicacion: "+r.getString(11)).getBytes(StandardCharsets.UTF_8));
                                 w.flush();
                                 w.close();
                                 w = null;
@@ -218,7 +216,7 @@ public class Mensajeria extends Fragment {
                             $tP.setText(String.valueOf(pP.get(position).floatValue()));
                             r = s.executeQuery("SELECT U FROM Usuario WHERE CE='"+Cortes.sesion+"'");
                             r.next();
-                            uC.setText(h.descifrar(r.getString(1)));
+                            uC.setText(r.getString(1));
                         } else if (x.get(position) == 3) {
                             if (cf.isSelected() || cn.isSelected()) {
                                 r = s.executeQuery("SELECT N,AP,AM FROM Usuario WHERE CE='"+Cortes.sesion+"'");
@@ -229,7 +227,7 @@ public class Mensajeria extends Fragment {
                                 if (cf.isSelected()) {
                                     s.executeUpdate("UPDATE Compra SET X=4,DP=NULL,PP=0.00,LP=0,U=NULL,BMsg=NULL WHERE Id="+id1.get(position));
                                     s.executeUpdate("UPDATE Producto SET Pop="+(r.getLong(1) + 1L)+",Cupo="+(r.getInt(12) - r.getByte(8))+" WHERE Id="+r.getLong(2));
-                                    s.executeUpdate("INSERT INTO Notificacion(V,C,APC,AMC,N,P,LP,TP,Fh,U) VALUES ('"+r.getString(3)+"','"+$c[0]+"','"+$c[1]+"','"+$c[2]+"',TRUE,'"+r.getString(7)+"',"+r.getByte(8)+","+r.getFloat(9)+",'"+r.getString(10)+"','"+h.cifrar(r.getString(11))+"')");
+                                    s.executeUpdate("INSERT INTO Notificacion(V,C,APC,AMC,N,P,LP,TP,Fh,U) VALUES ('"+r.getString(3)+"','"+$c[0]+"','"+$c[1]+"','"+$c[2]+"',TRUE,'"+r.getString(7)+"',"+r.getByte(8)+","+r.getFloat(9)+",'"+r.getString(10)+"','"+r.getString(11)+"')");
                                     registerForActivityResult(new ActivityResultContract<>() {
                                         @Override
                                         public Object parseResult(int i, @Nullable Intent intent) { return null; }
@@ -240,7 +238,7 @@ public class Mensajeria extends Fragment {
                                             Intent dwld = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                                             try {
                                                 FileOutputStream w = new FileOutputStream(fT);
-                                                w.write(("Registro Comercial\n\nProducto: "+r.getString(7)+"\nVendedor: "+r.getString(4)+" "+r.getString(5)+" "+r.getString(6)+"\nComprador: "+$c[0]+" "+$c[1]+" "+$c[2]+"\nNo. de Lotes: "+r.getByte(8)+"\nCosto: $"+r.getFloat(9)+"\nFecha y Hora: "+LocalDateTime.parse(r.getString(10), DateTimeFormatter.ofPattern("d / MMM / uuuu -- h:mm a")).toString().toUpperCase()+"\nUbicacion: "+h.descifrar(r.getString(11))).getBytes(StandardCharsets.UTF_8));
+                                                w.write(("Registro Comercial\n\nProducto: "+r.getString(7)+"\nVendedor: "+r.getString(4)+" "+r.getString(5)+" "+r.getString(6)+"\nComprador: "+$c[0]+" "+$c[1]+" "+$c[2]+"\nNo. de Lotes: "+r.getByte(8)+"\nCosto: $"+r.getFloat(9)+"\nFecha y Hora: "+LocalDateTime.parse(r.getString(10), DateTimeFormatter.ofPattern("d / MMM / uuuu -- h:mm a")).toString().toUpperCase()+"\nUbicacion: "+r.getString(11)).getBytes(StandardCharsets.UTF_8));
                                                 w.flush();
                                                 w.close();
                                                 w = null;
@@ -270,7 +268,7 @@ public class Mensajeria extends Fragment {
             b1.setOnClickListener((v) -> {
                 try {
                     if (Byte.parseByte(l.getText().toString()) > 0 && Byte.parseByte(l.getText().toString()) <= ((limLP == null) ? 100 : limLP) && !uC.getText().toString().isEmpty()) {
-                        s.executeUpdate("UPDATE Compra SET X=2,LP="+l.getText()+",TP="+$tP.getText()+",U='"+h.cifrar(uC.getText().toString())+"',Fh='"+LocalDateTime.parse((fC.getYear()+"-"+(fC.getMonth() + 1)+"-"+fC.getDayOfMonth()+" "+hC.getHour()+":"+hC.getMinute()+":00"), DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))+"' WHERE Id="+id);
+                        s.executeUpdate("UPDATE Compra SET X=2,LP="+l.getText()+",TP="+$tP.getText()+",U='"+uC.getText()+"',Fh='"+LocalDateTime.parse((fC.getYear()+"-"+(fC.getMonth() + 1)+"-"+fC.getDayOfMonth()+" "+hC.getHour()+":"+hC.getMinute()+":00"), DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))+"' WHERE Id="+id);
                         s.execute("COMMIT");
                     } else {
                         Toast.makeText(getActivity(), "Compra INVALIDA", Toast.LENGTH_SHORT).show();

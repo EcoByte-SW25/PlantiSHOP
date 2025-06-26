@@ -115,7 +115,7 @@
                             Epistula e = new Epistula();
                             e.eMail(request.getParameter("ce"), "Nuevo REGISTRO", "¡Bienvenido a PlantiSHOP!");
                             Hash h = new Hash();
-                            s.executeUpdate("INSERT INTO Usuario(CE,C1,C2,N,AP,AM,U) VALUES ('"+request.getParameter("ce")+"','"+h.cifrar(request.getParameter("c1"))+"','"+h.cifrar(request.getParameter("c2"))+"','"+request.getParameter("n")+"','"+request.getParameter("ap")+"','"+request.getParameter("am")+"','"+h.cifrar(request.getParameter("u"))+"')");
+                            s.executeUpdate("INSERT INTO Usuario(CE,C1,C2,N,AP,AM,U) VALUES ('"+request.getParameter("ce")+"','"+h.hashPBKDF2(request.getParameter("c1"))+"','"+h.hashPBKDF2(request.getParameter("c2"))+"','"+request.getParameter("n")+"','"+request.getParameter("ap")+"','"+request.getParameter("am")+"','"+request.getParameter("u")+"')");
                             out.print("<div>");
                                 out.print("<h1>Usuario correctamente REGISTRADO</h1>");
                                 out.print("<img src='csql.png' alt='C'/>");
@@ -150,7 +150,7 @@
                         }
                         if (r.first() && r.getByte(3) > 0 && r.getByte(4) > 0 && r.getFetchSize() == 1) {
                             Hash h = new Hash();
-                            if (request.getParameter("c1").equals(h.descifrar(r.getString(5))) && request.getParameter("c2").equals(h.descifrar(r.getString(6)))) {
+                            if (r.getString(5).equals(h.hashPBKDF2(request.getParameter("c1"))) && r.getString(6).equals(h.hashPBKDF2(request.getParameter("c2")))) {
                                 Cortes v = new Cortes();
                                 String cV = v.cV();
                                 s.executeUpdate("UPDATE Usuario SET CV='"+cV+"' WHERE CE='"+request.getParameter("ce")+"'");
@@ -218,8 +218,8 @@
                         r = s.executeQuery("SELECT C1,C2 FROM Usuario WHERE CE='"+session.getAttribute("u")+"'");
                         r.next();
                         Hash h = new Hash();
-                        if (request.getParameter("c1").equals(h.descifrar(r.getString(1))) && request.getParameter("c2").equals(h.descifrar(r.getString(2)))) {
-                            s.executeUpdate("UPDATE Usuario SET C1='"+h.cifrar(request.getParameter("nc1"))+"',C2='"+h.cifrar(request.getParameter("nc2"))+"' WHERE CE='"+session.getAttribute("u")+"'");
+                        if (r.getString(1).equals(h.hashPBKDF2(request.getParameter("c1"))) && r.getString(2).equals(h.hashPBKDF2(request.getParameter("c2")))) {
+                            s.executeUpdate("UPDATE Usuario SET C1='"+h.hashPBKDF2(request.getParameter("nc1"))+"',C2='"+h.hashPBKDF2(request.getParameter("nc2"))+"' WHERE CE='"+session.getAttribute("u")+"'");
                             out.print("<div>");
                                 out.print("<h1>Usuario correctamente ACTUALIZADO</h1>");
                                 out.print("<img src='usql.png' alt='U'/>");
@@ -238,8 +238,8 @@
                         r = s.executeQuery("SELECT C1,C2 FROM Usuario WHERE CE='"+session.getAttribute("u")+"'");
                         r.next();
                         Hash h = new Hash();
-                        if (request.getParameter("c1").equals(h.descifrar(r.getString(1))) && request.getParameter("c2").equals(h.descifrar(r.getString(2)))) {
-                            s.executeUpdate("UPDATE Usuario SET C1='"+h.cifrar(request.getParameter("nc1"))+"' WHERE CE='"+session.getAttribute("u")+"'");
+                        if (r.getString(1).equals(h.hashPBKDF2(request.getParameter("c1"))) && r.getString(2).equals(h.hashPBKDF2(request.getParameter("c2")))) {
+                            s.executeUpdate("UPDATE Usuario SET C1='"+h.hashPBKDF2(request.getParameter("nc1"))+"' WHERE CE='"+session.getAttribute("u")+"'");
                             out.print("<div>");
                                 out.print("<h1>Usuario correctamente ACTUALIZADO</h1>");
                                 out.print("<img src='usql.png' alt='U'/>");
@@ -258,8 +258,8 @@
                         r = s.executeQuery("SELECT C1,C2 FROM Usuario WHERE CE='"+session.getAttribute("u")+"'");
                         r.next();
                         Hash h = new Hash();
-                        if (request.getParameter("c1").equals(h.descifrar(r.getString(1))) && request.getParameter("c2").equals(h.descifrar(r.getString(2)))) {
-                            s.executeUpdate("UPDATE Usuario SET C2='"+h.cifrar(request.getParameter("nc2"))+"' WHERE CE='"+session.getAttribute("u")+"'");
+                        if (r.getString(1).equals(h.hashPBKDF2(request.getParameter("c1"))) && r.getString(2).equals(h.hashPBKDF2(request.getParameter("c2")))) {
+                            s.executeUpdate("UPDATE Usuario SET C2='"+h.hashPBKDF2(request.getParameter("nc2"))+"' WHERE CE='"+session.getAttribute("u")+"'");
                             out.print("<div>");
                                 out.print("<h1>Usuario correctamente ACTUALIZADO</h1>");
                                 out.print("<img src='usql.png' alt='U'/>");
@@ -278,7 +278,7 @@
                         r = s.executeQuery("SELECT C1,C2 FROM Usuario WHERE CE='"+session.getAttribute("u")+"'");
                         r.next();
                         Hash h = new Hash();
-                        if (request.getParameter("c1").equals(h.descifrar(r.getString(1))) && request.getParameter("c2").equals(h.descifrar(r.getString(2)))) {
+                        if (r.getString(1).equals(h.hashPBKDF2(request.getParameter("c1"))) && r.getString(2).equals(h.hashPBKDF2(request.getParameter("c2")))) {
                             r = s.executeQuery("SELECT Img FROM Producto WHERE CE='"+session.getAttribute("u")+"'");
                             while (r.next()) {
                                 (new File("imgs\\prods\\"+r.getString(1))).delete();
@@ -312,8 +312,7 @@
                         out.print("<script>history.back();</script>");
                     } break;
                     case "Uu": {
-                        Hash h = new Hash();
-                        s.executeUpdate("UPDATE Usuario SET U='"+h.cifrar(request.getParameter("u"))+"' WHERE CE='"+session.getAttribute("u")+"'");
+                        s.executeUpdate("UPDATE Usuario SET U='"+request.getParameter("u")+"' WHERE CE='"+session.getAttribute("u")+"'");
                         out.print("<script>history.back();</script>");
                     } break;
                     case "Utxtj": {
@@ -362,8 +361,7 @@
                         r.close();
                     } break;
                     case "B1": {
-                        Hash h = new Hash();
-                        s.executeUpdate("UPDATE Compra SET X=2,LP="+request.getParameter("n")+",TP="+request.getParameter("pt")+",U='"+h.cifrar(request.getParameter("u"))+"',Fh='"+LocalDateTime.parse(request.getParameter("fh"), DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))+"' WHERE Id="+request.getParameter("id"));
+                        s.executeUpdate("UPDATE Compra SET X=2,LP="+request.getParameter("n")+",TP="+request.getParameter("pt")+",U='"+request.getParameter("u")+"',Fh='"+LocalDateTime.parse(request.getParameter("fh"), DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))+"' WHERE Id="+request.getParameter("id"));
                         out.print("<div>");
                             out.print("<h1>Notificación ENVIADA</h1>");
                             out.print("<img src='usql.png' alt='U'/>");
@@ -395,12 +393,11 @@
                         if (Boolean.parseBoolean(request.getParameter("sn"))) {
                             s.executeUpdate("UPDATE Compra SET X=4,DP=NULL,PP=0.00,LP=0,U=NULL,BMsg=NULL WHERE Id="+request.getParameter("id"));
                             s.executeUpdate("UPDATE Producto SET Pop="+(r.getLong(1) + 1L)+",Cupo="+(r.getInt(12) - r.getByte(8))+" WHERE Id="+r.getLong(2));
-                            Hash h = new Hash();
-                            s.executeUpdate("INSERT INTO Notificacion(V,C,APC,AMC,N,P,LP,TP,Fh,U) VALUES ('"+r.getString(3)+"','"+$c[0]+"','"+$c[1]+"','"+$c[2]+"',TRUE,'"+r.getString(7)+"',"+r.getByte(8)+","+r.getFloat(9)+",'"+r.getString(10)+"','"+h.cifrar(r.getString(11))+"')");
+                            s.executeUpdate("INSERT INTO Notificacion(V,C,APC,AMC,N,P,LP,TP,Fh,U) VALUES ('"+r.getString(3)+"','"+$c[0]+"','"+$c[1]+"','"+$c[2]+"',TRUE,'"+r.getString(7)+"',"+r.getByte(8)+","+r.getFloat(9)+",'"+r.getString(10)+"','"+r.getString(11)+"')");
                             File f = new File("D:\\C"+request.getParameter("id")+".txt");
                             f.createNewFile();
                             FileWriter w = new FileWriter(f);
-                            w.write("Registro Comercial\n\nProducto: "+r.getString(7)+"\nVendedor: "+r.getString(4)+" "+r.getString(5)+" "+r.getString(6)+"\nComprador: "+$c[0]+" "+$c[1]+" "+$c[2]+"\nNo. de Lotes: "+r.getByte(8)+"\nCosto: $"+r.getFloat(9)+"\nFecha y Hora: "+r.getTimestamp(10).toLocalDateTime().format(DateTimeFormatter.ofPattern("d / MMM / uuuu -- h:mm a")).toUpperCase()+"\nUbicacion: "+h.descifrar(r.getString(11)));
+                            w.write("Registro Comercial\n\nProducto: "+r.getString(7)+"\nVendedor: "+r.getString(4)+" "+r.getString(5)+" "+r.getString(6)+"\nComprador: "+$c[0]+" "+$c[1]+" "+$c[2]+"\nNo. de Lotes: "+r.getByte(8)+"\nCosto: $"+r.getFloat(9)+"\nFecha y Hora: "+r.getTimestamp(10).toLocalDateTime().format(DateTimeFormatter.ofPattern("d / MMM / uuuu -- h:mm a")).toUpperCase()+"\nUbicacion: "+r.getString(11));
                             w.close();
                             out.print("<div>");
                                 out.print("<h1>Compra FINALIZADA</h1>");
