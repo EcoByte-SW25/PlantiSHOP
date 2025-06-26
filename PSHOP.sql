@@ -9,8 +9,8 @@ grant insert, select, update, delete on PSHOP.* to 'Crud'@'192.168.1.66';
 use PSHOP;
 create table Usuario (
 	CE varchar(100) not null,
-    C1 varchar(65535) not null,
-    C2 varchar(65535) not null,
+    C1 varchar(655) not null,
+    C2 varchar(655) not null,
     N varchar(25) not null,
     AP varchar(15) not null,
     AM varchar(15) not null,
@@ -108,7 +108,7 @@ delimiter $
 create trigger HalconU3 after delete on Usuario
 for each row
 begin
-	insert into Administracion values ('Usuario',3,current_user(),new.CE,current_timestamp());
+	insert into Administracion values ('Usuario',3,current_user(),OLD.CE,current_timestamp());
 end $
 delimiter ;
 delimiter $
@@ -129,7 +129,7 @@ delimiter $
 create trigger HalconJ3 after delete on Jardin
 for each row
 begin
-	insert into Administracion values ('Jardin',3,current_user(),convert(new.Id,char),current_timestamp());
+	insert into Administracion values ('Jardin',3,current_user(),convert(old.Id,char),current_timestamp());
 end $
 delimiter ;
 delimiter $
@@ -150,7 +150,7 @@ delimiter $
 create trigger HalconP3 after delete on Producto
 for each row
 begin
-	insert into Administracion values ('Producto',3,current_user(),convert(new.Id,char),current_timestamp());
+	insert into Administracion values ('Producto',3,current_user(),convert(old.Id,char),current_timestamp());
 end $
 delimiter ;
 delimiter $
@@ -171,7 +171,7 @@ delimiter $
 create trigger HalconC3 after delete on Compra
 for each row
 begin
-	insert into Administracion values ('Compra',3,current_user(),convert(new.Id,char),current_timestamp());
+	insert into Administracion values ('Compra',3,current_user(),convert(old.Id,char),current_timestamp());
 end $
 delimiter ;
 delimiter $
@@ -185,6 +185,6 @@ delimiter $
 create trigger HalconN3 after delete on Notificacion
 for each row
 begin
-	insert into Administracion values ('Notificacion',3,current_user(),convert(new.Id,char),current_timestamp());
+	insert into Administracion values ('Notificacion',3,current_user(),convert(old.Id,char),current_timestamp());
 end $
 delimiter ;

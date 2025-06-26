@@ -195,7 +195,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Analisis de Datos del Usuario</title>
-        <link rel="icon" type="image/x-icon" href="../imgs/logo.png">
+        <link rel="icon" type="image/x-icon" href="../imgs/logobor.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             body {

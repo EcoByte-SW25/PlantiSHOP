@@ -20,7 +20,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>O</title>
-        <link rel="icon" type="image/x-icon" href="imgs/logo.png">
+        <link rel="icon" type="image/x-icon" href="imgs/logobor.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             body {
@@ -100,7 +100,7 @@
         <%
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-                c = DriverManager.getConnection("jdbc:mysql://192.168.1.66/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
+                c = DriverManager.getConnection("jdbc:mysql://127.0.0.1/PSHOP", "Crud", "PlantiSHOP-+CrUd*/https:02468.!?");
                 s = c.createStatement();
                 switch (request.getParameter("x")) {
                     case "C": {
