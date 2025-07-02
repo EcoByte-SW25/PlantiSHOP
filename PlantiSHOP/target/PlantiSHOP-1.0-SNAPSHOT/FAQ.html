@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+    <head>
+        <title>FAQ</title>
+        <link rel="icon" type="image/x-icon" href="imgs/logo.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            @font-face {
+                font-family: 'Coco Gothic';
+                src: url(fonts/CocoGothic.ttf);
+            }
+            @font-face {
+                font-family: 'Agrandir';
+                src: url(fonts/Agrandir.otf);
+            }
+            body {
+                font-family: 'Coco Gothic', sans-serif;
+                background-color: #e9e9e9;
+                padding-top: 2rem;
+            }
+            h1, h2 {
+                font-family: 'Agrandir', sans-serif;
+                text-align: center;
+                margin-bottom: 1.5rem;
+            }
+            h1 {
+                font-size: 2.2rem;
+                color: #198754;
+            }
+            h2 {
+                font-size: 1.5rem;
+                color: #212529;
+            }
+            .card {
+                max-width: 900px;
+                margin: auto;
+                border-radius: 1rem;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+                padding: 2rem;
+                background-color: white;
+            }
+            details {
+                background-color: #198754;
+                color: white;
+                padding: 1rem;
+                border-radius: 8px;
+                margin-bottom: 1rem;
+                transition: background-color 0.3s, color 0.3s;
+            }
+            details:hover {
+                background-color: #289663;
+                color: #ffffff;
+            }
+            summary {
+                font-weight: bold;
+                cursor: pointer;
+            }
+            textarea {
+                resize: vertical;
+                min-height: 120px;
+            }
+            .btn-green {
+                background-color: #198754;
+                color: white;
+                font-weight: bold;
+                border-radius: 10px;
+                padding: 0.6rem 1.5rem;
+                border: none;
+            }
+            .btn-green:hover {
+                background-color: #289663;
+                color: #ffffff;
+            }
+            a:link, a:active, a:visited {
+                margin-top: 5em;
+                color: maroon;
+                font-weight: bold;
+                text-align: center;
+                text-decoration: none;
+            }
+        </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                window.location.hash = "no-back-button";
+                window.location.hash = "Again-No-back-button";
+                window.onhashchange = function () {
+                    window.location.hash = "";
+                };
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="card">
+                <h1 style="color: black;">Preguntas Frecuentes sobre la Aplicación</h1>
+                <details>
+                    <summary>¿Qué es PlantiSHOP?</summary>
+                    <p>Es una aplicación, tanto web como móvil, dirigida a quienes disfrutan de la jardinería. Ofrece un jardín virtual, un mercado digital, un analista de datos y una inteligencia artificial :3</p>
+                </details>
+                <details>
+                    <summary>¿Cómo funciona el Jardín Personal?</summary>
+                    <p>Es un repositorio donde los usuarios registran y consultan sus plantaciones físicas, junto con el estado actual de cada una ;3</p>
+                </details>
+                <details>
+                    <summary>¿Cómo se Comercializa en PlantiSHOP?</summary>
+                    <ol>
+                        <li>Explora productos disponibles en el mercado :3</li>
+                        <li>Envía solicitudes al vendedor con cantidad, lugar, fecha y hora del encuentro ;3</li>
+                        <li>El vendedor acepta o rechaza la solicitud :3</li>
+                        <li>El cliente confirma o cancela. Si se confirma, ambas partes reciben un archivo con los detalles del acuerdo :3</li>
+                    </ol>
+                </details>
+                <details>
+                    <summary>¿Qué es el Apartado PREMIUM?</summary>
+                    <p>Es un área exclusiva para usuarios con suscripción, donde acceden al analista de datos y a la inteligencia artificial ;3</p>
+                </details>
+                <details>
+                    <summary>¿Qué es Basil.IA?</summary>
+                    <p>Es un chatbot de jardinería disponible para usuarios PREMIUM. Brinda consejos y puede identificar plantas a partir de una imagen JPEG ;3</p>
+                </details>
+                <details>
+                    <summary>¿Cómo funciona el Analista Estadístico-Predictivo?</summary>
+                    <p>Usa estadística para graficar avances, generar resultados y hacer predicciones del comportamiento del mercado y los usuarios PREMIUM :3</p>
+                </details>
+                <div class="text-center"><a href="Perfil.jsp">REGRESAR</a></div>
+                <hr class="my-4">
+                <h2>¿Quieres mejorar PlantiSHOP?</h2>
+                <form action="Interfaz.jsp" method="post">
+                    <input type="hidden" name="x" value="M">
+                    <div class="mb-3">
+                        <textarea name="em" class="form-control" placeholder="Envía un comentario o pregunta a los desarrolladores de EcoByte ;)" required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-green">ENVIAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

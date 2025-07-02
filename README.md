@@ -1,11 +1,21 @@
-Rama Privada de Fernando Marlon Sandoval Peral
+# Web Final
 
 -----
 
-Por favor:
+## Atencion! Revisa:
 
-> NO MODIFICAR
+> Input SQL
 
-> Solo COPIAR/PEGAR
+> Ruta de Maven
 
-> Solamente se permite la LECTURA
+> Ruta del Apache-Tomcat
+
+> PlantiSHOP\src\main\webapp\imgs\prods (Upload)
+
+> Rutas de los ENV:
+>
+>  - PlantiSHOP\src\main\resources
+>
+>  - PlantiSHOP\target\classes
+>
+>  - PlantiSHOP\target\PlantiSHOP-1.0-SNAPSHOT\WEB-INF\classes
